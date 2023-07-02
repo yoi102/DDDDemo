@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GameManagement.Shared.Models
 {
     [TitleNoMustDifferentFromSubtitle(ErrorMessage = "员工编号必须和名不一样！！")]
-    public abstract class EmployeeAddOrUpdateDto : IValidatableObject
+    public abstract class GameAddOrUpdateDto : IValidatableObject
     {
         [Display(Name = "员工号")]
         [Required(ErrorMessage = "{0}是必填项")]

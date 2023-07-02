@@ -26,8 +26,8 @@ namespace GameManagement.Shared.Entities
 
         public ICollection<ImageUrl> ImageUrl { get; set; } = new List<ImageUrl>();
 
-        public Publisher? Publisher { get; set; }
-        public Guid? PublisherId { get; set; }
+        public Company? Company { get; set; }
+        public Guid? CompanyId { get; set; }
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
 

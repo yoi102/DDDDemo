@@ -1,6 +1,6 @@
 ﻿namespace GameManagement.Shared.DtoParameters
 {
-    public class EmployeeDtoParameters
+    public class GameDtoParameters
     {
         private const int MaxPageSize = 20;
         public string Gender { get; set; }

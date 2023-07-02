@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Api.Controllers
 {
-    [Route("api/publishercollections")]
+    [Route("api/companycollections")]
     [ApiController]
-    public class PublisherCollectionsController : ControllerBase
+    public class CompanyCollectionsController : ControllerBase
     {
 
 

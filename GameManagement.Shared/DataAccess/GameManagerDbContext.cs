@@ -16,7 +16,7 @@ namespace GameManagement.Shared.DataAccess
 
         }
 
-        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ImageUrl> ImageUrls { get; set; }
@@ -27,11 +27,11 @@ namespace GameManagement.Shared.DataAccess
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Publisher>(b =>
+            builder.Entity<Company>(b =>
             {
                 b.HasMany(e => e.Games)
-                .WithOne(e => e.Publisher)
-                .HasForeignKey(e => e.PublisherId);
+                .WithOne(e => e.Company)
+                .HasForeignKey(e => e.CompanyId);
             });
             builder.Entity<Game>(b =>
             {

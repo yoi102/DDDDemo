@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameManagement.Api.Services
 {
-    public class PublisherRepository : IPublisherRepository
+    public class CompanyRepository : ICompanyRepository
     {
         private readonly RoutineDbContext _context;
         private readonly IPropertyMappingService _propertyMappingService;
 
-        public PublisherRepository(RoutineDbContext context, IPropertyMappingService propertyMappingService)
+        public CompanyRepository(RoutineDbContext context, IPropertyMappingService propertyMappingService)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
@@ -38,7 +38,7 @@ namespace GameManagement.Api.Services
                                                              x.Introduction.Contains(parameters.SearchTerm));
             }
 
-            var mappingDictionary = _propertyMappingService.GetPropertyMapping<PublisherDto, Company>();
+            var mappingDictionary = _propertyMappingService.GetPropertyMapping<CompanyDto, Company>();
 
             queryExpression = queryExpression.ApplySort(parameters.OrderBy, mappingDictionary);
 
@@ -116,7 +116,7 @@ namespace GameManagement.Api.Services
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId,
-            EmployeeDtoParameters parameters)
+            GameDtoParameters parameters)
         {
             if (companyId == Guid.Empty)
             {

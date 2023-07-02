@@ -126,12 +126,12 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
     options.AddPolicy("Manager", policy => policy.RequireRole("Administrator", "Manager"));
-    options.AddPolicy("Publisher", policy => policy.RequireRole("Administrator", "Manager", "Publisher"));
+    options.AddPolicy("Company", policy => policy.RequireRole("Administrator", "Manager", "Company"));
 
     //options.AddPolicy("Manager", policy => policy.RequireClaim("Manager"));
     //options.AddPolicy("Edit", policy => policy.RequireAssertion(context =>
     //{
-    //    if (context.Publisher.HasClaim(x => x.Type == "Edit Albums"))
+    //    if (context.Company.HasClaim(x => x.Type == "Edit Albums"))
     //        return true;
     //    return false;
     //}));
@@ -161,7 +161,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>();
 builder.Services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
 
-builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
 builder.Services.AddSingleton<IAuthorizationHandler, EmailHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, CanEditHandler>();

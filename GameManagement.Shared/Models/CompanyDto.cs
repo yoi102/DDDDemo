@@ -2,7 +2,7 @@
 
 namespace GameManagement.Shared.Models
 {
-    public class PublisherDto
+    public class CompanyDto
     {
         public Guid Id { get; set; }
         public string? PublisherName { get; set; }

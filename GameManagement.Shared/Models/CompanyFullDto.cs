@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GameManagement.Shared.Models
+﻿namespace GameManagement.Shared.Models
 {
     public class CompanyFullDto
     {
-        public Guid Id { get; set; }
-        public string? Name { get; set; }
-        public string? Country { get; set; }
-        public string? Industry { get; set; }
-        public string? Product { get; set; }
-        public string? Introduction { get; set; }
 
-        public DateTime? BankruptTime { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Country { get; set; } = string.Empty;
+        public string Introduction { get; set; } = string.Empty;
+        public DateTimeOffset EstablishmentTime { get; set; }
+        public DateTimeOffset? BankruptTime { get; set; }
+
     }
 }

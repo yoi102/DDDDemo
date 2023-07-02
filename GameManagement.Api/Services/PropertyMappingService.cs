@@ -33,7 +33,7 @@ namespace GameManagement.Api.Services
         public PropertyMappingService()
         {
             _propertyMappings.Add(new PropertyMapping<GameDto, Game>(_employeePropertyMapping));
-            _propertyMappings.Add(new PropertyMapping<PublisherDto, Publisher>(_companyPropertyMapping));
+            _propertyMappings.Add(new PropertyMapping<CompanyDto, Company>(_companyPropertyMapping));
         }
 
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping<TSource, TDestination>()

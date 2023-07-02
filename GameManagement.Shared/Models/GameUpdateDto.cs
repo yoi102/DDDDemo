@@ -1,6 +1,7 @@
 ﻿namespace GameManagement.Shared.Models
 {
-    public class EmployeeAddDto : EmployeeAddOrUpdateDto
+    public class GameUpdateDto : GameAddOrUpdateDto
     {
+
     }
 }

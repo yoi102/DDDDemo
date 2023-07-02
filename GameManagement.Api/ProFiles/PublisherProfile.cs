@@ -8,7 +8,7 @@ namespace GameManagement.Api.ProFiles
     {
         public PublisherProfile()
         {
-            CreateMap<Publisher, PublisherDto>()
+            CreateMap<Company, CompanyDto>()
                 .ReverseMap()
                 .ForMember(dest =>,
                 opt =>);

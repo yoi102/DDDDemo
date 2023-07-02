@@ -4,7 +4,7 @@ namespace GameManagement.Api.Services
 {
     public class PropertyCheckerService : IPropertyCheckerService
     {
-        public bool TypeHasProperties<T>(string fields)
+        public bool TypeHasProperties<T>(string? fields)
         {
             if (string.IsNullOrWhiteSpace(fields))
             {

@@ -2,7 +2,7 @@
 
 namespace GameManagement.Shared.Entities
 {
-    public class Publisher : EntityBase
+    public class Company : EntityBase
     {
         [Required]
         [StringLength(maximumLength: 50)]
