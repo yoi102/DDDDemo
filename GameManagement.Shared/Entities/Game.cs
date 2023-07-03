@@ -9,12 +9,11 @@ namespace GameManagement.Shared.Entities
 {
     public class Game : EntityBase
     {
-        public int EmployeeNo { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(50,MinimumLength =1)]
         public string Title { get; set; } = string.Empty;
-        [MaxLength(50)]
+        [StringLength(50, MinimumLength = 1)]
         public string Subtitle { get; set; } = string.Empty;
         [Url]
         public string CoverUrl { get; set; } = string.Empty;
