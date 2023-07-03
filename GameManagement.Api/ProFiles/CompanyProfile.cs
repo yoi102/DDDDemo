@@ -4,9 +4,9 @@ using GameManagement.Shared.Models;
 
 namespace GameManagement.Api.ProFiles
 {
-    public class PublisherProfile : MapperConfigurationExpression
+    public class CompanyProfile : MapperConfigurationExpression
     {
-        public PublisherProfile()
+        public CompanyProfile()
         {
             CreateMap<Company, CompanyDto>()
                 .ReverseMap()

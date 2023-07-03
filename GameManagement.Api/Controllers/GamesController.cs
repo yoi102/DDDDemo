@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Api.Controllers
 {
-    [Route("api/publishers/{publishersId}/games")]
+    [Route("api/companies/{companiesId}/games")]
     [ApiController]
     public class GamesController : ControllerBase
     {

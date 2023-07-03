@@ -20,12 +20,12 @@ namespace GameManagement.Api.Controllers
         private readonly IPropertyMappingService propertyMappingService;
         private readonly IPropertyCheckerService propertyCheckerService;
 
-        public CompaniesController(ICompanyRepository publisherRepository,
+        public CompaniesController(ICompanyRepository companyRepository,
             IMapper mapper,
             IPropertyMappingService propertyMappingService,
             IPropertyCheckerService propertyCheckerService)
         {
-            this.companyRepository = publisherRepository;
+            this.companyRepository = companyRepository;
             this.mapper = mapper;
             this.propertyMappingService = propertyMappingService;
             this.propertyCheckerService = propertyCheckerService;
@@ -109,9 +109,9 @@ namespace GameManagement.Api.Controllers
             {
                 return BadRequest();
             }
-            var publisher = await companyRepository.GetCompanyAsync(companyId);
+            var company = await companyRepository.GetCompanyAsync(companyId);
 
-            if (publisher == null)
+            if (company == null)
             {
                 return NotFound();
             }
@@ -130,9 +130,9 @@ namespace GameManagement.Api.Controllers
                 ? parsedMediaType.SubTypeWithoutSuffix.Substring(0, parsedMediaType.SubTypeWithoutSuffix.Length - 8)
                 : parsedMediaType.SubTypeWithoutSuffix;
 
-            if (primaryMediaType == "vnd.mycompany.publisher.full")
+            if (primaryMediaType == "vnd.mycompany.company.full")
             {
-                var full = mapper.Map<CompanyFullDto>(publisher)
+                var full = mapper.Map<CompanyFullDto>(company)
                     .ShapeData(fields) as IDictionary<string, object>;
 
                 if (includeLinks)
@@ -143,7 +143,7 @@ namespace GameManagement.Api.Controllers
                 return Ok(full);
             }
 
-            var friendly = mapper.Map<CompanyDto>(publisher)
+            var friendly = mapper.Map<CompanyDto>(company)
                 .ShapeData(fields) as IDictionary<string, object>;
 
             if (includeLinks)
@@ -194,17 +194,17 @@ namespace GameManagement.Api.Controllers
 
 
             links.Add(
-                new LinkDto(Url.Link(nameof(DeletePublisher), new { companyId }),
-                    "delete_publisher",
+                new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
+                    "delete_company",
                     "DELETE"));
 
             links.Add(
-                new LinkDto(Url.Link(nameof(GamesController.CreateGameForPublisher), new { companyId }),
-                    "create_game_for_publisher",
+                new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
+                    "create_game_for_company",
                     "POST"));
 
             links.Add(
-                new LinkDto(Url.Link(nameof(GamesController.CreateGameForPublisher), new { companyId }),
+                new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
                     "games",
                     "GET"));
 
