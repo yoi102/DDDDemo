@@ -17,18 +17,22 @@ namespace GameManagement.Api.Controllers
     {
         private readonly ICompanyRepository companyRepository;
         private readonly IMapper mapper;
+        private readonly ILogger<CompaniesController> logger;
         private readonly IPropertyMappingService propertyMappingService;
         private readonly IPropertyCheckerService propertyCheckerService;
 
-        public CompaniesController(ICompanyRepository companyRepository,
+        public CompaniesController(
             IMapper mapper,
+            ILogger<CompaniesController> logger,
+            ICompanyRepository companyRepository,
             IPropertyMappingService propertyMappingService,
             IPropertyCheckerService propertyCheckerService)
         {
-            this.companyRepository = companyRepository;
-            this.mapper = mapper;
-            this.propertyMappingService = propertyMappingService;
-            this.propertyCheckerService = propertyCheckerService;
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
+            this.propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
+            this.propertyCheckerService = propertyCheckerService ?? throw new ArgumentNullException(nameof(propertyCheckerService));
         }
 
 
@@ -40,7 +44,6 @@ namespace GameManagement.Api.Controllers
             {
                 return BadRequest();
             }
-
             if (!propertyCheckerService.TypeHasProperties<CompanyDto>(parameters.Fields))
             {
                 return BadRequest();

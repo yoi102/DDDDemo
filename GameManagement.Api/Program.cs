@@ -169,12 +169,17 @@ builder.Services.AddSingleton<IAuthorizationHandler, CanEditHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsHandler>();
 
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .CreateLogger();
-    
 
-builder.Host.UseSerilog();
+
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console());
+
+
+
 
 var app = builder.Build();
 
