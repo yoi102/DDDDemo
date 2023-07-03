@@ -2,7 +2,7 @@
 {
     public class CompanyDtoParameters
     {
-        private const int MaxPageSize = 20;
+        private const int MaxPageSize = 15;
         public string? CompanyName { get; set; }
         public string? SearchTerm { get; set; }
         public int PageNumber { get; set; } = 1;

@@ -163,6 +163,7 @@ builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>()
 builder.Services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
 
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 
 builder.Services.AddSingleton<IAuthorizationHandler, EmailHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, CanEditHandler>();

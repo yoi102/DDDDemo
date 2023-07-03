@@ -12,8 +12,6 @@ namespace GameManagement.Api.Services
                 {"Id", new PropertyMappingValue(new List<string>{"Id"}) },
                 {"CompanyName", new PropertyMappingValue(new List<string>{"Name"}) },
                 {"Country", new PropertyMappingValue(new List<string>{"Country"}) },
-                {"Industry", new PropertyMappingValue(new List<string>{ "Industry"})},
-                {"Product", new PropertyMappingValue(new List<string>{"Product"})},
                 {"Introduction", new PropertyMappingValue(new List<string>{"Introduction"})}
             };
 
