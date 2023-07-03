@@ -9,9 +9,10 @@ namespace GameManagement.Api.ProFiles
         public CompanyProfile()
         {
             CreateMap<Company, CompanyDto>()
+                .ForMember(dest => dest.CompanyName,
+                opt => opt.MapFrom(src => src.Name))
                 .ReverseMap()
-                .ForMember(dest =>,
-                opt =>);
+                ;
 
         }
 

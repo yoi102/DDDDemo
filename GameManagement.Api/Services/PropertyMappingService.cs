@@ -49,7 +49,7 @@ namespace GameManagement.Api.Services
             throw new Exception($"无法找到唯一的映射关系：{typeof(TSource)}, {typeof(TDestination)}");
         }
 
-        public bool ValidMappingExistsFor<TSource, TDestination>(string fields)
+        public bool ValidMappingExistsFor<TSource, TDestination>(string? fields)
         {
             var propertyMapping = GetPropertyMapping<TSource, TDestination>();
 
