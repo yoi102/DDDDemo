@@ -9,9 +9,9 @@ namespace GameManagement.Api.ProFiles
         public GameProfile()
         {
             CreateMap<Game, GameDto>()
-                 .ReverseMap()
-                 .ForMember(dest =>,
-                 opt =>);
+                  .ForMember(dest => dest.ImageUrl,
+                 opt => opt.MapFrom(src => src.ImageUrl.Select(x => x.Url)))
+                  .ReverseMap();
         }
     }
 }
