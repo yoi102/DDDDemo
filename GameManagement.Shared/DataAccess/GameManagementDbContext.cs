@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameManagement.Shared.DataAccess
 {
-    public class GameManagerDbContext : DbContext
+    public class GameManagementDbContext : DbContext
     {
 
-        public GameManagerDbContext(DbContextOptions<GameManagerDbContext> options) : base(options)
+        public GameManagementDbContext(DbContextOptions<GameManagementDbContext> options) : base(options)
         {
 
         }

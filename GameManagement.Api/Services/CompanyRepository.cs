@@ -1,4 +1,6 @@
-﻿using GameManagement.Shared.DtoParameters;
+﻿using GameManagement.Shared.DataAccess;
+using GameManagement.Shared.DtoParameters;
+using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,13 +9,13 @@ namespace GameManagement.Api.Services
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private readonly RoutineDbContext _context;
-        private readonly IPropertyMappingService _propertyMappingService;
+        private readonly GameManagementDbContext context;
+        private readonly IPropertyMappingService propertyMappingService;
 
-        public CompanyRepository(RoutineDbContext context, IPropertyMappingService propertyMappingService)
+        public CompanyRepository(GameManagementDbContext context, IPropertyMappingService propertyMappingService)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
         }
 
         public async Task<PagedList<Company>> GetCompaniesAsync(CompanyDtoParameters parameters)
@@ -23,7 +25,7 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(parameters));
             }
 
-            var queryExpression = _context.Companies as IQueryable<Company>;
+            var queryExpression = context.Companies as IQueryable<Company>;
 
             if (!string.IsNullOrWhiteSpace(parameters.CompanyName))
             {
@@ -38,7 +40,7 @@ namespace GameManagement.Api.Services
                                                              x.Introduction.Contains(parameters.SearchTerm));
             }
 
-            var mappingDictionary = _propertyMappingService.GetPropertyMapping<CompanyDto, Company>();
+            var mappingDictionary = propertyMappingService.GetPropertyMapping<CompanyDto, Company>();
 
             queryExpression = queryExpression.ApplySort(parameters.OrderBy, mappingDictionary);
 
@@ -52,7 +54,7 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            return await _context.Companies
+            return await context.Companies
                 .FirstOrDefaultAsync(x => x.Id == companyId);
         }
 
@@ -64,7 +66,7 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(companyIds));
             }
 
-            return await _context.Companies
+            return await context.Companies
                 .Where(x => companyIds.Contains(x.Id))
                 .OrderBy(x => x.Name)
                 .ToListAsync();
@@ -79,20 +81,20 @@ namespace GameManagement.Api.Services
 
             company.Id = Guid.NewGuid();
 
-            if (company.Employees != null)
+            if (company.Games != null)
             {
-                foreach (var employee in company.Employees)
+                foreach (var employee in company.Games)
                 {
                     employee.Id = Guid.NewGuid();
                 }
             }
 
-            _context.Companies.Add(company);
+            context.Companies.Add(company);
         }
 
         public void UpdateCompany(Company company)
         {
-            // _context.Entry(company).State = EntityState.Modified;
+            // context.Entry(company).State = EntityState.Modified;
         }
 
         public void DeleteCompany(Company company)
@@ -102,7 +104,7 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(company));
             }
 
-            _context.Companies.Remove(company);
+            context.Companies.Remove(company);
         }
 
         public async Task<bool> CompanyExistsAsync(Guid companyId)
@@ -112,10 +114,10 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            return await _context.Companies.AnyAsync(x => x.Id == companyId);
+            return await context.Companies.AnyAsync(x => x.Id == companyId);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId,
+        public async Task<IEnumerable<Game>> GetEmployeesAsync(Guid companyId,
             GameDtoParameters parameters)
         {
             if (companyId == Guid.Empty)
@@ -123,7 +125,7 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            var items = _context.Employees.Where(x => x.CompanyId == companyId);
+            var items = context.Games.Where(x => x.CompanyId == companyId);
 
             if (!string.IsNullOrWhiteSpace(parameters.Gender))
             {
@@ -142,14 +144,14 @@ namespace GameManagement.Api.Services
                                          || x.LastName.Contains(parameters.Q));
             }
 
-            var mappingDictionary = _propertyMappingService.GetPropertyMapping<GameDto, Employee>();
+            var mappingDictionary = propertyMappingService.GetPropertyMapping<GameDto, Employee>();
 
             items = items.ApplySort(parameters.OrderBy, mappingDictionary);
 
             return await items.ToListAsync();
         }
 
-        public async Task<Employee> GetEmployeeAsync(Guid companyId, Guid employeeId)
+        public async Task<Game> GetEmployeeAsync(Guid companyId, Guid employeeId)
         {
             if (companyId == Guid.Empty)
             {
@@ -161,40 +163,40 @@ namespace GameManagement.Api.Services
                 throw new ArgumentNullException(nameof(employeeId));
             }
 
-            return await _context.Employees
+            return await context.Games
                 .Where(x => x.CompanyId == companyId && x.Id == employeeId)
                 .FirstOrDefaultAsync();
         }
 
-        public void AddEmployee(Guid companyId, Employee employee)
+        public void AddEmployee(Guid companyId, Game game)
         {
             if (companyId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            if (employee == null)
+            if (game == null)
             {
-                throw new ArgumentNullException(nameof(employee));
+                throw new ArgumentNullException(nameof(game));
             }
 
-            employee.CompanyId = companyId;
-            _context.Employees.Add(employee);
+            game.CompanyId = companyId;
+            context.Games.Add(game);
         }
 
-        public void UpdateEmployee(Employee employee)
+        public void UpdateEmployee(Game game)
         {
-            // _context.Entry(employee).State = EntityState.Modified;
+            // context.Entry(game).State = EntityState.Modified;
         }
 
-        public void DeleteEmployee(Employee employee)
+        public void DeleteEmployee(Game game)
         {
-            _context.Employees.Remove(employee);
+            context.Games.Remove(game);
         }
 
         public async Task<bool> SaveAsync()
         {
-            return await _context.SaveChangesAsync() >= 0;
+            return await context.SaveChangesAsync() >= 0;
         }
     }
 }
