@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameManagement.Api.Services
+namespace GameManagement.Shared.Helpers
 {
     public class PropertyMappingValue
     {
