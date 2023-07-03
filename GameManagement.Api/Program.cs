@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
@@ -168,11 +169,18 @@ builder.Services.AddSingleton<IAuthorizationHandler, CanEditHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsHandler>();
 
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+    
 
-
-
+builder.Host.UseSerilog();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging(); // <-- Add this line
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

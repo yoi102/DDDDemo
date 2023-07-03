@@ -11,7 +11,10 @@ namespace GameManagement.Api.ProFiles
             CreateMap<Game, GameDto>()
                   .ForMember(dest => dest.ImageUrl,
                  opt => opt.MapFrom(src => src.ImageUrl.Select(x => x.Url)))
-                  .ReverseMap();
+                  .ReverseMap()
+                 // .ForMember(dest => dest.ImageUrl.Select(x => x.Url),
+                 //opt => opt.MapFrom(src => src.ImageUrl))
+                  ;
         }
     }
 }
