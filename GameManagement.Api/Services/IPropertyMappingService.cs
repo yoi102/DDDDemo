@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GameManagement.Shared.Helpers;
+using System.Collections.Generic;
 
 namespace GameManagement.Api.Services
 {

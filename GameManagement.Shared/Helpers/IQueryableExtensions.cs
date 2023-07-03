@@ -1,7 +1,4 @@
-﻿using GameManager.Api.Services;
-using System.Linq.Dynamic.Core;
-
-namespace GameManagement.Shared.Helpers
+﻿namespace GameManagement.Shared.Helpers
 {
     public static class IQueryableExtensions
     {
