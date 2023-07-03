@@ -102,7 +102,7 @@ builder.Services.AddSwaggerGen(options =>
 
 
 
-builder.Services.AddDbContext<GameManagerDbContext>(options =>
+builder.Services.AddDbContext<GameManagementDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });

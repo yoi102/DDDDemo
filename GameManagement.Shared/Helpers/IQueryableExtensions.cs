@@ -1,4 +1,6 @@
-﻿namespace GameManagement.Shared.Helpers
+﻿using System.Linq.Dynamic.Core;
+
+namespace GameManagement.Shared.Helpers
 {
     public static class IQueryableExtensions
     {
