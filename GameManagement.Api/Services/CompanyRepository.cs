@@ -118,8 +118,6 @@ namespace GameManagement.Api.Services
             return await context.Companies.AnyAsync(x => x.Id == companyId);
         }
 
-
-
         public async Task<bool> SaveAsync()
         {
             return await context.SaveChangesAsync() >= 0;
