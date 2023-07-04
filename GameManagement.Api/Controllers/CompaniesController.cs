@@ -196,20 +196,20 @@ namespace GameManagement.Api.Controllers
             }
 
 
-            links.Add(
-                new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
-                    "delete_company",
-                    "DELETE"));
+            //links.Add(
+            //    new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
+            //        "delete_company",
+            //        "DELETE"));
 
-            links.Add(
-                new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
-                    "create_game_for_company",
-                    "POST"));
+            //links.Add(
+            //    new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
+            //        "create_game_for_company",
+            //        "POST"));
 
-            links.Add(
-                new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
-                    "games",
-                    "GET"));
+            //links.Add(
+            //    new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
+            //        "games",
+            //        "GET"));
 
             return links;
         }

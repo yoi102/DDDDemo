@@ -1,6 +1,7 @@
 ﻿using GameManagement.Shared.DataAccess;
 using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
+using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,31 +28,25 @@ namespace GameManagement.Api.Services
 
             var items = context.Games.Where(x => x.CompanyId == companyId);
 
-            if (!string.IsNullOrWhiteSpace(parameters.Gender))
-            {
-                parameters.Gender = parameters.Gender.Trim();
-                var gender = Enum.Parse<Gender>(parameters.Gender);
-
-                items = items.Where(x => x.Gender == gender);
-            }
+      
 
             if (!string.IsNullOrWhiteSpace(parameters.Q))
             {
                 parameters.Q = parameters.Q.Trim();
 
-                items = items.Where(x => x.EmployeeNo.Contains(parameters.Q)
-                                         || x.FirstName.Contains(parameters.Q)
-                                         || x.LastName.Contains(parameters.Q));
+                items = items.Where(x => x.Title.Contains(parameters.Q)
+                                         || x.Subtitle.Contains(parameters.Q)
+                                         || x.Tags.Select(x=>x.Content).Contains(parameters.Q));
             }
 
-            var mappingDictionary = propertyMappingService.GetPropertyMapping<GameDto, Employee>();
+            var mappingDictionary = propertyMappingService.GetPropertyMapping<GameDto, Game>();
 
             items = items.ApplySort(parameters.OrderBy, mappingDictionary);
 
             return await items.ToListAsync();
         }
 
-        public async Task<Game> GetEmployeeAsync(Guid companyId, Guid employeeId)
+        public async Task<Game?> GetEmployeeAsync(Guid companyId, Guid employeeId)
         {
             if (companyId == Guid.Empty)
             {

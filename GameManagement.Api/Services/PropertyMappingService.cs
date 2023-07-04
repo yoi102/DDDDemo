@@ -6,7 +6,7 @@ namespace GameManagement.Api.Services
 {
     public class PropertyMappingService : IPropertyMappingService
     {
-        private readonly Dictionary<string, PropertyMappingValue> _companyPropertyMapping =
+        private readonly Dictionary<string, PropertyMappingValue> companyPropertyMapping =
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
                 {"Id", new PropertyMappingValue(new List<string>{"Id"}) },
@@ -15,23 +15,25 @@ namespace GameManagement.Api.Services
                 {"Introduction", new PropertyMappingValue(new List<string>{"Introduction"})}
             };
 
-        private readonly Dictionary<string, PropertyMappingValue> _employeePropertyMapping =
+        private readonly Dictionary<string, PropertyMappingValue> gamePropertyMapping =
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
                 {"Id", new PropertyMappingValue(new List<string>{"Id"}) },
                 {"CompanyId", new PropertyMappingValue(new List<string>{"CompanyId"}) },
-                {"EmployeeNo", new PropertyMappingValue(new List<string>{"EmployeeNo"}) },
-                {"Name", new PropertyMappingValue(new List<string>{"FirstName", "LastName"})},
-                {"GenderDisplay", new PropertyMappingValue(new List<string>{"Gender"})},
-                {"Age", new PropertyMappingValue(new List<string>{"DateOfBirth"}, true)}
+                {"Tiltle", new PropertyMappingValue(new List<string>{"Tiltle"})},
+                {"Subtiltle", new PropertyMappingValue(new List<string>{"Subtiltle"})},
+                {"FullTiltle", new PropertyMappingValue(new List<string>{"Tiltle", "Subtiltle"})},
+                {"Price", new PropertyMappingValue(new List<string>{"Price"})},
+                {"Introduction", new PropertyMappingValue(new List<string>{"Introduction"})},
+                {"ReleaseDate", new PropertyMappingValue(new List<string>{"ReleaseDate"}, true)}
             };
 
         private readonly IList<IPropertyMapping> _propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
-            _propertyMappings.Add(new PropertyMapping<GameDto, Game>(_employeePropertyMapping));
-            _propertyMappings.Add(new PropertyMapping<CompanyDto, Company>(_companyPropertyMapping));
+            _propertyMappings.Add(new PropertyMapping<GameDto, Game>(gamePropertyMapping));
+            _propertyMappings.Add(new PropertyMapping<CompanyDto, Company>(companyPropertyMapping));
         }
 
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping<TSource, TDestination>()
