@@ -10,14 +10,14 @@ namespace GameManagement.Api.Controllers
     [Authorize(Roles = "Administrator")]
     public class RoleController : ControllerBase
     {
-        private readonly UserManager<ApiIdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApiIdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         public RoleController(
             UserManager<ApiIdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
         [HttpPost]
         public async Task<IActionResult> AddRole()

@@ -8,6 +8,7 @@ using GameManagement.Shared.Models;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using Microsoft.Net.Http.Headers;
+using GameManagement.Api.ActionConstraints;
 
 namespace GameManagement.Api.Controllers
 {
@@ -161,15 +162,76 @@ namespace GameManagement.Api.Controllers
 
 
 
+        [HttpPost(Name = nameof(CreateCompanyWithBankruptTime))]
+        [RequestHeaderMatchesMediaType("Content-Type", "application/vnd.company.companyforcreationwithbankrupttime+json")]
+        [Consumes("application/vnd.mycompany.companyforcreationwithbankrupttime+json")]
+        public async Task<ActionResult<CompanyDto>> CreateCompanyWithBankruptTime(CompanyAddWithBankruptTimeDto company)
+        {
+            var entity = mapper.Map<Company>(company);
+            companyRepository.AddCompany(entity);
+            await companyRepository.SaveAsync();
+
+            var returnDto = mapper.Map<CompanyDto>(entity);
+
+            var links = CreateLinksForCompany(returnDto.Id, null);
+            var linkedDict = returnDto.ShapeData(null)
+                as IDictionary<string, object>;
+
+            linkedDict.Add("links", links);
+
+            return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
+                linkedDict);
+        }
 
 
 
+        [HttpPost(Name = nameof(CreateCompany))]
+        [RequestHeaderMatchesMediaType("Content-Type", "application/json",
+    "application/vnd.mycompany.companyforcreation+json")]
+        [Consumes("application/json", "application/vnd.mycompany.companyforcreation+json")]
+        public async Task<ActionResult<CompanyDto>> CreateCompany(CompanyAddDto company)
+        {
+            var entity = mapper.Map<Company>(company);
+            companyRepository.AddCompany(entity);
+            await companyRepository.SaveAsync();
+
+            var returnDto = mapper.Map<CompanyDto>(entity);
+
+            var links = CreateLinksForCompany(returnDto.Id, null);
+            var linkedDict = returnDto.ShapeData(null)
+                as IDictionary<string, object>;
+
+            linkedDict.Add("links", links);
+
+            return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
+                linkedDict);
+        }
 
 
 
+        [HttpDelete("{companyId}", Name = nameof(DeleteCompany))]
+        public async Task<IActionResult> DeleteCompany(Guid companyId)
+        {
+            var companyEntity = await companyRepository.GetCompanyAsync(companyId);
+
+            if (companyEntity == null)
+            {
+                return NotFound();
+            }
+
+            companyRepository.DeleteCompany(companyEntity);
+            await companyRepository.SaveAsync();
+
+            return NoContent();
+        }
 
 
-
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "GET,POST,OPTIONS");
+            return Ok();
+        }
 
 
 
@@ -196,10 +258,10 @@ namespace GameManagement.Api.Controllers
             }
 
 
-            //links.Add(
-            //    new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
-            //        "delete_company",
-            //        "DELETE"));
+            links.Add(
+                new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
+                    "delete_company",
+                    "DELETE"));
 
             //links.Add(
             //    new LinkDto(Url.Link(nameof(GamesController.CreateGameForCompany), new { companyId }),
