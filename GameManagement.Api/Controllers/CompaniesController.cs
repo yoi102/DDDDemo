@@ -77,7 +77,7 @@ namespace GameManagement.Api.Controllers
             {
                 var companyDict = c as IDictionary<string, object>;
                 var companyLinks = CreateLinksForCompany((Guid)companyDict["Id"], null);
-                //var companyLinks = CreateLinksForCompany((Guid)companyDict["Id"], companyDict["Fields"]);
+                //var companyLinks = CreateLinksForTag((Guid)companyDict["Id"], companyDict["Fields"]);
                 companyDict.Add("links", companyLinks);
                 return companyDict;
             });

@@ -22,8 +22,17 @@ namespace GameManagement.Shared.Helpers
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {
+            ArgumentNullException.ThrowIfNull(source);
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+
+        public static async Task<PagedList<T>> CreateAsync(IQueryable<IEnumerable<T>> source, int pageNumber, int pageSize)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            var count = await source.CountAsync();
+            var items = await source.SelectMany(x=>x).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
     }
