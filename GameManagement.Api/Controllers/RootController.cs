@@ -18,7 +18,7 @@ namespace GameManagement.Api.Controllers
             var links = new List<LinkDto>
             {
                 new LinkDto(Url.Link(nameof(GetRoot), new { })!, "self", "GET"),
-                //new LinkDto(Url.Link(nameof(CompaniesController.GetGamesByTag), new { }), "companies", "GET"),
+                new LinkDto(Url.Link(nameof(CompaniesController.GetCompanies), new { }), "companies", "GET"),
                 //new LinkDto(Url.Link(nameof(CompaniesController.CreateCompany), new { }), "create_company", "POST")
             };
 
