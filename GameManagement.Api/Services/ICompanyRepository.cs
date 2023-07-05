@@ -12,7 +12,6 @@ namespace GameManagement.Api.Services
         void AddCompany(Company company);
         void UpdateCompany(Company company);
         void DeleteCompany(Company company);
-        Task<bool> CompanyExistsAsync(Guid companyId);
 
 
 

@@ -84,9 +84,9 @@ namespace GameManagement.Api.Services
 
             if (company.Games != null)
             {
-                foreach (var employee in company.Games)
+                foreach (var game in company.Games)
                 {
-                    employee.Id = Guid.NewGuid();
+                    game.Id = Guid.NewGuid();
                 }
             }
 
@@ -108,15 +108,6 @@ namespace GameManagement.Api.Services
             context.Companies.Remove(company);
         }
 
-        public async Task<bool> CompanyExistsAsync(Guid companyId)
-        {
-            if (companyId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(companyId));
-            }
-
-            return await context.Companies.AnyAsync(x => x.Id == companyId);
-        }
 
         public async Task<bool> SaveAsync()
         {

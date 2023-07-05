@@ -19,7 +19,7 @@ namespace GameManagement.Api.Services
         }
 
 
-        public async Task<IEnumerable<Game>> GetEmployeesAsync(Guid companyId, GameDtoParameters parameters)
+        public async Task<IEnumerable<Game>> GetGamesAsync(Guid companyId, GameDtoParameters parameters)
         {
             if (companyId == Guid.Empty)
             {
@@ -46,24 +46,25 @@ namespace GameManagement.Api.Services
             return await items.ToListAsync();
         }
 
-        public async Task<Game?> GetEmployeeAsync(Guid companyId, Guid employeeId)
+        public async Task<Game?> GetGameAsync(Guid companyId, Guid gameId)
         {
             if (companyId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            if (employeeId == Guid.Empty)
+            if (gameId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(employeeId));
+                throw new ArgumentNullException(nameof(gameId));
             }
 
             return await context.Games
-                .Where(x => x.CompanyId == companyId && x.Id == employeeId)
+                .Where(x => x.CompanyId == companyId && x.Id == gameId)
                 .FirstOrDefaultAsync();
         }
 
-        public void AddEmployee(Guid companyId, Game game)
+
+        public void AddGame(Guid companyId, Game game)
         {
             if (companyId == Guid.Empty)
             {
@@ -79,15 +80,26 @@ namespace GameManagement.Api.Services
             context.Games.Add(game);
         }
 
-        public void UpdateEmployee(Game game)
+        public void UpdateGame(Game game)
         {
             // context.Entry(game).State = EntityState.Modified;
         }
 
-        public void DeleteEmployee(Game game)
+        public void DeleteGame(Game game)
         {
             context.Games.Remove(game);
         }
+        public async Task<bool> CompanyExistsAsync(Guid companyId)
+        {
+            if (companyId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(companyId));
+            }
+
+            return await context.Companies.AnyAsync(x => x.Id == companyId);
+        }
+
+
 
         public async Task<bool> SaveAsync()
         {

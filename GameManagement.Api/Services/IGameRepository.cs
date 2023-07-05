@@ -5,11 +5,12 @@ namespace GameManagement.Api.Services
 {
     public interface IGameRepository
     {
-        Task<IEnumerable<Game>> GetEmployeesAsync(Guid companyId, GameDtoParameters parameters);
-        Task<Game?> GetEmployeeAsync(Guid companyId, Guid employeeId);
-        void AddEmployee(Guid companyId, Game employee);
-        void UpdateEmployee(Game employee);
-        void DeleteEmployee(Game employee);
+        Task<IEnumerable<Game>> GetGamesAsync(Guid companyId, GameDtoParameters parameters);
+        Task<Game?> GetGameAsync(Guid companyId, Guid gameId);
+        void AddGame(Guid companyId, Game game);
+        void UpdateGame(Game game);
+        void DeleteGame(Game game);
+        Task<bool> CompanyExistsAsync(Guid companyId);
 
         Task<bool> SaveAsync();
     }

@@ -14,6 +14,6 @@ namespace GameManagement.Shared.Models
         [StringLength(500, MinimumLength = 10, ErrorMessage = "{0}的长度范围从{2}到{1}")]
         public string Introduction { get; set; } = string.Empty;
 
-        public ICollection<GameAddDto> Employees { get; set; } = new List<GameAddDto>();
+        public ICollection<GameAddDto> Games { get; set; } = new List<GameAddDto>();
     }
 }
