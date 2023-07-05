@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GameManagement.Shared.Models;
+﻿using GameManagement.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
