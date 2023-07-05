@@ -28,6 +28,7 @@ namespace GameManagement.Shared.Models
 
 
         public ICollection<string> ImageUrl { get; set; } = new List<string>();
+        public ICollection<string> Tags { get; set; } = new List<string>();
 
 
 
