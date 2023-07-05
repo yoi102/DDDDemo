@@ -5,13 +5,13 @@ namespace GameManagement.Shared.Models
 {
     public class CompanyAddDto
     {
-        [Display(Name = "公司名")]
-        [Required(ErrorMessage = "{0}这个字段是必填的")]
-        [MaxLength(100, ErrorMessage = "{0}的最大长度不可以超过{1}")]
+        [Display(Name = "Company Name")]
+        [Required(ErrorMessage = "{0} is required")]
+        [MaxLength(100, ErrorMessage = "{0} maximum length not exceeded{1}")]
         public string? Name { get; set; }
 
-        [Display(Name = "简介")]
-        [StringLength(500, MinimumLength = 10, ErrorMessage = "{0}的长度范围从{2}到{1}")]
+        [Display(Name = "紹介")]
+        [StringLength(500, MinimumLength = 10, ErrorMessage = "{0} string length range  is from {2} to {1}")]
         public string Introduction { get; set; } = string.Empty;
 
         public ICollection<GameAddDto> Games { get; set; } = new List<GameAddDto>();
