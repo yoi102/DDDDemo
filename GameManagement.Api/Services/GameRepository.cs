@@ -28,7 +28,7 @@ namespace GameManagement.Api.Services
 
             var items = context.Games.Where(x => x.CompanyId == companyId);
 
-      
+
 
             if (!string.IsNullOrWhiteSpace(parameters.Q))
             {
@@ -36,7 +36,7 @@ namespace GameManagement.Api.Services
 
                 items = items.Where(x => x.Title.Contains(parameters.Q)
                                          || x.Subtitle.Contains(parameters.Q)
-                                         || x.Tags.Select(x=>x.Content).Contains(parameters.Q));
+                                         || x.Tags.Select(x => x.Content).Contains(parameters.Q));
             }
 
             var mappingDictionary = propertyMappingService.GetPropertyMapping<GameDto, Game>();
@@ -75,13 +75,21 @@ namespace GameManagement.Api.Services
             {
                 throw new ArgumentNullException(nameof(game));
             }
+            if (game.Id == Guid.Empty)
+            {
+                game.Id = Guid.NewGuid();
+            }
 
             game.CompanyId = companyId;
+            game.CreateDate = DateTimeOffset.UtcNow;
+            game.UpdateDate = DateTimeOffset.UtcNow;
             context.Games.Add(game);
         }
 
+
         public void UpdateGame(Game game)
         {
+            game.UpdateDate = DateTimeOffset.UtcNow;
             // context.Entry(game).State = EntityState.Modified;
         }
 

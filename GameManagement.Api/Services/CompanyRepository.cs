@@ -37,7 +37,7 @@ namespace GameManagement.Api.Services
             {
                 parameters.SearchTerm = parameters.SearchTerm.Trim();
                 queryExpression = queryExpression.Where(x => x.Name.Contains(parameters.SearchTerm) ||
-                                                             x.Introduction.Contains(parameters.SearchTerm)||
+                                                             x.Introduction.Contains(parameters.SearchTerm) ||
                                                              x.Country.Contains(parameters.SearchTerm));
             }
 
@@ -81,12 +81,15 @@ namespace GameManagement.Api.Services
             }
 
             company.Id = Guid.NewGuid();
-
+            company.CreateDate = DateTimeOffset.Now;
+            company.UpdateDate = DateTimeOffset.Now;
             if (company.Games != null)
             {
                 foreach (var game in company.Games)
                 {
                     game.Id = Guid.NewGuid();
+                    game.CreateDate = DateTimeOffset.Now;
+                    game.UpdateDate = DateTimeOffset.Now;
                 }
             }
 
@@ -95,6 +98,7 @@ namespace GameManagement.Api.Services
 
         public void UpdateCompany(Company company)
         {
+            company.UpdateDate = DateTimeOffset.Now;
             // context.Entry(company).State = EntityState.Modified;
         }
 
