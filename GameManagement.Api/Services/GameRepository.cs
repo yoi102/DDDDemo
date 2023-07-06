@@ -79,7 +79,11 @@ namespace GameManagement.Api.Services
             {
                 game.Id = Guid.NewGuid();
             }
-
+            foreach (var tag in game.Tags)
+            {
+                tag.CreateDate = DateTimeOffset.UtcNow;
+                tag.UpdateDate = DateTimeOffset.UtcNow;
+            }
             game.CompanyId = companyId;
             game.CreateDate = DateTimeOffset.UtcNow;
             game.UpdateDate = DateTimeOffset.UtcNow;
