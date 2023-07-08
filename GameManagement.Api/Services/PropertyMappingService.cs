@@ -41,12 +41,9 @@ namespace GameManagement.Api.Services
             var matchingMapping = _propertyMappings.OfType<PropertyMapping<TSource, TDestination>>();
 
             var propertyMappings = matchingMapping.ToList();
-            if (propertyMappings.Count == 1)
-            {
-                return propertyMappings.First().MappingDictionary;
-            }
-
-            throw new Exception($"无法找到唯一的映射关系：{typeof(TSource)}, {typeof(TDestination)}");
+            return propertyMappings.Count == 1
+                ? propertyMappings.First().MappingDictionary
+                : throw new Exception($"无法找到唯一的映射关系：{typeof(TSource)}, {typeof(TDestination)}");
         }
 
         public bool ValidMappingExistsFor<TSource, TDestination>(string? fields)

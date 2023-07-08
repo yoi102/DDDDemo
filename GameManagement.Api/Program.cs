@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,12 +46,9 @@ builder.Services.AddControllers(setup =>
     setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 }).AddXmlDataContractSerializerFormatters()// XML ���ݩ`��׷��
 .ConfigureApiBehaviorOptions(setup =>// Model ��٥�� Error
-
 {
-
     setup.InvalidModelStateResponseFactory = context =>
     {
-
         // ErrorMessage 追加
         var problemDetails = new ValidationProblemDetails(context.ModelState)
         {
@@ -88,6 +86,14 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen(options =>
 {
+    //注释
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    //第二个参数为是否显示控制器注释,选择true
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), true);
+
+
+    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
@@ -207,6 +213,8 @@ else
 //app.UseResponseCaching();
 
 app.UseHttpCacheHeaders();
+
+app.UseRouting();
 
 app.UseHttpsRedirection();
 

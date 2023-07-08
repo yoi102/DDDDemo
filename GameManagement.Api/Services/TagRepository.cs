@@ -22,15 +22,11 @@ namespace GameManagement.Api.Services
             }
 
             var queryExpression = context.Tags.Where(x => x.Content.Contains(parameters.Tag)).SelectMany(x => x.Games);
-      
 
-            if (queryExpression is null)
-            {
-                return null;
-            }
 
-            return await PagedList<Game>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
-
+            return queryExpression is null
+                ? null
+                : await PagedList<Game>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
         }
     }
 }

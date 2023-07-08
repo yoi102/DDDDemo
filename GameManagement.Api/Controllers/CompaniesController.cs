@@ -36,6 +36,11 @@ namespace GameManagement.Api.Controllers
             this.propertyCheckerService = propertyCheckerService ?? throw new ArgumentNullException(nameof(propertyCheckerService));
         }
 
+        /// <summary>
+        /// GetCompanies
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetCompanies))]
         [HttpHead]
         public async Task<IActionResult> GetCompanies([FromQuery] CompanyDtoParameters parameters)
@@ -90,6 +95,13 @@ namespace GameManagement.Api.Controllers
             return Ok(linkedCollectionResource);
         }
 
+        /// <summary>
+        /// GetCompany
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="fields"></param>
+        /// <param name="mediaType"></param>
+        /// <returns></returns>
         [Produces("application/json",
     "application/vnd.company.hateoas+json",
        "application/vnd.mycompany.company.friendly+json",
@@ -152,9 +164,13 @@ namespace GameManagement.Api.Controllers
 
             return Ok(friendly);
         }
-
+        /// <summary>
+        /// CreateCompanyWithBankruptTime
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
         [HttpPost(Name = nameof(CreateCompanyWithBankruptTime))]
-        [RequestHeaderMatchesMediaType("Content-Type", "application/vnd.company.companyforcreationwithbankrupttime+json")]
+        [RequestHeaderMatchesMediaType("Content-Type", "application/vnd.mycompany.companyforcreationwithbankrupttime+json")]
         [Consumes("application/vnd.mycompany.companyforcreationwithbankrupttime+json")]
         public async Task<ActionResult<CompanyDto>> CreateCompanyWithBankruptTime(CompanyAddWithBankruptTimeDto company)
         {
@@ -173,7 +189,11 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
                 linkedDict);
         }
-
+        /// <summary>
+        /// CreateCompany
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
         [HttpPost(Name = nameof(CreateCompany))]
         [RequestHeaderMatchesMediaType("Content-Type", "application/json",
     "application/vnd.mycompany.companyforcreation+json")]
@@ -195,7 +215,11 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
                 linkedDict);
         }
-
+        /// <summary>
+        /// DeleteCompany
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
         [HttpDelete("{companyId}", Name = nameof(DeleteCompany))]
         public async Task<IActionResult> DeleteCompany(Guid companyId)
         {
@@ -211,7 +235,10 @@ namespace GameManagement.Api.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// GetCompaniesOptions
+        /// </summary>
+        /// <returns></returns>
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {

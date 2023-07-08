@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GameManagement.Shared.Entities
 {
     public class Game : EntityBase
     {
         [Required]
-        [StringLength(50,MinimumLength =1)]
+        [StringLength(50, MinimumLength = 1)]
         public string Title { get; set; } = string.Empty;
         [StringLength(50, MinimumLength = 1)]
         public string Subtitle { get; set; } = string.Empty;

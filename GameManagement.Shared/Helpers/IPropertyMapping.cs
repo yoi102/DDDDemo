@@ -1,4 +1,4 @@
-﻿namespace GameManagement.Api.Services
+﻿namespace GameManagement.Shared.Helpers
 {
     public interface IPropertyMapping
     {

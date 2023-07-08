@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GameManagement.Shared.Helpers
 {

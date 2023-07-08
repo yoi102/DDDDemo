@@ -7,17 +7,17 @@ namespace GameManagement.Api.ActionConstraints
     [AttributeUsage(AttributeTargets.All, Inherited = true, AllowMultiple = true)]
     public class RequestHeaderMatchesMediaTypeAttribute : Attribute, IActionConstraint
     {
-        private readonly string _requestHeaderToMatch;
-        private readonly MediaTypeCollection _mediaTypes = new MediaTypeCollection();
+        private readonly string requestHeaderToMatch;
+        private readonly MediaTypeCollection mediaTypes = new();
 
         public RequestHeaderMatchesMediaTypeAttribute(string requestHeaderToMatch,
             string mediaType, params string[] otherMediaTypes)
         {
-            _requestHeaderToMatch = requestHeaderToMatch ?? throw new ArgumentNullException(nameof(requestHeaderToMatch));
+            this.requestHeaderToMatch = requestHeaderToMatch ?? throw new ArgumentNullException(nameof(requestHeaderToMatch));
 
             if (MediaTypeHeaderValue.TryParse(mediaType, out MediaTypeHeaderValue? parsedMediaType))
             {
-                _mediaTypes.Add(parsedMediaType);
+                mediaTypes.Add(parsedMediaType);
             }
             else
             {
@@ -28,7 +28,7 @@ namespace GameManagement.Api.ActionConstraints
             {
                 if (MediaTypeHeaderValue.TryParse(otherMediaType, out MediaTypeHeaderValue? parsedOtherMediaType))
                 {
-                    _mediaTypes.Add(parsedOtherMediaType);
+                    mediaTypes.Add(parsedOtherMediaType);
                 }
                 else
                 {
@@ -40,14 +40,14 @@ namespace GameManagement.Api.ActionConstraints
         public bool Accept(ActionConstraintContext context)
         {
             IHeaderDictionary? requestHeaders = context.RouteContext.HttpContext.Request.Headers;
-            if (!requestHeaders.ContainsKey(_requestHeaderToMatch))
+            if (!requestHeaders.ContainsKey(requestHeaderToMatch))
             {
                 return false;
             }
 
-            var parsedRequestMediaType = new MediaType(requestHeaders[_requestHeaderToMatch]!);
+            var parsedRequestMediaType = new MediaType(requestHeaders[requestHeaderToMatch]!);
 
-            foreach (var mediaType in _mediaTypes)
+            foreach (var mediaType in mediaTypes)
             {
                 var parsedMediaType = new MediaType(mediaType);
                 if (parsedRequestMediaType.Equals(parsedMediaType))

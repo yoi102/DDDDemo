@@ -50,24 +50,18 @@ namespace GameManagement.Api.Services
 
         public async Task<Company?> GetCompanyAsync(Guid companyId)
         {
-            if (companyId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(companyId));
-            }
-
-            return await context.Companies
+            return companyId == Guid.Empty
+                ? throw new ArgumentNullException(nameof(companyId))
+                : await context.Companies
                 .FirstOrDefaultAsync(x => x.Id == companyId);
         }
 
         public async Task<IEnumerable<Company>>
             GetCompaniesAsync(IEnumerable<Guid> companyIds)
         {
-            if (companyIds == null)
-            {
-                throw new ArgumentNullException(nameof(companyIds));
-            }
-
-            return await context.Companies
+            return companyIds == null
+                ? throw new ArgumentNullException(nameof(companyIds))
+                : (IEnumerable<Company>)await context.Companies
                 .Where(x => companyIds.Contains(x.Id))
                 .OrderBy(x => x.Name)
                 .ToListAsync();

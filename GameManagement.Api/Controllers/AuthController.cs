@@ -20,24 +20,16 @@ namespace GameManagement.Api.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
+        [HttpPost]
         public async Task<IActionResult> Create(string username, string password, string grantType)
         {
-            if (await IsValidUsernameAndPassword(username, password))
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return await IsValidUsernameAndPassword(username, password) ? Ok() : BadRequest();
         }
 
         private async Task<bool> IsValidUsernameAndPassword(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if (user is not null)
-            {
-                return await _userManager.CheckPasswordAsync(user, password);
-            }
-            return false;
+            return user is not null && await _userManager.CheckPasswordAsync(user, password);
         }
 
         //private string CreateToken(Company user)

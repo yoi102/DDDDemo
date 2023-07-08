@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameManagement.Shared.Models
+﻿namespace GameManagement.Shared.Models
 {
     public class CompanyDto
     {

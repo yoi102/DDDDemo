@@ -45,17 +45,11 @@ namespace GameManagement.Api.Services
 
         public async Task<Game?> GetGameAsync(Guid companyId, Guid gameId)
         {
-            if (companyId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(companyId));
-            }
-
-            if (gameId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(gameId));
-            }
-
-            return await context.Games
+            return companyId == Guid.Empty
+                ? throw new ArgumentNullException(nameof(companyId))
+                : gameId == Guid.Empty
+                ? throw new ArgumentNullException(nameof(gameId))
+                : await context.Games
                 .Where(x => x.CompanyId == companyId && x.Id == gameId)
                 .FirstOrDefaultAsync();
         }
@@ -99,12 +93,9 @@ namespace GameManagement.Api.Services
 
         public async Task<bool> CompanyExistsAsync(Guid companyId)
         {
-            if (companyId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(companyId));
-            }
-
-            return await context.Companies.AnyAsync(x => x.Id == companyId);
+            return companyId == Guid.Empty
+                ? throw new ArgumentNullException(nameof(companyId))
+                : await context.Companies.AnyAsync(x => x.Id == companyId);
         }
 
         public async Task<bool> SaveAsync()

@@ -1,5 +1,4 @@
-﻿using GameManagement.Shared.Entities;
-using GameManagement.Shared.ValidationAttributes;
+﻿using GameManagement.Shared.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 

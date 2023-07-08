@@ -32,7 +32,7 @@ namespace GameManagement.Shared.Helpers
         {
             ArgumentNullException.ThrowIfNull(source);
             var count = await source.CountAsync();
-            var items = await source.SelectMany(x=>x).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var items = await source.SelectMany(x => x).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
     }

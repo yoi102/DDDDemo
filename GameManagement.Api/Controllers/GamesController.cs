@@ -111,8 +111,8 @@ namespace GameManagement.Api.Controllers
                     gameId = dtoToReturn.Id
                 }, dtoToReturn);
             }
-            
-       
+
+
             //todo 文件上传。。。
 
             mapper.Map(game, gameEntity);

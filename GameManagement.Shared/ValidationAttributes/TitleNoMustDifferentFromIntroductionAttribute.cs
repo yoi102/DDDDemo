@@ -9,12 +9,9 @@ namespace GameManagement.Shared.ValidationAttributes
         {
             var addDto = (GameAddOrUpdateDto)validationContext.ObjectInstance;
 
-            if (addDto.Introduction == addDto.Title)
-            {
-                return new ValidationResult(ErrorMessage, new[] { nameof(GameAddOrUpdateDto) });
-            }
-
-            return ValidationResult.Success;
+            return addDto.Introduction == addDto.Title
+                ? new ValidationResult(ErrorMessage, new[] { nameof(GameAddOrUpdateDto) })
+                : ValidationResult.Success;
         }
     }
 }

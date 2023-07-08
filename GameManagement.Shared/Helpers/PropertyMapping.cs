@@ -1,6 +1,4 @@
-﻿using GameManagement.Shared.Helpers;
-
-namespace GameManagement.Api.Services
+﻿namespace GameManagement.Shared.Helpers
 {
     public class PropertyMapping<TSource, TDestination> : IPropertyMapping
     {
