@@ -84,7 +84,7 @@ namespace GameManagement.Api.Controllers
             }, dtoToReturn);
         }
 
-        [HttpPut("{gameId}")]//todo 文件上传。。。
+        [HttpPut("{gameId}")]//todo 文件上传。。。  IFormFile
         public async Task<ActionResult<GameDto>> UpdateGameForCompany(Guid companyId, Guid gameId, GameUpdateDto game)
         {
             if (!await gameRepository.CompanyExistsAsync(companyId))
@@ -126,7 +126,7 @@ namespace GameManagement.Api.Controllers
             return NoContent();
         }
 
-        [HttpPatch("{gameId}")]
+        [HttpPatch("{gameId}")]//todo 文件上传。。。  IFormFile
         public async Task<IActionResult> PartiallyUpdateGameForCompany(Guid companyId, Guid gameId, JsonPatchDocument<GameUpdateDto> patchDocument)
         {
             if (!await gameRepository.CompanyExistsAsync(companyId))
