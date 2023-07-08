@@ -96,10 +96,10 @@ namespace GameManagement.Api.Controllers
 
         [Produces("application/json",
     "application/vnd.company.hateoas+json",
-    "application/vnd.mycompany.company.friendly+json",
-    "application/vnd.mycompany.company.friendly.hateoas+json",
-    "application/vnd.mycompany.company.full+json",
-    "application/vnd.mycompany.company.full.hateoas+json")]
+       "application/vnd.mycompany.company.friendly+json",
+       "application/vnd.mycompany.company.friendly.hateoas+json",
+       "application/vnd.mycompany.company.full+json",
+       "application/vnd.mycompany.company.full.hateoas+json")]
         [HttpGet("{companyId}", Name = nameof(GetCompany))]
         // [Route("{companyId}")]
         public async Task<IActionResult> GetCompany(Guid companyId, string fields, [FromHeader(Name = "Accept")] string mediaType)
@@ -305,45 +305,36 @@ namespace GameManagement.Api.Controllers
 
         private string? CreateCompaniesResourceUri(CompanyDtoParameters parameters, ResourceUriType type)
         {
-            switch (type)
+            return type switch
             {
-                case ResourceUriType.PreviousPage:
-                    return Url.Link(nameof(GetCompanies), new
-                    {
-                        fields = parameters.Fields,
-                        orderBy = parameters.OrderBy,
-                        pageNumber = parameters.PageNumber - 1,
-                        pageSize = parameters.PageSize,
-                        companyName = parameters.CompanyName,
-                        searchTerm = parameters.SearchTerm
-                    });
-
-                case ResourceUriType.NextPage:
-                    return Url.Link(nameof(GetCompanies), new
-                    {
-                        fields = parameters.Fields,
-                        orderBy = parameters.OrderBy,
-                        pageNumber = parameters.PageNumber + 1,
-                        pageSize = parameters.PageSize,
-                        companyName = parameters.CompanyName,
-                        searchTerm = parameters.SearchTerm
-                    });
-
-                case ResourceUriType.CurrentPage:
-                default:
-                    return Url.Link(nameof(GetCompanies), new
-                    {
-                        fields = parameters.Fields,
-                        orderBy = parameters.OrderBy,
-                        pageNumber = parameters.PageNumber,
-                        pageSize = parameters.PageSize,
-                        companyName = parameters.CompanyName,
-                        searchTerm = parameters.SearchTerm
-                    });
-            }
-
-
-
+                ResourceUriType.PreviousPage => Url.Link(nameof(GetCompanies), new
+                {
+                    fields = parameters.Fields,
+                    orderBy = parameters.OrderBy,
+                    pageNumber = parameters.PageNumber - 1,
+                    pageSize = parameters.PageSize,
+                    companyName = parameters.CompanyName,
+                    searchTerm = parameters.SearchTerm
+                }),
+                ResourceUriType.NextPage => Url.Link(nameof(GetCompanies), new
+                {
+                    fields = parameters.Fields,
+                    orderBy = parameters.OrderBy,
+                    pageNumber = parameters.PageNumber + 1,
+                    pageSize = parameters.PageSize,
+                    companyName = parameters.CompanyName,
+                    searchTerm = parameters.SearchTerm
+                }),
+                _ => Url.Link(nameof(GetCompanies), new
+                {
+                    fields = parameters.Fields,
+                    orderBy = parameters.OrderBy,
+                    pageNumber = parameters.PageNumber,
+                    pageSize = parameters.PageSize,
+                    companyName = parameters.CompanyName,
+                    searchTerm = parameters.SearchTerm
+                }),
+            };
         }
 
 

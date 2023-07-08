@@ -6,8 +6,7 @@ namespace GameManagement.Api.Services
 {
     public class PropertyMappingService : IPropertyMappingService
     {
-        private readonly Dictionary<string, PropertyMappingValue> companyPropertyMapping =
-            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        private readonly Dictionary<string, PropertyMappingValue> companyPropertyMapping = new(StringComparer.OrdinalIgnoreCase)
             {
                 {"Id", new PropertyMappingValue(new List<string>{"Id"}) },
                 {"CompanyName", new PropertyMappingValue(new List<string>{"Name"}) },
@@ -15,14 +14,15 @@ namespace GameManagement.Api.Services
                 {"Introduction", new PropertyMappingValue(new List<string>{"Introduction"})}
             };
 
-        private readonly Dictionary<string, PropertyMappingValue> gamePropertyMapping =
-            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        private readonly Dictionary<string, PropertyMappingValue> gamePropertyMapping = new(StringComparer.OrdinalIgnoreCase)
             {
+                 //需要适配修改。。。。。
                 {"Id", new PropertyMappingValue(new List<string>{"Id"}) },
                 {"CompanyId", new PropertyMappingValue(new List<string>{"CompanyId"}) },
                 {"Tiltle", new PropertyMappingValue(new List<string>{"Tiltle"})},
                 {"Subtiltle", new PropertyMappingValue(new List<string>{"Subtiltle"})},
-                {"FullTiltle", new PropertyMappingValue(new List<string>{"Tiltle", "Subtiltle"})},
+                {"TitleAndPrice", new PropertyMappingValue(new List<string>{"Tiltle", "Price"})},
+                {"CoverUrl", new PropertyMappingValue(new List<string>{"CoverUrl"})},
                 {"Price", new PropertyMappingValue(new List<string>{"Price"})},
                 {"Introduction", new PropertyMappingValue(new List<string>{"Introduction"})},
                 {"ReleaseDate", new PropertyMappingValue(new List<string>{"ReleaseDate"}, true)}

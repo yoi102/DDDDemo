@@ -6,6 +6,7 @@ namespace GameManagement.Shared.Models
     {
         public Guid Id { get; set; }
         public Guid CompanyId { get; set; }
+        public string TitleAndPrice { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Subtitle { get; set; } = string.Empty;
         public string CoverUrl { get; set; } = string.Empty;
