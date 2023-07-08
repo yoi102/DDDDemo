@@ -84,7 +84,7 @@ namespace GameManagement.Api.Controllers
             }, dtoToReturn);
         }
 
-        [HttpPut("{gameId}")]
+        [HttpPut("{gameId}")]//todo 文件上传。。。
         public async Task<ActionResult<GameDto>> UpdateGameForCompany(Guid companyId, Guid gameId, GameUpdateDto game)
         {
             if (!await gameRepository.CompanyExistsAsync(companyId))
@@ -111,12 +111,13 @@ namespace GameManagement.Api.Controllers
                     gameId = dtoToReturn.Id
                 }, dtoToReturn);
             }
-
-            // entity 转化为 updateDto
-            // 把传进来的game的值更新到 updateDto
-            // 把updateDto映射回entity
+            
+       
+            //todo 文件上传。。。
 
             mapper.Map(game, gameEntity);
+
+
 
             gameRepository.UpdateGame(gameEntity);
 

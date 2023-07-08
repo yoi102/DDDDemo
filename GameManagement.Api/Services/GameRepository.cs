@@ -18,7 +18,6 @@ namespace GameManagement.Api.Services
             this.propertyMappingService = propertyMappingService;
         }
 
-
         public async Task<IEnumerable<Game>> GetGamesAsync(Guid companyId, GameDtoParameters parameters)
         {
             if (companyId == Guid.Empty)
@@ -27,8 +26,6 @@ namespace GameManagement.Api.Services
             }
 
             var items = context.Games.Where(x => x.CompanyId == companyId);
-
-
 
             if (!string.IsNullOrWhiteSpace(parameters.Q))
             {
@@ -63,7 +60,6 @@ namespace GameManagement.Api.Services
                 .FirstOrDefaultAsync();
         }
 
-
         public void AddGame(Guid companyId, Game game)
         {
             if (companyId == Guid.Empty)
@@ -90,7 +86,6 @@ namespace GameManagement.Api.Services
             context.Games.Add(game);
         }
 
-
         public void UpdateGame(Game game)
         {
             game.UpdateDate = DateTimeOffset.UtcNow;
@@ -101,6 +96,7 @@ namespace GameManagement.Api.Services
         {
             context.Games.Remove(game);
         }
+
         public async Task<bool> CompanyExistsAsync(Guid companyId)
         {
             if (companyId == Guid.Empty)
@@ -111,13 +107,9 @@ namespace GameManagement.Api.Services
             return await context.Companies.AnyAsync(x => x.Id == companyId);
         }
 
-
-
         public async Task<bool> SaveAsync()
         {
             return await context.SaveChangesAsync() >= 0;
         }
-
-
     }
 }

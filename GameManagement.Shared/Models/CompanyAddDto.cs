@@ -14,6 +14,11 @@ namespace GameManagement.Shared.Models
         [StringLength(500, MinimumLength = 10, ErrorMessage = "The length range of {0} is from {2} to {1}")]
         public string Introduction { get; set; } = string.Empty;
 
+        [Required]
+        public string? Country { get; set; }
+        [Required]
+        public DateTimeOffset EstablishmentTime { get; set; }
+
         public ICollection<GameAddDto> Games { get; set; } = new List<GameAddDto>();
     }
 }
