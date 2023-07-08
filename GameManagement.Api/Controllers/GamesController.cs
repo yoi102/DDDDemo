@@ -4,7 +4,6 @@ using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Models;
 using Marvin.Cache.Headers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -25,7 +24,6 @@ namespace GameManagement.Api.Controllers
             this.gameRepository = gameRepository;
         }
 
-
         [HttpGet(Name = nameof(GetGamesForCompany))]
         public async Task<ActionResult<IEnumerable<GameDto>>> GetGamesForCompany(Guid companyId, [FromQuery] GameDtoParameters parameters)
         {
@@ -41,7 +39,6 @@ namespace GameManagement.Api.Controllers
 
             return Ok(gameDtos);
         }
-
 
         [HttpGet("{gameId}", Name = nameof(GetGameForCompany))]
         //[ResponseCache(Duration = 60)]
@@ -65,8 +62,6 @@ namespace GameManagement.Api.Controllers
             return Ok(gameDto);
         }
 
-
-
         [HttpPost(Name = nameof(CreateGameForCompany))]
         public async Task<ActionResult<GameDto>> CreateGameForCompany(Guid companyId, GameAddDto game)
         {
@@ -88,10 +83,6 @@ namespace GameManagement.Api.Controllers
                 gameId = dtoToReturn.Id
             }, dtoToReturn);
         }
-
-
-
-
 
         [HttpPut("{gameId}")]
         public async Task<ActionResult<GameDto>> UpdateGameForCompany(Guid companyId, Guid gameId, GameUpdateDto game)
@@ -133,7 +124,6 @@ namespace GameManagement.Api.Controllers
 
             return NoContent();
         }
-
 
         [HttpPatch("{gameId}")]
         public async Task<IActionResult> PartiallyUpdateGameForCompany(Guid companyId, Guid gameId, JsonPatchDocument<GameUpdateDto> patchDocument)
@@ -189,9 +179,6 @@ namespace GameManagement.Api.Controllers
             return NoContent();
         }
 
-
-
-
         [HttpDelete("{gameId}")]
         public async Task<IActionResult> DeleteGameForCompany(Guid companyId, Guid gameId)
         {
@@ -214,9 +201,6 @@ namespace GameManagement.Api.Controllers
             return NoContent();
         }
 
-
-
-
         public override ActionResult ValidationProblem(ModelStateDictionary modelStateDictionary)
         {
             var options = HttpContext.RequestServices
@@ -224,7 +208,5 @@ namespace GameManagement.Api.Controllers
 
             return (ActionResult)options.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
-
-
     }
 }

@@ -1,11 +1,6 @@
 ﻿using GameManagement.Api.DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace GameManagement.Api.Controllers
 {
@@ -26,7 +21,6 @@ namespace GameManagement.Api.Controllers
             _roleManager = roleManager;
         }
 
-
         public async Task<IActionResult> Create(string username, string password, string grantType)
         {
             if (await IsValidUsernameAndPassword(username, password))
@@ -35,6 +29,7 @@ namespace GameManagement.Api.Controllers
             }
             return BadRequest();
         }
+
         private async Task<bool> IsValidUsernameAndPassword(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -44,15 +39,6 @@ namespace GameManagement.Api.Controllers
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
 
         //private string CreateToken(Company user)
         //{
@@ -94,23 +80,5 @@ namespace GameManagement.Api.Controllers
         //        return computedHash.SequenceEqual(passwordHash);
         //    }
         //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -12,6 +12,7 @@ namespace GameManagement.Api.Controllers
     {
         private readonly UserManager<ApiIdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+
         public RoleController(
             UserManager<ApiIdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
@@ -19,36 +20,21 @@ namespace GameManagement.Api.Controllers
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddRole()
         {
-
-
             return Ok();
         }
+
         public async Task<IActionResult> EditRole(Guid id)
         {
-
-
             return NoContent();
         }
+
         public async Task<IActionResult> DeleteRole(string id)
         {
-
             return NoContent();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

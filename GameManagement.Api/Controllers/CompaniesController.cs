@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using GameManagement.Api.ActionConstraints;
 using GameManagement.Api.Services;
 using GameManagement.Shared.DtoParameters;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using GameManagement.Shared.Models;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
+using GameManagement.Shared.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using GameManagement.Api.ActionConstraints;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace GameManagement.Api.Controllers
 {
@@ -35,7 +35,6 @@ namespace GameManagement.Api.Controllers
             this.propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
             this.propertyCheckerService = propertyCheckerService ?? throw new ArgumentNullException(nameof(propertyCheckerService));
         }
-
 
         [HttpGet(Name = nameof(GetCompanies))]
         [HttpHead]
@@ -91,9 +90,6 @@ namespace GameManagement.Api.Controllers
             return Ok(linkedCollectionResource);
         }
 
-
-
-
         [Produces("application/json",
     "application/vnd.company.hateoas+json",
        "application/vnd.mycompany.company.friendly+json",
@@ -101,7 +97,6 @@ namespace GameManagement.Api.Controllers
        "application/vnd.mycompany.company.full+json",
        "application/vnd.mycompany.company.full.hateoas+json")]
         [HttpGet("{companyId}", Name = nameof(GetCompany))]
-        // [Route("{companyId}")]
         public async Task<IActionResult> GetCompany(Guid companyId, string fields, [FromHeader(Name = "Accept")] string mediaType)
         {
             if (!MediaTypeHeaderValue.TryParse(mediaType, out MediaTypeHeaderValue? parsedMediaType))
@@ -158,10 +153,6 @@ namespace GameManagement.Api.Controllers
             return Ok(friendly);
         }
 
-
-
-
-
         [HttpPost(Name = nameof(CreateCompanyWithBankruptTime))]
         [RequestHeaderMatchesMediaType("Content-Type", "application/vnd.company.companyforcreationwithbankrupttime+json")]
         [Consumes("application/vnd.mycompany.companyforcreationwithbankrupttime+json")]
@@ -182,8 +173,6 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
                 linkedDict);
         }
-
-
 
         [HttpPost(Name = nameof(CreateCompany))]
         [RequestHeaderMatchesMediaType("Content-Type", "application/json",
@@ -207,8 +196,6 @@ namespace GameManagement.Api.Controllers
                 linkedDict);
         }
 
-
-
         [HttpDelete("{companyId}", Name = nameof(DeleteCompany))]
         public async Task<IActionResult> DeleteCompany(Guid companyId)
         {
@@ -225,18 +212,12 @@ namespace GameManagement.Api.Controllers
             return NoContent();
         }
 
-
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {
             Response.Headers.Add("Allow", "GET,POST,OPTIONS");
             return Ok();
         }
-
-
-
-
-
 
         private IEnumerable<LinkDto> CreateLinksForCompany(Guid companyId, string? fields)
         {
@@ -257,7 +238,6 @@ namespace GameManagement.Api.Controllers
                         "GET"));
             }
 
-
             links.Add(
                 new LinkDto(Url.Link(nameof(DeleteCompany), new { companyId }),
                     "delete_company",
@@ -276,12 +256,9 @@ namespace GameManagement.Api.Controllers
             return links;
         }
 
-
-
         private IEnumerable<LinkDto> CreateLinksForCompany(CompanyDtoParameters parameters, bool hasPrevious, bool hasNext)
         {
             var links = new List<LinkDto>();
-
 
             links.Add(new LinkDto(CreateCompaniesResourceUri(parameters, ResourceUriType.CurrentPage),
                 "self", "GET"));
@@ -300,8 +277,6 @@ namespace GameManagement.Api.Controllers
 
             return links;
         }
-
-
 
         private string? CreateCompaniesResourceUri(CompanyDtoParameters parameters, ResourceUriType type)
         {
@@ -336,14 +311,5 @@ namespace GameManagement.Api.Controllers
                 }),
             };
         }
-
-
-
-
-
-
-
-
-
     }
 }

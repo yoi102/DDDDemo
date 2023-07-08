@@ -1,7 +1,6 @@
 ﻿using GameManagement.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace GameManagement.Api.Controllers
 {
     [Route("api")]

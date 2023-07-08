@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using GameManagement.Api.Services;
 using GameManagement.Shared.DtoParameters;
-using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -24,13 +22,10 @@ namespace GameManagement.Api.Controllers
             this.tagRepository = tagRepository;
         }
 
-
         [HttpGet(Name = nameof(GetGamesByTag))]
         [HttpHead]
         public async Task<IActionResult> GetGamesByTag([FromQuery] TagDtoParameters parameters)
         {
-
-
             var games = await tagRepository.GetGamesAsync(parameters);
             if (games is null)
             {
@@ -54,8 +49,6 @@ namespace GameManagement.Api.Controllers
 
             var links = CreateLinksForTag(parameters, games.HasPrevious, games.HasNext);
 
-
-       
             var linkedCollectionResource = new
             {
                 value = gameDtos,
@@ -65,11 +58,9 @@ namespace GameManagement.Api.Controllers
             return Ok(linkedCollectionResource);
         }
 
-
         private IEnumerable<LinkDto> CreateLinksForTag(TagDtoParameters parameters, bool hasPrevious, bool hasNext)
         {
             var links = new List<LinkDto>();
-
 
             links.Add(new LinkDto(CreateTagsResourceUri(parameters, ResourceUriType.CurrentPage),
                 "self", "GET"));
@@ -110,12 +101,8 @@ namespace GameManagement.Api.Controllers
                     tag = parameters.Tag,
                     pageNumber = parameters.PageNumber,
                     pageSize = parameters.PageSize,
-
                 }),
             };
         }
-
-
-
     }
 }

@@ -3,7 +3,6 @@ using GameManagement.Api.Services;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Api.Controllers
@@ -12,8 +11,6 @@ namespace GameManagement.Api.Controllers
     [ApiController]
     public class CompanyCollectionsController : ControllerBase
     {
-
-
         private readonly IMapper mapper;
         private readonly ICompanyRepository companyRepository;
 
