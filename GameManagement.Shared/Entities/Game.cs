@@ -23,7 +23,7 @@ namespace GameManagement.Shared.Entities
         public DateTimeOffset ReleaseDate { get; set; }
 
 
-        public ICollection<ImageUrl> ImageUrl { get; set; } = new List<ImageUrl>();
+        public ICollection<DisplayItem> DisplayItems { get; set; } = new List<DisplayItem>();
 
         public Company? Company { get; set; }
         public Guid? CompanyId { get; set; }

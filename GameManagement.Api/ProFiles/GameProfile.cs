@@ -12,10 +12,10 @@ namespace GameManagement.Api.ProFiles
                   .ForMember(dest => dest.TitleAndPrice,
                   opt => opt.MapFrom(src => src.Title + src.Price))
                   .ForMember(dest => dest.ImageUrl,
-                 opt => opt.MapFrom(src => src.ImageUrl.Select(x => x.Url)))
+                 opt => opt.MapFrom(src => src.DisplayItems.Select(x => x.RemoteUrl)))
                   .ReverseMap()
-                  // .ForMember(dest => dest.ImageUrl.Select(x => x.Url),
-                  //opt => opt.MapFrom(src => src.ImageUrl))
+                  // .ForMember(dest => dest.DisplayItems.Select(x => x.RemoteUrl),
+                  //opt => opt.MapFrom(src => src.DisplayItems))
                   ;
         }
     }

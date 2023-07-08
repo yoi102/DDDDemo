@@ -19,7 +19,7 @@ namespace GameManagement.Shared.DataAccess
         public DbSet<Company> Companies { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<ImageUrl> ImageUrls { get; set; }
+        public DbSet<DisplayItem> ImageUrls { get; set; }
 
 
 
@@ -35,7 +35,7 @@ namespace GameManagement.Shared.DataAccess
             });
             builder.Entity<Game>(b =>
             {
-                b.HasMany(e => e.ImageUrl)
+                b.HasMany(e => e.DisplayItems)
                 .WithOne(e => e.Game)
                 .HasForeignKey(e => e.GameId);
             });
