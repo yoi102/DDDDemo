@@ -19,7 +19,7 @@ namespace GameManagement.Shared.DataAccess
         public DbSet<Company> Companies { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<DisplayItem> ImageUrls { get; set; }
+        public DbSet<DisplayItem> DisplayItems { get; set; }
 
 
 
