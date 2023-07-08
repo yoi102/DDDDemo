@@ -21,7 +21,7 @@ namespace GameManagement.Shared.Helpers
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
             }
-            //同一个类型
+            //同一 type
             var elementType = bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
             var converter = TypeDescriptor.GetConverter(elementType);
 
