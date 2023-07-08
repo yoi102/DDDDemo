@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GameManagement.Shared.Helpers
@@ -24,7 +21,7 @@ namespace GameManagement.Shared.Helpers
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
             }
-
+            //同一个类型
             var elementType = bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
             var converter = TypeDescriptor.GetConverter(elementType);
 
