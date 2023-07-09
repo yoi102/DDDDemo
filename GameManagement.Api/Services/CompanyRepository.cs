@@ -106,7 +106,6 @@ namespace GameManagement.Api.Services
             context.Companies.Remove(company);
         }
 
-
         public async Task<bool> SaveAsync()
         {
             return await context.SaveChangesAsync() >= 0;

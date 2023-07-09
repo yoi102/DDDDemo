@@ -18,14 +18,13 @@ namespace GameManagement.Api.DataAccess
         public ICollection<IdentityUserToken<string>> Tokens { get; set; }
         public ICollection<IdentityUserRole<string>> UserRoles { get; set; }
 
-
-
         [MaxLength(18)]
         public string? IdCardNo { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-
     }
 }

@@ -164,6 +164,7 @@ namespace GameManagement.Api.Controllers
 
             return Ok(friendly);
         }
+
         /// <summary>
         /// CreateCompanyWithBankruptTime
         /// </summary>
@@ -189,6 +190,7 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
                 linkedDict);
         }
+
         /// <summary>
         /// CreateCompany
         /// </summary>
@@ -215,6 +217,7 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetCompany), new { companyId = linkedDict["Id"] },
                 linkedDict);
         }
+
         /// <summary>
         /// DeleteCompany
         /// </summary>
@@ -235,6 +238,7 @@ namespace GameManagement.Api.Controllers
 
             return NoContent();
         }
+
         /// <summary>
         /// GetCompaniesOptions
         /// </summary>

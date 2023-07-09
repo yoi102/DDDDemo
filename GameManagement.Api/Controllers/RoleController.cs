@@ -26,11 +26,13 @@ namespace GameManagement.Api.Controllers
         {
             return Ok();
         }
+
         [HttpPatch]
         public async Task<IActionResult> EditRole(Guid id)
         {
             return NoContent();
         }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteRole(string id)
         {

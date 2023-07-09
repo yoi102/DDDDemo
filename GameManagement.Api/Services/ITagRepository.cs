@@ -7,6 +7,5 @@ namespace GameManagement.Api.Services
     public interface ITagRepository
     {
         Task<PagedList<Game>?> GetGamesAsync(TagDtoParameters parameters);
-
     }
 }

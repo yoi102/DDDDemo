@@ -20,6 +20,7 @@ namespace GameManagement.Api.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(string username, string password, string grantType)
         {

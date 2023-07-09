@@ -13,10 +13,6 @@ namespace GameManagement.Api.ProFiles
                 opt => opt.MapFrom(src => src.Name))
                 .ReverseMap()
                 ;
-
         }
-
-
-
     }
 }

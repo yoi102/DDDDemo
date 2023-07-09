@@ -112,12 +112,9 @@ namespace GameManagement.Api.Controllers
                 }, dtoToReturn);
             }
 
-
             //todo 文件上传。。。
 
             mapper.Map(game, gameEntity);
-
-
 
             gameRepository.UpdateGame(gameEntity);
 

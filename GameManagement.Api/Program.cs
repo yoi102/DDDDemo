@@ -65,7 +65,6 @@ builder.Services.AddControllers(setup =>
         {
             ContentTypes = { "application/problem+json" }
         };
-
     };
 });
 
@@ -77,12 +76,9 @@ builder.Services.Configure<MvcOptions>(config =>
     newtonSoftJsonOutputFormatter?.SupportedMediaTypes.Add("application/vnd.company.hateoas+json");
 });
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
-
-
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -90,7 +86,6 @@ builder.Services.AddSwaggerGen(options =>
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     //第二个参数为是否显示控制器注释,选择true
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), true);
-
 
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
@@ -105,15 +100,10 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-
-
-
 builder.Services.AddDbContext<GameManagementDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-
 
 builder.Services.AddDbContext<ApiIdentityDbContext>(options =>
 {
@@ -127,7 +117,6 @@ builder.Services.AddIdentity<ApiIdentityUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 1;
 }).AddEntityFrameworkStores<ApiIdentityDbContext>();
-
 
 builder.Services.AddAuthorization(options =>
 {
@@ -145,8 +134,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Administrator2", policy => policy.AddRequirements(
          new EmailRequirement("@gmail.com"),
         new QualifiedUserRequirement()));
-
-
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -162,7 +149,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>();
@@ -175,23 +161,15 @@ builder.Services.AddSingleton<IAuthorizationHandler, EmailHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, CanEditHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsHandler>();
 
-
-
-
-
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services)
     .Enrich.FromLogContext()
     .WriteTo.Console());
 
-
-
-
 var app = builder.Build();
 
 app.UseSerilogRequestLogging(); // <-- Add this line
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
