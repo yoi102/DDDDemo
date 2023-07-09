@@ -90,12 +90,12 @@ builder.Services.AddSwaggerGen(options =>
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
+     {
+         Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+         In = ParameterLocation.Header,
+         Name = "Authorization",
+         Type = SecuritySchemeType.ApiKey
+     });
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });

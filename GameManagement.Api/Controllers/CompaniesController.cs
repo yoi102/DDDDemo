@@ -12,6 +12,9 @@ using System.Text.Json;
 
 namespace GameManagement.Api.Controllers
 {
+    /// <summary>
+    /// CompaniesController
+    /// </summary>
     [Route("api/companies")]
     [ApiController]
     public class CompaniesController : ControllerBase

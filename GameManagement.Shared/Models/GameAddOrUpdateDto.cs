@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameManagement.Shared.Models
 {
-    [TitleNoMustDifferentFromIntroduction(ErrorMessage = "标题必须和简介不一样！！")]
+    //[TitleNoMustDifferentFromIntroduction(ErrorMessage = "标题必须和简介不一样！！")]
     public abstract class GameAddOrUpdateDto : IValidatableObject
     {
 

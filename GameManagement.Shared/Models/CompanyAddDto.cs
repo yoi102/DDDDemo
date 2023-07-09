@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GameManagement.Shared.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManagement.Shared.Models
 {
+    [NameMustDifferentFromIntroduction(ErrorMessage = "公司名必须和简介不一样！！")]
     public class CompanyAddDto
     {
         [Display(Name = "Company Name")]

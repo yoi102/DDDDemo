@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameManagement.Shared.ValidationAttributes
 {
-    public class TitleNoMustDifferentFromIntroductionAttribute : ValidationAttribute
+    public class NameMustDifferentFromIntroductionAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var addDto = (GameAddOrUpdateDto)validationContext.ObjectInstance;
+            var addDto = (CompanyAddDto)validationContext.ObjectInstance;
 
-            return addDto.Introduction == addDto.Title
-                ? new ValidationResult(ErrorMessage, new[] { nameof(GameAddOrUpdateDto) })
+            return addDto.Introduction == addDto.Name
+                ? new ValidationResult(ErrorMessage, new[] { nameof(CompanyAddDto) })
                 : ValidationResult.Success;
         }
     }

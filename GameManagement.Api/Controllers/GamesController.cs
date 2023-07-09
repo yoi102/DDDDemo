@@ -11,13 +11,20 @@ using Microsoft.Extensions.Options;
 
 namespace GameManagement.Api.Controllers
 {
+    /// <summary>
+    /// GamesController
+    /// </summary>
     [Route("api/companies/{companiesId}/games")]
     [ApiController]
     public class GamesController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IGameRepository gameRepository;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapper"></param>
+        /// <param name="gameRepository"></param>
         public GamesController(IMapper mapper, IGameRepository gameRepository)
         {
             this.mapper = mapper;
