@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameManagement.Api.Services;
 using GameManagement.Shared.DtoParameters;
+using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,9 @@ using System.Text.Json;
 
 namespace GameManagement.Api.Controllers
 {
+    /// <summary>
+    /// TagsController
+    /// </summary>
     [Route("api/tags")]
     [ApiController]
     public class TagsController : ControllerBase
@@ -16,14 +20,23 @@ namespace GameManagement.Api.Controllers
         private readonly IMapper mapper;
         private readonly ITagRepository tagRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapper"></param>
+        /// <param name="tagRepository"></param>
         public TagsController(IMapper mapper, ITagRepository tagRepository)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
         }
 
+        /// <summary>
+        /// GetGamesByTag
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetGamesByTag))]
-        [HttpHead]
         public async Task<IActionResult> GetGamesByTag([FromQuery] TagDtoParameters parameters)
         {
             var games = await tagRepository.GetGamesAsync(parameters);
@@ -58,12 +71,78 @@ namespace GameManagement.Api.Controllers
             return Ok(linkedCollectionResource);
         }
 
-        private IEnumerable<LinkDto> CreateLinksForTag(TagDtoParameters parameters, bool hasPrevious, bool hasNext)
+        [HttpGet("{tagId}", Name = nameof(GetTag))]
+        public async Task<IActionResult> GetTag(Guid tagId)
+        {
+            var tag = await tagRepository.GetTagAsync(tagId);
+
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            var dto = mapper.Map<TagDto>(tag);
+
+            return Ok(dto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTag(AddTagDto tag)
+        {
+            var entity = mapper.Map<Tag>(tag);
+            tagRepository.AddTag(entity);
+            await tagRepository.SaveAsync();
+
+            var returnDto = mapper.Map<CompanyDto>(entity);
+
+            var links = CreateLinksForTag(returnDto.Id);
+            var linkedDict = returnDto.ShapeData(null)
+                as IDictionary<string, object>;
+
+            linkedDict.Add("links", links);
+
+            return CreatedAtRoute(nameof(GetTag), new { tagId = linkedDict["Id"] },
+                linkedDict);
+        }
+
+        public async Task<IActionResult> DeleteTag(Guid tagId)
+        {
+            var entity = await tagRepository.GetTagAsync(tagId);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            tagRepository.DeleteTag(entity);
+            await tagRepository.SaveAsync();
+
+            return NoContent();
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForTag(Guid tagId)
         {
             var links = new List<LinkDto>();
 
-            links.Add(new LinkDto(CreateTagsResourceUri(parameters, ResourceUriType.CurrentPage),
-                "self", "GET"));
+            links.Add(
+                new LinkDto(Url.Link(nameof(GetTag), new { tagId }),
+                    "self",
+                    "GET"));
+
+            links.Add(
+                new LinkDto(Url.Link(nameof(DeleteTag), new { tagId }),
+                    "delete_tag",
+                    "DELETE"));
+
+            return links;
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForTag(TagDtoParameters parameters, bool hasPrevious, bool hasNext)
+        {
+            var links = new List<LinkDto>
+            {
+                new LinkDto(CreateTagsResourceUri(parameters, ResourceUriType.CurrentPage),
+                "self", "GET")
+            };
 
             if (hasPrevious)
             {

@@ -149,6 +149,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>();
@@ -188,7 +189,9 @@ else
         });
     });
 }
-//app.UseResponseCaching();
+//app.UseCors();
+
+app.UseResponseCaching();
 
 app.UseHttpCacheHeaders();
 

@@ -222,7 +222,7 @@ namespace GameManagement.Api.Controllers
         }
 
         /// <summary>
-        /// DeleteCompany
+        /// DeleteTag
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns></returns>
