@@ -149,6 +149,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//RedisCache
+//builder.Services.AddStackExchangeRedisCache(options =>
+//{
+//    options.Configuration = "localhost";
+//    options.InstanceName = "gm_";
+//});
+
+
 builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

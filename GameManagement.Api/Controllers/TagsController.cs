@@ -5,6 +5,7 @@ using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
@@ -19,16 +20,19 @@ namespace GameManagement.Api.Controllers
     {
         private readonly IMapper mapper;
         private readonly ITagRepository tagRepository;
+        private readonly IMemoryCache memoryCache;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="mapper"></param>
         /// <param name="tagRepository"></param>
-        public TagsController(IMapper mapper, ITagRepository tagRepository)
+        /// <param name="memoryCache"></param>
+        public TagsController(IMapper mapper, ITagRepository tagRepository,IMemoryCache memoryCache)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
+            this.memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -70,7 +74,11 @@ namespace GameManagement.Api.Controllers
 
             return Ok(linkedCollectionResource);
         }
-
+        /// <summary>
+        /// GetTag
+        /// </summary>
+        /// <param name="tagId"></param>
+        /// <returns></returns>
         [HttpGet("{tagId}", Name = nameof(GetTag))]
         public async Task<IActionResult> GetTag(Guid tagId)
         {
@@ -103,7 +111,12 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetTag), new { tagId = linkedDict["Id"] },
                 linkedDict);
         }
-
+        /// <summary>
+        /// DeleteTag
+        /// </summary>
+        /// <param name="tagId"></param>
+        /// <returns></returns>
+        [HttpDelete("{tagId}", Name = nameof(DeleteTag))]
         public async Task<IActionResult> DeleteTag(Guid tagId)
         {
             var entity = await tagRepository.GetTagAsync(tagId);
