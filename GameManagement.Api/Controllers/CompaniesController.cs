@@ -5,6 +5,7 @@ using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Text.Encodings.Web;
@@ -17,6 +18,7 @@ namespace GameManagement.Api.Controllers
     /// </summary>
     [Route("api/companies")]
     [ApiController]
+    [Authorize]
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyRepository companyRepository;

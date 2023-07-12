@@ -3,8 +3,8 @@
     public abstract class EntityBase
     {
         public Guid Id { get; set; }
-        public DateTimeOffset CreateDate { get; set; }
-        public DateTimeOffset UpdateDate { get; set; }
+        public DateTimeOffset CreationTime { get; set; }
+        public DateTimeOffset UpdatedDate { get; set; }
 
 
     }

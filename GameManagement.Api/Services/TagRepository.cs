@@ -23,15 +23,15 @@ namespace GameManagement.Api.Services
             }
 
             tag.Id = Guid.NewGuid();
-            tag.CreateDate = DateTimeOffset.Now;
-            tag.UpdateDate = DateTimeOffset.Now;
+            tag.CreationTime = DateTimeOffset.Now;
+            tag.UpdatedDate = DateTimeOffset.Now;
             if (tag.Games != null)
             {
                 foreach (var game in tag.Games)
                 {
                     game.Id = Guid.NewGuid();
-                    game.CreateDate = DateTimeOffset.Now;
-                    game.UpdateDate = DateTimeOffset.Now;
+                    game.CreationTime = DateTimeOffset.Now;
+                    game.UpdatedDate = DateTimeOffset.Now;
                 }
             }
 

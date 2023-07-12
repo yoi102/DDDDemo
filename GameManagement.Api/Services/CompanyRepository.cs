@@ -75,15 +75,15 @@ namespace GameManagement.Api.Services
             }
 
             company.Id = Guid.NewGuid();
-            company.CreateDate = DateTimeOffset.Now;
-            company.UpdateDate = DateTimeOffset.Now;
+            company.CreationTime = DateTimeOffset.Now;
+            company.UpdatedDate = DateTimeOffset.Now;
             if (company.Games != null)
             {
                 foreach (var game in company.Games)
                 {
                     game.Id = Guid.NewGuid();
-                    game.CreateDate = DateTimeOffset.Now;
-                    game.UpdateDate = DateTimeOffset.Now;
+                    game.CreationTime = DateTimeOffset.Now;
+                    game.UpdatedDate = DateTimeOffset.Now;
                 }
             }
 
@@ -92,7 +92,7 @@ namespace GameManagement.Api.Services
 
         public void UpdateCompany(Company company)
         {
-            company.UpdateDate = DateTimeOffset.Now;
+            company.UpdatedDate = DateTimeOffset.Now;
             // context.Entry(company).State = EntityState.Modified;
         }
 

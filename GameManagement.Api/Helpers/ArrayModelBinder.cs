@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace GameManagement.Shared.Helpers
+namespace GameManagement.Api.Helpers
 {
     public class ArrayModelBinder : IModelBinder
     {

@@ -71,18 +71,18 @@ namespace GameManagement.Api.Services
             }
             foreach (var tag in game.Tags)
             {
-                tag.CreateDate = DateTimeOffset.UtcNow;
-                tag.UpdateDate = DateTimeOffset.UtcNow;
+                tag.CreationTime = DateTimeOffset.UtcNow;
+                tag.UpdatedDate = DateTimeOffset.UtcNow;
             }
             game.CompanyId = companyId;
-            game.CreateDate = DateTimeOffset.UtcNow;
-            game.UpdateDate = DateTimeOffset.UtcNow;
+            game.CreationTime = DateTimeOffset.UtcNow;
+            game.UpdatedDate = DateTimeOffset.UtcNow;
             context.Games.Add(game);
         }
 
         public void UpdateGame(Game game)
         {
-            game.UpdateDate = DateTimeOffset.UtcNow;
+            game.UpdatedDate = DateTimeOffset.UtcNow;
             // context.Entry(game).State = EntityState.Modified;
         }
 
