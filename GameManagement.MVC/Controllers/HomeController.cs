@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GameManagement.MVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace GameManagement.MVC.Controllers

@@ -4,6 +4,7 @@ using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.Encodings.Web;
@@ -16,6 +17,7 @@ namespace GameManagement.Api.Controllers
     /// </summary>
     [Route("api/tags")]
     [ApiController]
+    [Authorize]
     public class TagsController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -28,7 +30,7 @@ namespace GameManagement.Api.Controllers
         /// <param name="mapper"></param>
         /// <param name="tagRepository"></param>
         /// <param name="memoryCache"></param>
-        public TagsController(IMapper mapper, ITagRepository tagRepository,IMemoryCache memoryCache)
+        public TagsController(IMapper mapper, ITagRepository tagRepository, IMemoryCache memoryCache)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
@@ -41,6 +43,7 @@ namespace GameManagement.Api.Controllers
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetGamesByTag))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetGamesByTag([FromQuery] TagDtoParameters parameters)
         {
             var games = await tagRepository.GetGamesAsync(parameters);
@@ -74,12 +77,14 @@ namespace GameManagement.Api.Controllers
 
             return Ok(linkedCollectionResource);
         }
+
         /// <summary>
         /// GetTag
         /// </summary>
         /// <param name="tagId"></param>
         /// <returns></returns>
         [HttpGet("{tagId}", Name = nameof(GetTag))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetTag(Guid tagId)
         {
             var tag = await tagRepository.GetTagAsync(tagId);
@@ -111,6 +116,7 @@ namespace GameManagement.Api.Controllers
             return CreatedAtRoute(nameof(GetTag), new { tagId = linkedDict["Id"] },
                 linkedDict);
         }
+
         /// <summary>
         /// DeleteTag
         /// </summary>

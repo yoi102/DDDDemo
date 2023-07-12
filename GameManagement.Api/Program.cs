@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
+using GameManagement.JWT;
 using System.Reflection;
 using System.Text;
 
@@ -89,36 +89,41 @@ builder.Services.AddSwaggerGen(options =>
 
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-     {
-         Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
-         In = ParameterLocation.Header,
-         Name = "Authorization",
-         Type = SecuritySchemeType.ApiKey
-     });
+    options.AddAuthenticationHeader();
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
 builder.Services.AddDbContext<GameManagementDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetSection("DefaultConnection").Value);
+    //Get ConnectionStrings from secrets.json
+    options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings").Value);
     //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddDbContext<ApiIdentityDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetSection("DefaultConnection").Value);
+    options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings").Value);
     //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<ApiIdentityUser, IdentityRole>(options =>
+
+builder.Services.AddIdentityCore<ApiIdentityUser>(options =>
 {
+    options.User.RequireUniqueEmail = true;
+    options.Lockout.MaxFailedAccessAttempts = 10;
+    options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 1;
-}).AddEntityFrameworkStores<ApiIdentityDbContext>();
+    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+}).AddEntityFrameworkStores<ApiIdentityDbContext>()
+.AddDefaultTokenProviders()
+.AddRoleManager<RoleManager<ApiIdentityRole>>()
+.AddUserManager<UserManager<ApiIdentityUser>>();
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -144,8 +149,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
             ValidateIssuer = false,
             ValidateAudience = false
         };

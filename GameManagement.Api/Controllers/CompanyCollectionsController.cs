@@ -3,12 +3,14 @@ using GameManagement.Api.Services;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
 using GameManagement.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Api.Controllers
 {
     [Route("api/companycollections")]
     [ApiController]
+    [Authorize]
     public class CompanyCollectionsController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -20,7 +22,7 @@ namespace GameManagement.Api.Controllers
             this.companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
         }
 
-        // 1,2,3,4
+        [AllowAnonymous]
         [HttpGet("({ids})", Name = nameof(GetCompanyCollection))]
         public async Task<IActionResult> GetCompanyCollection(
             [FromRoute]

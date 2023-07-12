@@ -4,6 +4,7 @@ using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Models;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -16,10 +17,12 @@ namespace GameManagement.Api.Controllers
     /// </summary>
     [Route("api/companies/{companiesId}/games")]
     [ApiController]
+    [Authorize]
     public class GamesController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IGameRepository gameRepository;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -31,6 +34,7 @@ namespace GameManagement.Api.Controllers
             this.gameRepository = gameRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet(Name = nameof(GetGamesForCompany))]
         public async Task<ActionResult<IEnumerable<GameDto>>> GetGamesForCompany(Guid companyId, [FromQuery] GameDtoParameters parameters)
         {
@@ -47,6 +51,7 @@ namespace GameManagement.Api.Controllers
             return Ok(gameDtos);
         }
 
+        [AllowAnonymous]
         [HttpGet("{gameId}", Name = nameof(GetGameForCompany))]
         //[ResponseCache(Duration = 60)]
         [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 1800)]
