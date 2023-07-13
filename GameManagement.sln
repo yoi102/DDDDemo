@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.MVC", "GameM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.Shared", "GameManagement.Shared\GameManagement.Shared.csproj", "{38BCE642-1840-4058-A0AC-DE08F449A205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement.JWT", "GameManagement.JWT\GameManagement.JWT.csproj", "{AE68C680-2408-42A6-ADA5-34E46526C904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.JWT", "GameManagement.JWT\GameManagement.JWT.csproj", "{AE68C680-2408-42A6-ADA5-34E46526C904}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{C548F86D-8FB6-4E16-B486-89FCA0D7A89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement.Commons", "GameManagement.Commons\GameManagement.Commons.csproj", "{14700361-20BE-4ACC-8952-1A4FE504CA3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{F898DE99-4731-43C3-845E-1AD40BAED1D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,20 @@ Global
 		{AE68C680-2408-42A6-ADA5-34E46526C904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE68C680-2408-42A6-ADA5-34E46526C904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE68C680-2408-42A6-ADA5-34E46526C904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14700361-20BE-4ACC-8952-1A4FE504CA3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14700361-20BE-4ACC-8952-1A4FE504CA3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14700361-20BE-4ACC-8952-1A4FE504CA3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14700361-20BE-4ACC-8952-1A4FE504CA3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EA275CC-83BA-4856-996C-9C598F80579A} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
+		{38BCE642-1840-4058-A0AC-DE08F449A205} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
+		{AE68C680-2408-42A6-ADA5-34E46526C904} = {C548F86D-8FB6-4E16-B486-89FCA0D7A89B}
+		{C548F86D-8FB6-4E16-B486-89FCA0D7A89B} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
+		{14700361-20BE-4ACC-8952-1A4FE504CA3B} = {C548F86D-8FB6-4E16-B486-89FCA0D7A89B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7AC0E3-0776-44FB-83A1-1B1253C1AF92}
