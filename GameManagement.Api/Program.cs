@@ -20,7 +20,6 @@ using GameManagement.Api.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddResponseCaching();
 //Global Cache Configuration
 builder.Services.AddHttpCacheHeaders(expires =>
 {
@@ -40,13 +39,11 @@ builder.Services.AddControllers(setup =>
         Duration = 120
     });
     setup.ReturnHttpNotAcceptable = true;
-    //setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-    //setup.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
 }).AddNewtonsoftJson(setup =>
 {
     setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-}).AddXmlDataContractSerializerFormatters()// XML ���ݩ`��׷��
-.ConfigureApiBehaviorOptions(setup =>// Model ��٥�� Error
+}).AddXmlDataContractSerializerFormatters()
+.ConfigureApiBehaviorOptions(setup =>
 {
     setup.InvalidModelStateResponseFactory = context =>
     {
@@ -109,21 +106,21 @@ builder.Services.AddDbContext<ApiIdentityDbContext>(options =>
 });
 
 
-//builder.Services.AddIdentityCore<ApiIdentityUser>(options =>
-//{
-//    options.User.RequireUniqueEmail = true;
-//    options.Lockout.MaxFailedAccessAttempts = 10;
-//    options.Password.RequiredLength = 6;
-//    options.Password.RequireNonAlphanumeric = false;
-//    options.Password.RequireDigit = false;
-//    options.Password.RequireLowercase = false;
-//    options.Password.RequireUppercase = false;
-//    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
-//    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-//}).AddEntityFrameworkStores<ApiIdentityDbContext>()
-//.AddDefaultTokenProviders()
-//.AddRoleManager<RoleManager<ApiIdentityRole>>()
-//.AddUserManager<UserManager<ApiIdentityUser>>();
+builder.Services.AddIdentityCore<ApiIdentityUser>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.Lockout.MaxFailedAccessAttempts = 10;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+}).AddEntityFrameworkStores<ApiIdentityDbContext>()
+.AddDefaultTokenProviders()
+.AddRoleManager<RoleManager<ApiIdentityRole>>()
+.AddUserManager<UserManager<ApiIdentityUser>>();
 
 
 builder.Services.AddAuthorization(options =>
@@ -156,12 +153,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-//RedisCache
-//builder.Services.AddStackExchangeRedisCache(options =>
-//{
-//    options.Configuration = "localhost";
-//    options.InstanceName = "gm_";
-//});
+
 
 
 builder.Services.AddMemoryCache();

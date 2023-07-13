@@ -22,7 +22,7 @@ namespace GameManagement.JWT
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "oauth2"
             });
-            
+
             options.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
                 {
