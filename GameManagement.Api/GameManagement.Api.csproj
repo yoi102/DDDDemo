@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameManagement.JWT\GameManagement.JWT.csproj" />
     <ProjectReference Include="..\GameManagement.Shared\GameManagement.Shared.csproj" />
   </ItemGroup>
 

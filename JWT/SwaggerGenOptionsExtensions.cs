@@ -1,29 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
 
-namespace GameManagement.JWT
+namespace JWT
 {
     public static class SwaggerGenOptionsExtensions
     {
         /// <summary>
         /// 为Swagger增加Authentication报文头
         /// </summary>
-        /// <param name="options"></param>
-        public static void AddAuthenticationHeader(this SwaggerGenOptions options)
+        /// <param name="c"></param>
+        public static void AddAuthenticationHeader(this SwaggerGenOptions c)
         {
-            options.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
+            c.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
             {
-                Description = "Authorization header. \r\nExample: \"Bearer {token}\"",
+                Description = "Authorization header. \r\nExample: 'Bearer 12345abcdef'",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = "oauth2"
+                Scheme = "Authorization"
             });
 
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
                 {
                     new OpenApiSecurityScheme

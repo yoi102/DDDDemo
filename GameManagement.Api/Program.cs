@@ -1,9 +1,9 @@
 using GameManagement.Api.Authorization;
 using GameManagement.Api.DataAccess;
+using GameManagement.Api.Filters;
 using GameManagement.Api.Services;
 using GameManagement.Shared.DataAccess;
 using Marvin.Cache.Headers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
-using GameManagement.JWT;
 using System.Reflection;
 using System.Text;
-using GameManagement.Api.Filters;
-using Microsoft.AspNetCore.SignalR;
-using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,7 +85,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
-    options.AddAuthenticationHeader();
+    //options.AddAuthenticationHeader();
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
@@ -107,7 +103,6 @@ builder.Services.AddDbContext<ApiIdentityDbContext>(options =>
     //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 builder.Services.AddIdentityCore<ApiIdentityUser>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -121,36 +116,28 @@ builder.Services.AddIdentityCore<ApiIdentityUser>(options =>
     options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
 });
 
-
 var idBuilder = new IdentityBuilder(typeof(ApiIdentityUser), typeof(ApiIdentityRole), builder.Services);
 idBuilder.AddEntityFrameworkStores<ApiIdentityDbContext>()
     .AddDefaultTokenProviders()
     .AddRoleManager<RoleManager<ApiIdentityRole>>()
     .AddUserManager<UserManager<ApiIdentityUser>>();
 
-
-
-
-builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("JWT"));
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(x =>
-{
-    var jwtOpt = builder.Configuration.GetSection("JWT").Get<JWTOptions>();
-    byte[] keyBytes = Encoding.UTF8.GetBytes(jwtOpt!.Key!);
-    var secKey = new SymmetricSecurityKey(keyBytes);
-    x.TokenValidationParameters = new()
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = secKey
-    };
-});
-
-
-
-
+//builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("JWT"));
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//.AddJwtBearer(options =>
+//{
+//    var jwtOpt = builder.Configuration.GetSection("JWT").Get<JWTOptions>();
+//    byte[] keyBytes = Encoding.UTF8.GetBytes(jwtOpt!.Key!);
+//    var secKey = new SymmetricSecurityKey(keyBytes);
+//    options.TokenValidationParameters = new()
+//    {
+//        ValidateIssuer = false,
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = secKey
+//    };
+//});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -161,7 +148,7 @@ builder.Services.AddAuthorization(options =>
     //options.AddPolicy("Manager", policy => policy.RequireClaim("Manager"));
     //options.AddPolicy("Edit", policy => policy.RequireAssertion(context =>
     //{
-    //    if (context.Company.HasClaim(x => x.Type == "Edit Albums"))
+    //    if (context.Company.HasClaim(options => options.Type == "Edit Albums"))
     //        return true;
     //    return false;
     //}));
@@ -169,10 +156,6 @@ builder.Services.AddAuthorization(options =>
          new EmailRequirement("@gmail.com"),
         new QualifiedUserRequirement()));
 });
-
-
-
-
 
 builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -218,9 +201,9 @@ else
 
 app.UseResponseCaching();
 
-app.UseHttpCacheHeaders();
-
 app.UseRouting();
+
+app.UseHttpCacheHeaders();
 
 app.UseHttpsRedirection();
 
