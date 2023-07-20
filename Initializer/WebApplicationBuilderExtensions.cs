@@ -14,61 +14,75 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using StackExchange.Redis;
 using Microsoft.AspNetCore.HttpOverrides;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Initializer
 {
     public static class WebApplicationBuilderExtensions
     {
 
-        public static void ConfigureDbConfiguration(this WebApplicationBuilder builder)
+        public static void ConfigureAppConfiguration(this WebApplicationBuilder builder)
         {
             string dir = builder.Configuration.GetValue<string>("DefaultAppSettings")!;
             string fullPath = Path.Combine(dir, "appsettings.json");
             builder.Configuration.AddJsonFile(fullPath);
+
         }
 
 
-
+        //Serilog
         public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
         {
             IServiceCollection services = builder.Services;
             IConfiguration configuration = builder.Configuration;
-            //Serilog
-            builder.Host.UseSerilog((context, services, configuration) => configuration
-                       .ReadFrom.Configuration(context.Configuration)
-                       .ReadFrom.Services(services)
+            if (!string.IsNullOrEmpty(initOptions.LogFilePath))
+            {
+                services.AddLogging(builder =>
+                {
+                    Log.Logger = new LoggerConfiguration()
+                       // .MinimumLevel.Information()
                        .Enrich.FromLogContext()
-                       .WriteTo.Console());
+                       .WriteTo.Console()
+                       .WriteTo.File(initOptions.LogFilePath)
+                       .CreateLogger();
+                    builder.AddSerilog();
+                });
+
+            }
+            else
+            {
+                builder.Host.UseSerilog((context, services, configuration) => configuration
+                           .ReadFrom.Configuration(context.Configuration)
+                           .ReadFrom.Services(services)
+                           .Enrich.FromLogContext()
+                           .WriteTo.Console());
+            }
+
 
             var assemblies = ReflectionHelper.GetAllReferencedAssemblies();
             services.RunModuleInitializers(assemblies);
+
             //DbContexts
             services.AddAllDbContexts(ctx =>
             {
-
                 string connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings")!;
                 ctx.UseSqlServer(connectionStrings);
             }, assemblies);
-
 
             services.AddAuthorization();
             services.AddAuthentication();
             JWTOptions jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>()!;
             services.AddJWTAuthentication(jwtOpt);
 
-            //启用Swagger中的【Authorize】按钮
-            services.AddSwaggerGen(options =>
+            //启用Swagger中的【Authorize】按钮。
+            builder.Services.Configure<SwaggerGenOptions>(c =>
             {
-                options.AddAuthenticationHeader();
+                c.AddAuthenticationHeader();
             });
 
 
-
-
-            //结束:Authentication,Authorization
-
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies.ToArray()));
-            //不用手动AddMVC了，因此把文档中的services.AddMvc(options =>{})改写成Configure<MvcOptions>(options=> {})这个问题很多都类似
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(assemblies.ToArray()));
+            //不用手动AddMVC了，因此把文档中的services.AddMvc(c =>{})改写成Configure<MvcOptions>(c=> {})这个问题很多都类似
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add<UnitOfWorkFilter>();
@@ -90,13 +104,6 @@ namespace Initializer
             }
             );
 
-
-
-
-
-
-
-
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
             services.AddValidatorsFromAssemblies(assemblies);
@@ -114,9 +121,6 @@ namespace Initializer
                 options.ForwardedHeaders = ForwardedHeaders.All;
             });
         }
-
-
-
 
 
     }
