@@ -33,6 +33,13 @@ namespace Initializer
         {
             IServiceCollection services = builder.Services;
             IConfiguration configuration = builder.Configuration;
+            //Serilog
+            builder.Host.UseSerilog((context, services, configuration) => configuration
+                       .ReadFrom.Configuration(context.Configuration)
+                       .ReadFrom.Services(services)
+                       .Enrich.FromLogContext()
+                       .WriteTo.Console());
+
             var assemblies = ReflectionHelper.GetAllReferencedAssemblies();
             services.RunModuleInitializers(assemblies);
             //DbContexts
@@ -44,16 +51,20 @@ namespace Initializer
             }, assemblies);
 
 
-            builder.Services.AddAuthorization();
-            builder.Services.AddAuthentication();
+            services.AddAuthorization();
+            services.AddAuthentication();
             JWTOptions jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>()!;
-            builder.Services.AddJWTAuthentication(jwtOpt);
+            services.AddJWTAuthentication(jwtOpt);
 
             //启用Swagger中的【Authorize】按钮
-            builder.Services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(options =>
             {
                 options.AddAuthenticationHeader();
             });
+
+
+
+
             //结束:Authentication,Authorization
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies.ToArray()));
@@ -78,15 +89,14 @@ namespace Initializer
                         .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             }
             );
-            services.AddLogging(builder =>
-            {
-                Log.Logger = new LoggerConfiguration()
-                   // .MinimumLevel.Information().Enrich.FromLogContext()
-                   .WriteTo.Console()
-                   .WriteTo.File(initOptions.LogFilePath)
-                   .CreateLogger();
-                builder.AddSerilog();
-            });
+
+
+
+
+
+
+
+
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
             services.AddValidatorsFromAssemblies(assemblies);
