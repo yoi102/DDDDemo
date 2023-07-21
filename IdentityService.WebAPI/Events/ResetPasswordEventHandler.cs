@@ -1,10 +1,14 @@
-﻿using IdentityService.Domain;
-using Zack.EventBus;
+﻿using Commons;
+using IdentityService.Domain;
+using MediatR;
+
 
 namespace IdentityService.WebAPI.Events
 {
-    [EventName("IdentityService.User.PasswordReset")]
-    public class ResetPasswordEventHandler : JsonIntegrationEventHandler<ResetPasswordEvent>
+
+
+
+    public class ResetPasswordEventHandler : INotificationHandler<ResetPasswordEvent>
     {
         private readonly ISmsSender smsSender;
 
@@ -12,15 +16,14 @@ namespace IdentityService.WebAPI.Events
         {
             this.smsSender = smsSender;
         }
-
-        public override Task HandleJson(string eventName, ResetPasswordEvent? eventData)
+        public Task Handle(ResetPasswordEvent notification, CancellationToken cancellationToken)
         {
-            if (eventData is not null)
-            {
-                //发送密码给被用户的手机
-                return smsSender.SendAsync(eventData.PhoneNumber, eventData.Password);
-            }
-            return Task.CompletedTask;
+            return smsSender.SendAsync(notification.PhoneNumber, notification.Password);
         }
     }
+
+
+
+
+
 }

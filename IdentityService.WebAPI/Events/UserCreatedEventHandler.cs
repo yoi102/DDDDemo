@@ -1,10 +1,12 @@
-﻿using IdentityService.Domain;
+﻿using Commons;
+using IdentityService.Domain;
+using MediatR;
 using Zack.EventBus;
 
 namespace IdentityService.WebAPI.Events
 {
-    [EventName("IdentityService.User.Created")]
-    public class UserCreatedEventHandler : JsonIntegrationEventHandler<UserCreatedEvent>
+
+    public class UserCreatedEventHandler : INotificationHandler<UserCreatedEvent>
     {
         private readonly ISmsSender smsSender;
 
@@ -12,18 +14,9 @@ namespace IdentityService.WebAPI.Events
         {
             this.smsSender = smsSender;
         }
-
-        public override Task HandleJson(string eventName, UserCreatedEvent? eventData)
+        public Task Handle(UserCreatedEvent notification, CancellationToken cancellationToken)
         {
-            if (eventData is not null)
-            {
-                //发送初始密码给被创建用户的手机
-                return smsSender.SendAsync(eventData.PhoneNum, eventData.Password);
-            }
-            return Task.CompletedTask;
+            return smsSender.SendAsync(notification.PhoneNumber, notification.Password);
         }
-
-
-
     }
 }
