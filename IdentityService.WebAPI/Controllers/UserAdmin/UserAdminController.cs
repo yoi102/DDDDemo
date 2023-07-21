@@ -10,7 +10,7 @@ using Zack.EventBus;
 
 namespace IdentityService.WebAPI.Controllers.UserAdmin;
 
-[Route("[controller]/[action]")]
+[Route("useradmin")]
 [ApiController]
 [Authorize(Roles = "Admin")]
 public class UserAdminController : ControllerBase

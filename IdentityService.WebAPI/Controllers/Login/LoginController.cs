@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace IdentityService.WebAPI.Controllers.Login;
 
-[Route("[controller]/[action]")]
+[Route("login")]
 [ApiController]
 public class LoginController : ControllerBase
 {
@@ -33,8 +33,8 @@ public class LoginController : ControllerBase
         User user = new("Admin");
         var r = await identityRepository.CreateAsync(user, "123456");
         Debug.Assert(r.Succeeded);
-        var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "189999999999");
-        var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "189999999999", token);
+        var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "18999999999");
+        var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "18999999999", token);
         Debug.Assert(cr.Succeeded);
         r = await identityRepository.AddToRoleAsync(user, "Admin");
         Debug.Assert(r.Succeeded);
@@ -64,6 +64,7 @@ public class LoginController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
+    [Route("login-by-phone-and-password")]
     public async Task<ActionResult<string?>> LoginByPhoneAndPassword(LoginByPhoneAndPwdRequest req)
     {
         //todo：要通过行为验证码、图形验证码等形式来防止暴力破解
@@ -86,6 +87,7 @@ public class LoginController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
+    [Route("login-by-username-and-password")]
     public async Task<ActionResult<string>> LoginByUserNameAndPassword(LoginByUserNameAndPwdRequest req)
     {
         (var checkResult, var token) = await identityDomainService.LoginByUserNameAndPasswordAsync(req.UserName, req.Password);
@@ -101,6 +103,7 @@ public class LoginController : ControllerBase
 
     [HttpPost]
     [Authorize]
+    [Route("change-my-password")]
     public async Task<ActionResult> ChangeMyPassword(ChangeMyPasswordRequest req)
     {
         var nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
