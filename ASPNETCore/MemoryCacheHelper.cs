@@ -33,7 +33,8 @@ namespace ASPNETCore
 
         private static void InitCacheEntry(ICacheEntry entry, int baseExpireSeconds)
         {
-            //过期时间.Random.Shared 是.NET6新增的
+            //过期时间
+            //.Random.Shared    .NET6新增
             double sec = Random.Shared.NextDouble(baseExpireSeconds, baseExpireSeconds * 2);
             TimeSpan expiration = TimeSpan.FromSeconds(sec);
             entry.AbsoluteExpirationRelativeToNow = expiration;

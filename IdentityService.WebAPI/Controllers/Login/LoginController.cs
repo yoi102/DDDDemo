@@ -1,4 +1,5 @@
-﻿using IdentityService.Domain;
+﻿using Commons;
+using IdentityService.Domain;
 using IdentityService.Domain.Entities;
 using IdentityService.WebAPI.Controllers.Login.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -26,19 +27,19 @@ public class LoginController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult> CreateWorld()
     {
-        if (await identityRepository.FindByNameAsync("Admin") != null)
+        if (await identityRepository.FindByNameAsync(UserRoles.Administrator) != null)
         {
             return StatusCode((int)HttpStatusCode.Conflict, "已经初始化过了");
         }
-        User user = new("Admin");
+        User user = new(UserRoles.Administrator);
         var r = await identityRepository.CreateAsync(user, "123456");
         Debug.Assert(r.Succeeded);
         var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "18999999999");
         var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "18999999999", token);
         Debug.Assert(cr.Succeeded);
-        r = await identityRepository.AddToRoleAsync(user, "Admin");
+        r = await identityRepository.AddToRoleAsync(user, UserRoles.Administrator);
         Debug.Assert(r.Succeeded);
-        r = await identityRepository.AddToRoleAsync(user, "Admin");
+        r = await identityRepository.AddToRoleAsync(user, UserRoles.Administrator);
         Debug.Assert(r.Succeeded);
         return Ok();
     }

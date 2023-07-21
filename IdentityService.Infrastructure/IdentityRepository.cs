@@ -1,4 +1,5 @@
-﻿using IdentityService.Domain;
+﻿using Commons;
+using IdentityService.Domain;
 using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -217,7 +218,7 @@ namespace IdentityService.Infrastructure
             {
                 return (result, null, null);
             }
-            result = await AddToRoleAsync(user, "Admin");
+            result = await AddToRoleAsync(user, UserRoles.Administrator);
             return !result.Succeeded ? ((IdentityResult, User?, string? password))(result, null, null) : ((IdentityResult, User?, string? password))(IdentityResult.Success, user, password);
         }
 

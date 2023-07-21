@@ -9,23 +9,22 @@ using System.Transactions;
 namespace ASPNETCore;
 public class UnitOfWorkFilter : IAsyncActionFilter
 {
-    private static UnitOfWorkAttribute? GetUoWAttr(ActionDescriptor actionDesc)
+    private static UnitOfWorkAttribute? GetUoWAttr(ActionDescriptor actionDescriptor)
     {
-        var caDesc = actionDesc as ControllerActionDescriptor;
-        if (caDesc == null)
+        var controllerActionDescriptor = actionDescriptor as ControllerActionDescriptor;
+        if (controllerActionDescriptor == null)
         {
             return null;
         }
         //try to get UnitOfWorkAttribute from controller,
         //if there is no UnitOfWorkAttribute on controller, 
         //try to get UnitOfWorkAttribute from action
-        var uowAttr = caDesc.ControllerTypeInfo
+        var uowAttr = controllerActionDescriptor.ControllerTypeInfo
             .GetCustomAttribute<UnitOfWorkAttribute>();
-        return uowAttr ?? caDesc.MethodInfo
+        return uowAttr ?? controllerActionDescriptor.MethodInfo
                 .GetCustomAttribute<UnitOfWorkAttribute>();
     }
-    public async Task OnActionExecutionAsync(ActionExecutingContext context,
-        ActionExecutionDelegate next)
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         var uowAttr = GetUoWAttr(context.ActionDescriptor);
         if (uowAttr == null)

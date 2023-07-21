@@ -1,4 +1,5 @@
-﻿using IdentityService.Domain;
+﻿using Commons;
+using IdentityService.Domain;
 using IdentityService.Infrastructure;
 using IdentityService.WebAPI.Controllers.UserAdmin.Models;
 using IdentityService.WebAPI.Events;
@@ -12,7 +13,7 @@ namespace IdentityService.WebAPI.Controllers.UserAdmin;
 
 [Route("useradmin")]
 [ApiController]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = UserRoles.Administrator)]
 public class UserAdminController : ControllerBase
 {
     private readonly IdentityUserManager identityUserManager;

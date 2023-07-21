@@ -38,7 +38,7 @@ namespace GameManagement.Api.Controllers
         //    List<Claim> claims = new List<Claim>
         //    {
         //        new Claim(ClaimTypes.Name, user.Username),
-        //        new Claim(ClaimTypes.Role, "Admin")
+        //        new Claim(ClaimTypes.Role,UserRoles.Administrator)
         //    };
 
         //    var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
