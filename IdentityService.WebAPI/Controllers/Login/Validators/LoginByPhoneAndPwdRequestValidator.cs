@@ -7,7 +7,7 @@ namespace IdentityService.WebAPI.Controllers.Login.Validators
     {
         public LoginByPhoneAndPwdRequestValidator()
         {
-            RuleFor(e => e.PhoneNum).NotNull().NotEmpty();
+            RuleFor(e => e.PhoneNumber).NotNull().NotEmpty();
             RuleFor(e => e.Password).NotNull().NotEmpty();
         }
     }

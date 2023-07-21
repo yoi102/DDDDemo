@@ -1,9 +1,9 @@
-﻿using Zack.Commons;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Zack.Commons;
 
 namespace ASPNETCore
 {
-    class ModuleInitializer : IModuleInitializer
+    internal class ModuleInitializer : IModuleInitializer
     {
         public void Initialize(IServiceCollection services)
         {

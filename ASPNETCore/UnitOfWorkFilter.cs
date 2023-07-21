@@ -21,15 +21,8 @@ public class UnitOfWorkFilter : IAsyncActionFilter
         //try to get UnitOfWorkAttribute from action
         var uowAttr = caDesc.ControllerTypeInfo
             .GetCustomAttribute<UnitOfWorkAttribute>();
-        if (uowAttr != null)
-        {
-            return uowAttr;
-        }
-        else
-        {
-            return caDesc.MethodInfo
+        return uowAttr ?? caDesc.MethodInfo
                 .GetCustomAttribute<UnitOfWorkAttribute>();
-        }
     }
     public async Task OnActionExecutionAsync(ActionExecutingContext context,
         ActionExecutionDelegate next)
@@ -41,7 +34,7 @@ public class UnitOfWorkFilter : IAsyncActionFilter
             return;
         }
         using TransactionScope txScope = new(TransactionScopeAsyncFlowOption.Enabled);
-        List<DbContext> dbCtxs = new List<DbContext>();
+        List<DbContext> dbCtxs = new();
         foreach (var dbCtxType in uowAttr.DbContextTypes)
         {
             //用HttpContext的RequestServices

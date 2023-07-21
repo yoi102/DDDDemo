@@ -2,7 +2,6 @@
 using GameManagement.Shared.DtoParameters;
 using GameManagement.Shared.Entities;
 using GameManagement.Shared.Helpers;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GameManagement.Api.Services
 {

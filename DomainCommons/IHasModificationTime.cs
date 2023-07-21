@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DomainCommons
+﻿namespace DomainCommons
 {
     public interface IHasModificationTime
     {

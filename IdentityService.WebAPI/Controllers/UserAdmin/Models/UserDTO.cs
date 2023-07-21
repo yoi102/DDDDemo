@@ -1,5 +1,4 @@
-﻿using IdentityService.Domain;
-using IdentityService.Domain.Entities;
+﻿using IdentityService.Domain.Entities;
 
 namespace IdentityService.WebAPI.Controllers.UserAdmin.Models;
 public record UserDTO(Guid Id, string? UserName, string? PhoneNumber, DateTimeOffset CreationTime)

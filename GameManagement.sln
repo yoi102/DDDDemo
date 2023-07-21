@@ -27,11 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNETCore", "ASPNETCore\AS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{AB7563CA-EF20-4919-BC12-D3CB1485B602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Domain", "IdentityService.Domain\IdentityService.Domain.csproj", "{2B32AE31-A834-4333-9B5A-EEFFB01296CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "IdentityService.Domain\IdentityService.Domain.csproj", "{2B32AE31-A834-4333-9B5A-EEFFB01296CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{4350CF0B-1096-4275-9496-BE9825A4860E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{4350CF0B-1096-4275-9496-BE9825A4860E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.WebAPI", "IdentityService.WebAPI\IdentityService.WebAPI.csproj", "{A00617F5-3FCA-40AE-875F-E8C7C9E3C941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebAPI", "IdentityService.WebAPI\IdentityService.WebAPI.csproj", "{A00617F5-3FCA-40AE-875F-E8C7C9E3C941}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileService", "FileService", "{01F32D5D-494F-4A4A-8724-431607621E0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,7 @@ Global
 		{2B32AE31-A834-4333-9B5A-EEFFB01296CB} = {AB7563CA-EF20-4919-BC12-D3CB1485B602}
 		{4350CF0B-1096-4275-9496-BE9825A4860E} = {AB7563CA-EF20-4919-BC12-D3CB1485B602}
 		{A00617F5-3FCA-40AE-875F-E8C7C9E3C941} = {AB7563CA-EF20-4919-BC12-D3CB1485B602}
+		{01F32D5D-494F-4A4A-8724-431607621E0E} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7AC0E3-0776-44FB-83A1-1B1253C1AF92}

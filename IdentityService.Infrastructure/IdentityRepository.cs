@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IdentityService.Infrastructure
 {
-    class IdentityRepository : IIdentityRepository
+    internal class IdentityRepository : IIdentityRepository
     {
         private readonly IdentityUserManager userManager;
         private readonly RoleManager<Role> roleManager;
@@ -78,9 +78,14 @@ namespace IdentityService.Infrastructure
                 return IdentityResult.Failed(err);
             }
             var user = await userManager.FindByIdAsync(userId.ToString());
-            var token = await userManager.GeneratePasswordResetTokenAsync(user);
-            var resetPwdResult = await userManager.ResetPasswordAsync(user, token, password);
-            return resetPwdResult;
+            if (user is not null)
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var resetPwdResult = await userManager.ResetPasswordAsync(user, token, password);
+                return resetPwdResult;
+            }
+
+            return IdentityResult.Failed();
         }
 
         public Task<string> GenerateChangePhoneNumberTokenAsync(User user, string phoneNumber)
@@ -213,11 +218,7 @@ namespace IdentityService.Infrastructure
                 return (result, null, null);
             }
             result = await AddToRoleAsync(user, "Admin");
-            if (!result.Succeeded)
-            {
-                return (result, null, null);
-            }
-            return (IdentityResult.Success, user, password);
+            return !result.Succeeded ? ((IdentityResult, User?, string? password))(result, null, null) : ((IdentityResult, User?, string? password))(IdentityResult.Success, user, password);
         }
 
         public async Task<(IdentityResult, User?, string? password)> ResetPasswordAsync(Guid id)
@@ -230,11 +231,7 @@ namespace IdentityService.Infrastructure
             string password = GeneratePassword();
             string token = await userManager.GeneratePasswordResetTokenAsync(user);
             var result = await userManager.ResetPasswordAsync(user, token, password);
-            if (!result.Succeeded)
-            {
-                return (result, null, null);
-            }
-            return (IdentityResult.Success, user, password);
+            return !result.Succeeded ? ((IdentityResult, User?, string? password))(result, null, null) : ((IdentityResult, User?, string? password))(IdentityResult.Success, user, password);
         }
 
         private string GeneratePassword()

@@ -5,7 +5,7 @@ using Zack.Commons;
 
 namespace IdentityService.Infrastructure
 {
-    class ModuleInitializer : IModuleInitializer
+    internal class ModuleInitializer : IModuleInitializer
     {
         public void Initialize(IServiceCollection services)
         {

@@ -2,7 +2,7 @@
 
 namespace GameManagement.Api.DataAccess
 {
-    public class ApiIdentityRole:IdentityRole<long>
+    public class ApiIdentityRole : IdentityRole<long>
     {
     }
 }

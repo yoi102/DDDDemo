@@ -17,7 +17,7 @@ namespace ASPNETCore
         {
             double sec = Random.Shared.NextDouble(baseExpireSeconds, baseExpireSeconds * 2);
             TimeSpan expiration = TimeSpan.FromSeconds(sec);
-            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions();
+            DistributedCacheEntryOptions options = new();
             options.AbsoluteExpirationRelativeToNow = expiration;
             return options;
         }

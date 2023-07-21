@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ASPNETCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Infrastructure.EFCore;
+using JWT;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Zack.EventBus;
-using Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
-using JWT;
-using ASPNETCore;
+using Serilog;
+using StackExchange.Redis;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Zack.Commons;
 using Zack.Commons.JsonConverters;
-using Serilog;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using StackExchange.Redis;
-using Microsoft.AspNetCore.HttpOverrides;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using Zack.EventBus;
 
 namespace Initializer
 {
@@ -23,7 +23,7 @@ namespace Initializer
 
         public static void ConfigureAppConfiguration(this WebApplicationBuilder builder)
         {
-            string dir = builder.Configuration.GetValue<string>("DefaultAppSettings")!;
+            string dir = builder.Configuration.GetValue<string>("DefaultDirectory")!;
             string fullPath = Path.Combine(dir, "appsettings.json");
             builder.Configuration.AddJsonFile(fullPath);
 
@@ -113,8 +113,8 @@ namespace Initializer
             services.AddEventBus(initOptions.EventBusQueueName, assemblies);
 
             //Redis的配置
-            string redisConnectionStrings = configuration.GetValue<string>("Redis:ConnectionStrings")!;
-            IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConnectionStrings);
+            string redisConfiguration = configuration.GetValue<string>("Redis:ConnectionStrings")!;
+            IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConfiguration);
             services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
             services.Configure<ForwardedHeadersOptions>(options =>
             {

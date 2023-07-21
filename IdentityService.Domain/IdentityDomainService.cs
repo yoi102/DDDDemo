@@ -76,7 +76,7 @@ namespace IdentityService.Domain
         private async Task<string> BuildTokenAsync(User user)
         {
             var roles = await repository.GetRolesAsync(user);
-            List<Claim> claims = new List<Claim>
+            List<Claim> claims = new()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };

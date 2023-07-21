@@ -1,5 +1,4 @@
-﻿using GameManagement.Shared.ValidationAttributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace GameManagement.Shared.Models

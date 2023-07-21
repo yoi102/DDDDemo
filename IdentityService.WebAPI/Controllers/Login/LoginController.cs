@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace IdentityService.WebAPI.Controllers.Login;
 
-[Route("[controller]/[action]")]
+[Route("login")]
 [ApiController]
 public class LoginController : ControllerBase
 {
@@ -33,8 +33,8 @@ public class LoginController : ControllerBase
         User user = new("Admin");
         var r = await identityRepository.CreateAsync(user, "123456");
         Debug.Assert(r.Succeeded);
-        var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "189999999999");
-        var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "189999999999", token);
+        var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "18999999999");
+        var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "18999999999", token);
         Debug.Assert(cr.Succeeded);
         r = await identityRepository.AddToRoleAsync(user, "Admin");
         Debug.Assert(r.Succeeded);
@@ -53,21 +53,17 @@ public class LoginController : ControllerBase
             return NotFound();
         }
         var user = await identityRepository.FindByIdAsync(Guid.Parse(userId));
-        if (user == null)//可能用户注销了
-        {
-            return NotFound();
-        }
-
-        return new UserResponse(user.Id, user.Email, user.PhoneNumber, user.CreationTime);
+        return user == null ? (ActionResult<UserResponse>)NotFound() : (ActionResult<UserResponse>)new UserResponse(user.Id, user.Email, user.PhoneNumber, user.CreationTime);
     }
 
 
     [AllowAnonymous]
     [HttpPost]
-    public async Task<ActionResult<string?>> LoginByPhoneAndPassword(LoginByPhoneAndPwdRequest req)
+    [Route("login-by-phone-and-password")]
+    public async Task<ActionResult<string?>> LoginByPhoneAndPassword(LoginByPhoneAndPwdRequest request)
     {
         //todo：要通过行为验证码、图形验证码等形式来防止暴力破解
-        (var checkResult, string? token) = await identityDomainService.LoginByPhoneAndPasswordAsync(req.PhoneNum, req.Password);
+        (var checkResult, string? token) = await identityDomainService.LoginByPhoneAndPasswordAsync(request.PhoneNumber, request.Password);
         if (checkResult.Succeeded)
         {
             return token;
@@ -86,9 +82,10 @@ public class LoginController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
-    public async Task<ActionResult<string>> LoginByUserNameAndPassword(LoginByUserNameAndPwdRequest req)
+    [Route("login-by-username-and-password")]
+    public async Task<ActionResult<string>> LoginByUserNameAndPassword(LoginByUserNameAndPwdRequest request)
     {
-        (var checkResult, var token) = await identityDomainService.LoginByUserNameAndPasswordAsync(req.UserName, req.Password);
+        (var checkResult, var token) = await identityDomainService.LoginByUserNameAndPasswordAsync(request.UserName, request.Password);
         if (checkResult.Succeeded) return token!;
         else if (checkResult.IsLockedOut)//尝试登录次数太多
             return StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定");
@@ -101,18 +98,12 @@ public class LoginController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> ChangeMyPassword(ChangeMyPasswordRequest req)
+    [Route("change-my-password")]
+    public async Task<ActionResult> ChangeMyPassword(ChangeMyPasswordRequest request)
     {
         var nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Guid.TryParse(nameIdentifier, out Guid userId);
-        var resetPwdResult = await identityRepository.ChangePasswordAsync(userId, req.Password);
-        if (resetPwdResult.Succeeded)
-        {
-            return Ok();
-        }
-        else
-        {
-            return BadRequest(resetPwdResult.Errors.SumErrors());
-        }
+        var resetPwdResult = await identityRepository.ChangePasswordAsync(userId, request.Password);
+        return resetPwdResult.Succeeded ? Ok() : BadRequest(resetPwdResult.Errors.SumErrors());
     }
 }

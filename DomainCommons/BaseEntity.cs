@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DomainCommons
@@ -9,7 +7,7 @@ namespace DomainCommons
     {
         //不能readonly？
         [NotMapped]
-        private  List<INotification> domainEvents = new();
+        private List<INotification> domainEvents = new();
 
         public Guid Id { get; protected set; } = Guid.NewGuid();
 

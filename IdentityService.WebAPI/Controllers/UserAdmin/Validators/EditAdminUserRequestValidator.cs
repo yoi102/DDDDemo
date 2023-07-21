@@ -7,7 +7,7 @@ namespace IdentityService.WebAPI.Controllers.UserAdmin.Validators
     {
         public EditAdminUserRequestValidator()
         {
-            RuleFor(e => e.PhoneNum).NotNull().NotEmpty();
+            RuleFor(e => e.PhoneNumber).NotNull().NotEmpty();
         }
     }
 }

@@ -3,7 +3,7 @@ using Zack.Commons;
 
 namespace JWT
 {
-    class ModuleInitializer : IModuleInitializer
+    internal class ModuleInitializer : IModuleInitializer
     {
         public void Initialize(IServiceCollection services)
         {

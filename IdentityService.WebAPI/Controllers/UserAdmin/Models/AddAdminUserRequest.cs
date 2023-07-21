@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace IdentityService.WebAPI.Controllers.UserAdmin.Models
+﻿namespace IdentityService.WebAPI.Controllers.UserAdmin.Models
 {
-    public record AddAdminUserRequest(string UserName, string PhoneNum);
+    public record AddAdminUserRequest(string UserName, string PhoneNumber);
 }

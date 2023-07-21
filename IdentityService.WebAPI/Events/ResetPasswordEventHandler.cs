@@ -1,5 +1,4 @@
 ﻿using IdentityService.Domain;
-using Microsoft.Extensions.Logging;
 using Zack.EventBus;
 
 namespace IdentityService.WebAPI.Events
@@ -19,7 +18,7 @@ namespace IdentityService.WebAPI.Events
             if (eventData is not null)
             {
                 //发送密码给被用户的手机
-                return smsSender.SendAsync(eventData.PhoneNum, eventData.Password);
+                return smsSender.SendAsync(eventData.PhoneNumber, eventData.Password);
             }
             return Task.CompletedTask;
         }
