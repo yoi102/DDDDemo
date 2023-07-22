@@ -19,11 +19,12 @@ public class UserAdminController : ControllerBase
     private readonly IMediator mediator;
     private readonly IIdentityRepository identityRepository;
 
-    public UserAdminController(IdentityUserManager userManager, IMediator mediator, IIdentityRepository repository)
+    public UserAdminController(IdentityUserManager identityUserManager, IMediator mediator, IIdentityRepository identityRepository)
     {
-        this.identityUserManager = userManager;
+        this.identityUserManager = identityUserManager;
         this.mediator = mediator;
-        this.identityRepository = repository;
+        this.identityRepository = identityRepository;
+
     }
 
     [HttpGet]

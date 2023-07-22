@@ -57,7 +57,6 @@ public class LoginController : ControllerBase
         return user == null ? (ActionResult<UserResponse>)NotFound() : (ActionResult<UserResponse>)new UserResponse(user.Id, user.Email, user.PhoneNumber, user.CreationTime);
     }
 
-
     [AllowAnonymous]
     [HttpPost]
     [Route("login-by-phone-and-password")]
