@@ -6,6 +6,7 @@ namespace GameManagement.Shared.Models
     {
         [Required]
         public string? Tag { get; set; }
+
         public GameAddDto? Game { get; set; }
     }
 }

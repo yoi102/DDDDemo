@@ -17,6 +17,7 @@ namespace GameManagement.Shared.Models
 
         [Required]
         public string? Country { get; set; }
+
         [Required]
         public DateTimeOffset EstablishmentTime { get; set; }
 

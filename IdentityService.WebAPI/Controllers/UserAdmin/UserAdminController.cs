@@ -87,7 +87,7 @@ public class UserAdminController : ControllerBase
             return BadRequest(result.Errors.SumErrors());
         }
         //生成的密码短信发给对方
-        ResetPasswordEvent resetPassword = new ResetPasswordEvent(user!.Id, user!.UserName!, password!, user!.PhoneNumber!);
+        ResetPasswordEvent resetPassword = new(user!.Id, user!.UserName!, password!, user!.PhoneNumber!);
         await mediator.Publish(resetPassword);
         return Ok();
     }

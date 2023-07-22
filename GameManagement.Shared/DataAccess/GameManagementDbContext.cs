@@ -1,21 +1,18 @@
 ﻿using GameManagement.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GameManagement.Shared.DataAccess
 {
     public class GameManagementDbContext : DbContext
     {
-
         public GameManagementDbContext(DbContextOptions<GameManagementDbContext> options) : base(options)
         {
         }
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<DisplayItem> DisplayItems { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,7 +36,5 @@ namespace GameManagement.Shared.DataAccess
                 .WithMany(e => e.Games);
             });
         }
-
-
     }
 }

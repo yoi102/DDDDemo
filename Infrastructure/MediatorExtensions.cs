@@ -12,6 +12,7 @@ namespace Infrastructure
         {
             return services.AddMediatR(assemblies.ToArray());
         }
+
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, DbContext ctx)
         {
             var domainEntities = ctx.ChangeTracker

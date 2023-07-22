@@ -6,7 +6,6 @@ namespace Infrastructure.EFCore
 {
     public static class EFCoreInitializerHelper
     {
-
         public static IServiceCollection AddAllDbContexts(this IServiceCollection services, Action<DbContextOptionsBuilder> builder,
             IEnumerable<Assembly> assemblies)
         {
@@ -26,6 +25,5 @@ namespace Infrastructure.EFCore
             }
             return services;
         }
-
     }
 }

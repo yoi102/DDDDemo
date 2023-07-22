@@ -58,9 +58,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityService.WebAPI v1"));
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseDefaultMiddleware();
 
 app.MapControllers();
 

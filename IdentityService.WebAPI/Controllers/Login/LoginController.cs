@@ -27,7 +27,7 @@ public class LoginController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult> CreateWorld()
     {
-        if (await identityRepository.FindByNameAsync(UserRoles.Administrator) != null)
+        if (await identityRepository.FindByNameAsync(UserRoles.Administrator) is not null)
         {
             return StatusCode((int)HttpStatusCode.Conflict, "已经初始化过了");
         }

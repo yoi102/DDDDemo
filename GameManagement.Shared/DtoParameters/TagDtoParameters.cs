@@ -5,6 +5,7 @@ namespace GameManagement.Shared.DtoParameters
     public class TagDtoParameters
     {
         private const int MaxPageSize = 20;
+
         [Required]
         public string Tag { get; set; } = string.Empty;
 
@@ -16,12 +17,5 @@ namespace GameManagement.Shared.DtoParameters
             get => _pageSize;
             set => _pageSize = value > MaxPageSize ? MaxPageSize : value;
         }
-
-
-
-
-
-
-
     }
 }

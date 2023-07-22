@@ -1,7 +1,5 @@
-﻿using Commons;
-using IdentityService.Domain;
+﻿using IdentityService.Domain;
 using MediatR;
-using Zack.EventBus;
 
 namespace IdentityService.WebAPI.Events
 {

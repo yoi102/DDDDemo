@@ -1,4 +1,5 @@
 ﻿using ASPNETCore;
+using Commons;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.EFCore;
@@ -20,15 +21,12 @@ namespace Initializer
 {
     public static class WebApplicationBuilderExtensions
     {
-
         public static void ConfigureAppConfiguration(this WebApplicationBuilder builder)
         {
             string dir = builder.Configuration.GetValue<string>("DefaultDirectory")!;
             string fullPath = Path.Combine(dir, "appsettings.json");
             builder.Configuration.AddJsonFile(fullPath);
-
         }
-
 
         //Serilog
         public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
@@ -47,7 +45,6 @@ namespace Initializer
                        .CreateLogger();
                     builder.AddSerilog();
                 });
-
             }
             else
             {
@@ -58,28 +55,30 @@ namespace Initializer
                            .WriteTo.Console());
             }
 
-
             var assemblies = ReflectionHelper.GetAllReferencedAssemblies();
             services.RunModuleInitializers(assemblies);
 
-            //DbContexts
+            // DbContexts
             services.AddAllDbContexts(ctx =>
             {
                 string connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings")!;
                 ctx.UseSqlServer(connectionStrings);
             }, assemblies);
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                // AddPolicy
+                options.AddPolicy(UserRoles.Administrator, policy => policy.RequireRole(UserRoles.Administrator));
+            });
+
             services.AddAuthentication();
             JWTOptions jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>()!;
             services.AddJWTAuthentication(jwtOpt);
-
-            //启用Swagger中的【Authorize】按钮。
+            // 启用Swagger中的【Authorize】按钮。
             builder.Services.Configure<SwaggerGenOptions>(c =>
             {
                 c.AddAuthenticationHeader();
             });
-
 
             services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(assemblies.ToArray()));
             //不用手动AddMVC了，因此把文档中的services.AddMvc(c =>{})改写成Configure<MvcOptions>(c=> {})这个问题很多都类似
@@ -121,7 +120,5 @@ namespace Initializer
                 options.ForwardedHeaders = ForwardedHeaders.All;
             });
         }
-
-
     }
 }

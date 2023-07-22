@@ -5,7 +5,5 @@
         public Guid Id { get; set; }
         public DateTimeOffset CreationTime { get; set; }
         public DateTimeOffset UpdatedDate { get; set; }
-
-
     }
 }

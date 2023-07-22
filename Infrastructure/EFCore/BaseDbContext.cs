@@ -20,10 +20,8 @@ namespace Infrastructure.EFCore
         }
 
         //另一个重载的SaveChangesAsync(CancellationToken cancellationToken)也调用这个SaveChangesAsync方法。所以在这里统一控制
-        public async override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
-
-
             await mediator.DispatchDomainEventsAsync(this);
 
             var softDeletedEntities = this.ChangeTracker.Entries<ISoftDelete>()
