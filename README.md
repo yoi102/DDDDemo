@@ -1,4 +1,5 @@
 # Prerequisite
+SQL Server    
 Elastic Search   
 Nginx     
 Redis     
