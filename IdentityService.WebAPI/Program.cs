@@ -11,7 +11,7 @@ builder.ConfigureAppConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
     EventBusQueueName = "IdentityService.WebAPI",
-    LogFilePath = null
+    LogFilePath = "h:/logs/IdentityService/log-.txt"
 });
 builder.Services.AddControllers();
 

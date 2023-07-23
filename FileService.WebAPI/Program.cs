@@ -10,6 +10,7 @@ builder.ConfigureAppConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
     EventBusQueueName = "FileService.WebAPI",
+    LogFilePath = "h:/logs/FileService/log-.txt"
 });
 builder.Services.AddSwaggerGen(c =>
 {
