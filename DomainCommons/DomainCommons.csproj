@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Strongly" Version="1.1.0" ExcludeAssets="runtime" />
   </ItemGroup>
 
 </Project>

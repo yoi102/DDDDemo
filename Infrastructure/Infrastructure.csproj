@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.6.23329.4" />
+    <PackageReference Include="Strongly.EFCore" Version="1.4.1"  ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>

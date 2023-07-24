@@ -1,4 +1,5 @@
 ﻿using DomainCommons;
+using Strongly;
 
 namespace FileService.Domain.Entities
 {
@@ -19,7 +20,7 @@ namespace FileService.Domain.Entities
             BackupUrl = backupUrl;
             RemoteUrl = remoteUrl;
         }
-
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         public DateTimeOffset CreationTime { get; private set; }
 

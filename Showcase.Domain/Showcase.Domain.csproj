@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\" />
+    <ProjectReference Include="..\Commons\Commons.csproj" />
+    <ProjectReference Include="..\DomainCommons\DomainCommons.csproj" />
   </ItemGroup>
 
 </Project>

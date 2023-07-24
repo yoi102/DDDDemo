@@ -6,9 +6,10 @@ namespace Infrastructure.EFCore
 {
     public static class EFCoreInitializerHelper
     {
-        public static IServiceCollection AddAllDbContexts(this IServiceCollection services, Action<DbContextOptionsBuilder> builder,
+        public static IServiceCollection AddAllDbContexts(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction,
             IEnumerable<Assembly> assemblies)
         {
+            
             Type[] types = new Type[] { typeof(IServiceCollection), typeof(Action<DbContextOptionsBuilder>), typeof(ServiceLifetime), typeof(ServiceLifetime) };
             var methodAddDbContext = typeof(EntityFrameworkServiceCollectionExtensions)
                 .GetMethod(nameof(EntityFrameworkServiceCollectionExtensions.AddDbContext), 1, types)!;
@@ -20,7 +21,7 @@ namespace Infrastructure.EFCore
                 {
                     //similar to serviceCollection.AddDbContextPool<ECDictDbContext>(opt=>new DbContextOptionsBuilder(dbCtxOpt));
                     var methodGenericAddDbContext = methodAddDbContext.MakeGenericMethod(dbCtxType);
-                    methodGenericAddDbContext.Invoke(null, new object[] { services, builder, ServiceLifetime.Scoped, ServiceLifetime.Scoped });
+                    methodGenericAddDbContext.Invoke(null, new object[] { services, optionsAction, ServiceLifetime.Scoped, ServiceLifetime.Scoped });
                 }
             }
             return services;

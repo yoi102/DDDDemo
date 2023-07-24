@@ -23,7 +23,9 @@ namespace Initializer
     {
         public static void ConfigureAppConfiguration(this WebApplicationBuilder builder)
         {
-            string dir = builder.Configuration.GetValue<string>("DefaultDirectory")!;
+            var dir = builder.Configuration.GetValue<string>("DefaultDirectory");
+            ArgumentException.ThrowIfNullOrEmpty(dir, "DefaultDirectory");
+
             string fullPath = Path.Combine(dir, "appsettings.json");
             builder.Configuration.AddJsonFile(fullPath);
         }
@@ -46,10 +48,13 @@ namespace Initializer
             services.RunModuleInitializers(assemblies);
 
             // DbContexts
-            services.AddAllDbContexts(ctx =>
+            services.AddAllDbContexts(options =>
             {
-                string connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings")!;
-                ctx.UseSqlServer(connectionStrings);
+                options.UseStronglyTypeConverters();
+                var connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings");
+                ArgumentException.ThrowIfNullOrEmpty(connectionStrings, "DefaultDB:ConnectionStrings");
+
+                options.UseSqlServer(connectionStrings);
             }, assemblies);
 
             services.AddAuthorization(options =>
@@ -59,7 +64,9 @@ namespace Initializer
             });
 
             services.AddAuthentication();
-            JWTOptions jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>()!;
+            var jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
+            ArgumentNullException.ThrowIfNull(jwtOpt, "JWT");
+
             services.AddJWTAuthentication(jwtOpt);
             // 启用 Swagger中的【Authorize】按钮。
             builder.Services.Configure<SwaggerGenOptions>(c =>
@@ -83,7 +90,9 @@ namespace Initializer
             {
                 //更好的在Program.cs中用绑定方式读取配置的方法：https://github.com/dotnet/aspnetcore/issues/21491
                 //不过比较麻烦。
-                var corsOpt = configuration.GetSection("Cors").Get<CorsSettings>()!;
+                var corsOpt = configuration.GetSection("Cors").Get<CorsSettings>();
+                ArgumentNullException.ThrowIfNull(corsOpt, "Cors");
+
                 options.AddDefaultPolicy(builder => builder.WithOrigins(corsOpt.Origins)
                         .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             }
@@ -98,7 +107,9 @@ namespace Initializer
             services.AddEventBus(initOptions.EventBusQueueName, assemblies);
 
             //Redis的配置
-            string redisConfiguration = configuration.GetValue<string>("Redis:ConnectionStrings")!;
+            var redisConfiguration = configuration.GetValue<string>("Redis:ConnectionStrings");
+            ArgumentException.ThrowIfNullOrEmpty(redisConfiguration, "Redis:ConnectionStrings");
+
             IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConfiguration);
             services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
             services.Configure<ForwardedHeadersOptions>(options =>

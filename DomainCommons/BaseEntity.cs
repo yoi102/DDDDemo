@@ -5,11 +5,8 @@ namespace DomainCommons
 {
     public record BaseEntity : IEntity, IDomainEvents
     {
-        //不能readonly？
         [NotMapped]
-        private List<INotification> domainEvents = new();
-
-        public Guid Id { get; protected set; } = Guid.NewGuid();
+        private readonly List<INotification> domainEvents = new();
 
         public void AddDomainEvent(INotification eventItem)
         {
