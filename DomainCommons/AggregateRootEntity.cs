@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DomainCommons
+﻿namespace DomainCommons
 {
     public record AggregateRootEntity : BaseEntity, IAggregateRoot, ISoftDelete, IHasCreationTime, IHasDeletionTime, IHasModificationTime
     {

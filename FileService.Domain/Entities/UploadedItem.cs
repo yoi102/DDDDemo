@@ -1,5 +1,4 @@
 ﻿using DomainCommons;
-using Strongly;
 
 namespace FileService.Domain.Entities
 {
