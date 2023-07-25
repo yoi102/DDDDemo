@@ -12,8 +12,7 @@ namespace IdentityService.Domain
         private readonly ITokenService tokenService;
         private readonly IOptions<JWTOptions> optJWT;
 
-        public IdentityDomainService(IIdentityRepository repository,
-             ITokenService tokenService, IOptions<JWTOptions> optJWT)
+        public IdentityDomainService(IIdentityRepository repository, ITokenService tokenService, IOptions<JWTOptions> optJWT)
         {
             this.repository = repository;
             this.tokenService = tokenService;

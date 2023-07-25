@@ -10,13 +10,20 @@ namespace Showcase.Domain
 
 
         public Task<Game?> GetGameByIdAsync(GameId gameId);
-        public Task<int> GetMaxSequenceNumberOfGamesAsync(CompanyId companyId);
         public Task<Game[]> GetGamesByCompanyIdAsync(CompanyId companyId);
+        public Task<int> GetMaxSequenceNumberOfGamesAsync(CompanyId companyId);
+
 
         public Task<Exhibit?> GetExhibitByIdAsync(ExhibitId exhibitId);
-        public Task<int> GetMaxSequenceNumberOfExhibitsAsync(GameId gameId);
         public Task<Exhibit[]> GetExhibitsByGameIdAsync(GameId gameId);
+        public Task<int> GetMaxSequenceNumberOfExhibitsAsync(GameId gameId);
 
+
+        public Task<Tag?> GetTagByIdAsync(TagId tagId);
+        public Task<int> GetMaxSequenceNumberOfTagsAsync(GameId gameId);
+
+
+        public Task<Game[]> GetGamesByTagIdAsync(TagId tagId);
         public Task<Tag[]> GetTagsByGameIdAsync(GameId gameId);
 
 

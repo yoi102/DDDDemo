@@ -22,7 +22,8 @@ namespace GameManagement.Shared.DataAccess
             {
                 b.HasMany(e => e.Games)
                 .WithOne(e => e.Company)
-                .HasForeignKey(e => e.CompanyId);
+                .HasForeignKey(e => e.CompanyId)
+                ;
             });
             builder.Entity<Game>(b =>
             {
