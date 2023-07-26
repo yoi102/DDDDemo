@@ -3,7 +3,7 @@ using Strongly;
 
 namespace Showcase.Domain.Entities
 {
-    public record Tag : AggregateRootEntity, IAggregateRoot
+    public record Tag : BaseEntity
     {
         public Tag(TagId id, string text, int sequenceNumber)
         {

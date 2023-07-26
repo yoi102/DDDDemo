@@ -1,15 +1,11 @@
 ﻿using DomainCommons;
 using Showcase.Domain.Events;
 using Strongly;
-using System.ComponentModel;
 
 namespace Showcase.Domain.Entities
 {
     public record Game : AggregateRootEntity, IAggregateRoot
     {
-        //private Game() { }
-
-
         private Game(CompanyId companyId, GameId id, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate, int sequenceNumber)
         {
             CompanyId = companyId;
@@ -29,18 +25,25 @@ namespace Showcase.Domain.Entities
             return g;
         }
 
-
-
-
-
         public GameId Id { get; private set; }
         public CompanyId CompanyId { get; private set; }
-        //public IList<TagId> TagIds { get; private set; } = new List<TagId>();
+        public ICollection<GameTag> GameTags { get; private set; } = new List<GameTag>();
         public MultilingualString Title { get; private set; }
         public string Introduction { get; private set; }
         public Uri CoverUrl { get; private set; }
         public DateTimeOffset ReleaseDate { get; private set; }
         public int SequenceNumber { get; private set; }
+
+
+        public void RemoveTag(TagId gagId)
+        {
+            var gameTag = GameTags.SingleOrDefault(pc => pc.TagId == gagId);
+            if (gameTag != null)
+            {
+                GameTags.Remove(gameTag);
+            }
+        }
+
 
         public Game ChangeTitle(MultilingualString value)
         {

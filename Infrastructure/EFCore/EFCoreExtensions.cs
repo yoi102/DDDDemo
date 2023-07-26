@@ -7,7 +7,7 @@ namespace Infrastructure.EFCore
     public static class EFCoreExtensions
     {
         /// <summary>
-        /// set global 'IsDeleted=false' queryfilter for every entity
+        /// set global 'IsDeleted=false' query filter for every entity
         /// </summary>
         /// <param name="modelBuilder"></param>
         public static void EnableSoftDeletionGlobalFilter(this ModelBuilder modelBuilder)

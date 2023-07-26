@@ -20,8 +20,8 @@ namespace Showcase.Domain
 
         public async Task SortCompaniesAsync(CompanyId[] sortedCompanyIds)
         {
-            var categories = await repository.GetCompaniesAsync();
-            var idsInDB = categories.Select(a => a.Id);
+            var companies = await repository.GetCompaniesAsync();
+            var idsInDB = companies.Select(a => a.Id);
             if (!idsInDB.SequenceIgnoredEqual(sortedCompanyIds))
             {
                 throw new Exception("提交的待排序Id中必须是所有的分类Id");
@@ -46,13 +46,13 @@ namespace Showcase.Domain
         {
             int maxSeq = await repository.GetMaxSequenceNumberOfGamesAsync(companyId);
             var id = new GameId(Guid.NewGuid());
-            return new Game(companyId, id, title, introduction, coverUrl, releaseDate, maxSeq + 1);
+            return Game.Create(companyId, id, title, introduction, coverUrl, releaseDate, maxSeq + 1);
         }
 
         public async Task SortGamesAsync(CompanyId companyId, GameId[] sortedGameIds)
         {
-            var albums = await repository.GetGamesByCompanyIdAsync(companyId);
-            var idsInDB = albums.Select(a => a.Id);
+            var games = await repository.GetGamesByCompanyIdAsync(companyId);
+            var idsInDB = games.Select(a => a.Id);
             if (!idsInDB.SequenceIgnoredEqual(sortedGameIds))
             {
                 throw new Exception($"提交的待排序Id中必须是 companyId = {companyId} 分类下所有的Id");
@@ -83,8 +83,8 @@ namespace Showcase.Domain
 
         public async Task SortExhibitsAsync(GameId gameId, ExhibitId[] sortedExhibitIds)
         {
-            var albums = await repository.GetExhibitsByGameIdAsync(gameId);
-            var idsInDB = albums.Select(a => a.Id);
+            var exhibits = await repository.GetExhibitsByGameIdAsync(gameId);
+            var idsInDB = exhibits.Select(a => a.Id);
             if (!idsInDB.SequenceIgnoredEqual(sortedExhibitIds))
             {
                 throw new Exception($"提交的待排序Id中必须是 gameId = {gameId} 分类下所有的Id");
@@ -104,8 +104,6 @@ namespace Showcase.Domain
             }
         }
 
-
-
         public async Task<Tag> AddTagAsync(GameId gameId, string text)
         {
             int maxSeq = await repository.GetMaxSequenceNumberOfTagsAsync(gameId);
@@ -115,8 +113,8 @@ namespace Showcase.Domain
 
         public async Task SortTagsAsync(GameId gameId, TagId[] sortedTagIds)
         {
-            var albums = await repository.GetTagsByGameIdAsync(gameId);
-            var idsInDB = albums.Select(a => a.Id);
+            var games = await repository.GetTagsByGameIdAsync(gameId);
+            var idsInDB = games.Select(a => a.Id);
             if (!idsInDB.SequenceIgnoredEqual(sortedTagIds))
             {
                 throw new Exception($"提交的待排序Id中必须是 gameId = {gameId} 分类下所有的Id");
@@ -137,7 +135,7 @@ namespace Showcase.Domain
         }
 
 
-
+       
 
 
 
