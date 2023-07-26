@@ -10,7 +10,7 @@ namespace Showcase.Domain.Entities
         //private Game() { }
 
 
-        private Game(CompanyId companyId, GameId id, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate, int sequenceNumber)
+        public Game(CompanyId companyId, GameId id, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate, int sequenceNumber)
         {
             CompanyId = companyId;
             Id = id;
