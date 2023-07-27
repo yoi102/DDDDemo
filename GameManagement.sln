@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.Api", "GameManagement.Api\GameManagement.Api.csproj", "{6EA275CC-83BA-4856-996C-9C598F80579A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.Shared", "GameManagement.Shared\GameManagement.Shared.csproj", "{38BCE642-1840-4058-A0AC-DE08F449A205}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{C548F86D-8FB6-4E16-B486-89FCA0D7A89B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{F898DE99-4731-43C3-845E-1AD40BAED1D1}"
@@ -45,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Domain", "Showcase
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Infrastructure", "Showcase.Infrastructure\Showcase.Infrastructure.csproj", "{20DA76BE-5D2A-462D-9F32-C8AF27815FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Showcase.Admin.WebAPI", "Showcase.Admin.WebAPI\Showcase.Admin.WebAPI.csproj", "{54BA1D6D-9802-48CC-93BF-41B2D036EBE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Admin.WebAPI", "Showcase.Admin.WebAPI\Showcase.Admin.WebAPI.csproj", "{54BA1D6D-9802-48CC-93BF-41B2D036EBE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,14 +49,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6EA275CC-83BA-4856-996C-9C598F80579A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6EA275CC-83BA-4856-996C-9C598F80579A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6EA275CC-83BA-4856-996C-9C598F80579A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6EA275CC-83BA-4856-996C-9C598F80579A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38BCE642-1840-4058-A0AC-DE08F449A205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38BCE642-1840-4058-A0AC-DE08F449A205}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38BCE642-1840-4058-A0AC-DE08F449A205}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38BCE642-1840-4058-A0AC-DE08F449A205}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B223982F-1AD6-42B5-B968-BA3F9A87CACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B223982F-1AD6-42B5-B968-BA3F9A87CACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B223982F-1AD6-42B5-B968-BA3F9A87CACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -126,8 +114,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6EA275CC-83BA-4856-996C-9C598F80579A} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
-		{38BCE642-1840-4058-A0AC-DE08F449A205} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
 		{C548F86D-8FB6-4E16-B486-89FCA0D7A89B} = {F898DE99-4731-43C3-845E-1AD40BAED1D1}
 		{B223982F-1AD6-42B5-B968-BA3F9A87CACA} = {C548F86D-8FB6-4E16-B486-89FCA0D7A89B}
 		{8AC92A8B-8310-4CE5-B581-A7B7ADE12EC5} = {C548F86D-8FB6-4E16-B486-89FCA0D7A89B}
