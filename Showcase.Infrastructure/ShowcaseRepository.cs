@@ -46,7 +46,8 @@ namespace Showcase.Infrastructure
 
         public Task<Game[]> GetGamesByTagIdAsync(TagId tagId)
         {
-            return dbContext.GameTags.Where(x => x.Equals(tagId)).Select(x => x.Game).OrderBy(g => g.SequenceNumber).ToArrayAsync();
+            var c = dbContext.GameTags.Where(x => x.Equals(tagId)).Select(x => x.GameId);
+            return dbContext.Games.Where(x => c.Contains(x.Id)).OrderBy(g => g.SequenceNumber).ToArrayAsync();
         }
 
         public async Task<int> GetMaxSequenceNumberOfCompaniesAsync()
@@ -57,19 +58,20 @@ namespace Showcase.Infrastructure
 
         public async Task<int> GetMaxSequenceNumberOfExhibitsAsync(GameId gameId)
         {
-            int? maxSeq = await dbContext.Query<Exhibit>().MaxAsync(c => (int?)c.SequenceNumber);
+            int? maxSeq = await dbContext.Query<Exhibit>().Where(e => e.GameId == gameId).MaxAsync(c => (int?)c.SequenceNumber);
             return maxSeq ?? 0;
         }
 
         public async Task<int> GetMaxSequenceNumberOfGamesAsync(CompanyId companyId)
         {
-            int? maxSeq = await dbContext.Query<Game>().MaxAsync(c => (int?)c.SequenceNumber);
+            int? maxSeq = await dbContext.Query<Game>().Where(g => g.CompanyId == companyId).MaxAsync(c => (int?)c.SequenceNumber);
             return maxSeq ?? 0;
         }
 
         public async Task<int> GetMaxSequenceNumberOfTagsAsync(GameId gameId)
         {
-            int? maxSeq = await dbContext.Query<Tag>().MaxAsync(c => (int?)c.SequenceNumber);
+            var c = dbContext.GameTags.Where(x => x.Equals(gameId)).Select(x => x.TagId);
+            int? maxSeq = await dbContext.Tags.Where(x => c.Contains(x.Id)).OrderBy(g => g.SequenceNumber).MaxAsync(c => (int?)c.SequenceNumber);
             return maxSeq ?? 0;
         }
 
@@ -80,9 +82,12 @@ namespace Showcase.Infrastructure
 
         public Task<Tag[]> GetTagsByGameIdAsync(GameId gameId)
         {
-            return dbContext.GameTags.Where(x => x.Equals(gameId)).Select(x => x.Tag).OrderBy(t => t.SequenceNumber).ToArrayAsync();
+            var c = dbContext.GameTags.Where(x => x.Equals(gameId)).Select(x => x.TagId);
+            return dbContext.Tags.Where(x => c.Contains(x.Id)).OrderBy(g => g.SequenceNumber).ToArrayAsync();
         }
 
-   
+        //public Task
+
+
     }
 }

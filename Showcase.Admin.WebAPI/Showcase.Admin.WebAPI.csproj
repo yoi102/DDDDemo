@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\Companies\" />
+    <Folder Include="Controllers\Games\" />
+    <Folder Include="Controllers\Exhibits\" />
+    <Folder Include="Controllers\Tags\" />
   </ItemGroup>
 
   <ItemGroup>

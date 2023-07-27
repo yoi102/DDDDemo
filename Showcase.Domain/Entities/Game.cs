@@ -35,13 +35,23 @@ namespace Showcase.Domain.Entities
         public int SequenceNumber { get; private set; }
 
 
-        public void RemoveTag(TagId gagId)
+        public void RemoveTag(TagId tagId)
         {
-            var gameTag = GameTags.SingleOrDefault(pc => pc.TagId == gagId);
+            var gameTag = GameTags.SingleOrDefault(gt => gt.TagId == tagId && gt.GameId == Id);
             if (gameTag != null)
             {
                 GameTags.Remove(gameTag);
             }
+        }
+        public void AddProduct(TagId tagId)
+        {
+            // 建立分类和产品之间的关联
+            var gameTag = new GameTag
+            {
+                TagId = tagId,
+                GameId = Id
+            };
+            GameTags.Add(gameTag);
         }
 
 

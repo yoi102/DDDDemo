@@ -5,13 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureAppConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
-    LogFilePath = "h:/logs/Showcase/log-.txt",
+    LogFilePath = "h:/logs/Showcase.Admin/log-.txt",
     EventBusQueueName = "Showcase.Admin"
 });
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "Showcase.WebAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "Showcase.Admin.WebAPI", Version = "v1" });
 
 });
 builder.Services.AddSignalR();

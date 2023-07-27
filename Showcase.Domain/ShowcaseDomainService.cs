@@ -41,7 +41,6 @@ namespace Showcase.Domain
         }
 
 
-
         public async Task<Game> AddGameAsync(CompanyId companyId, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate)
         {
             int maxSeq = await repository.GetMaxSequenceNumberOfGamesAsync(companyId);
@@ -106,6 +105,7 @@ namespace Showcase.Domain
 
         public async Task<Tag> AddTagAsync(GameId gameId, string text)
         {
+            //添加到Game？ 先查找是否有对应的 text ?  
             int maxSeq = await repository.GetMaxSequenceNumberOfTagsAsync(gameId);
             var id = new TagId(Guid.NewGuid());
             return new Tag(id, text, maxSeq + 1);
@@ -135,7 +135,7 @@ namespace Showcase.Domain
         }
 
 
-       
+
 
 
 

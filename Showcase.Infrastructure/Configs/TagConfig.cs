@@ -14,6 +14,7 @@ namespace Showcase.Infrastructure.Configs
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
             builder.ToTable("T_Tags");
+            builder.HasIndex(x => x.Text).IsUnique();
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.Property(e => e.Text).HasMaxLength(10).IsUnicode(false).IsRequired();
 
