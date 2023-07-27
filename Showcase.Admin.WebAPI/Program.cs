@@ -1,26 +1,25 @@
-using FileService.Infrastructure.Services;
 using Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
 builder.ConfigureAppConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
-    EventBusQueueName = "FileService.WebAPI",
-    LogFilePath = "h:/logs/FileService/log-.txt"
+    LogFilePath = "h:/logs/Showcase/log-.txt",
+    EventBusQueueName = "Showcase.Admin"
 });
+
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "FileService.WebAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "Showcase.WebAPI", Version = "v1" });
+
 });
+builder.Services.AddSignalR();
 
-builder.Services.Configure<SMBStorageOptions>(builder.Configuration.GetSection("FileService:SMB"));
 builder.Services.AddControllers();
-
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 
 var app = builder.Build();
 
@@ -29,12 +28,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FileService.WebAPI v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showcase.Admin.WebAPI v1"));
+
 }
-
-app.UseStaticFiles();
-
+//app.MapHub<EpisodeEncodingStatusHub>("/Hubs/StatusHub");
 app.UseDefaultMiddleware();
+
 
 app.MapControllers();
 

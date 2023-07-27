@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureAppConfiguration();
-
 builder.ConfigureExtraServices(new InitializerOptions
 {
     EventBusQueueName = "IdentityService.WebAPI",
@@ -46,7 +45,6 @@ identityBuilder.AddEntityFrameworkStores<IdentityDbContext>().AddDefaultTokenPro
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
