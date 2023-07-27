@@ -24,7 +24,7 @@ namespace Showcase.Domain
             var idsInDB = companies.Select(a => a.Id);
             if (!idsInDB.SequenceIgnoredEqual(sortedCompanyIds))
             {
-                throw new Exception("提交的待排序Id中必须是所有的分类Id");
+                throw new Exception("提交的待排序 Id 中必须是所有的分类Id");
             }
             int seqNum = 1;
             //一个in语句一次性取出来更快，不过在非性能关键节点，业务语言比性能更重要
@@ -105,10 +105,10 @@ namespace Showcase.Domain
 
         public async Task<Tag> AddTagAsync(GameId gameId, string text)
         {
-            //添加到Game？ 先查找是否有对应的 text ?  
+
             int maxSeq = await repository.GetMaxSequenceNumberOfTagsAsync(gameId);
             var id = new TagId(Guid.NewGuid());
-            return new Tag(id, text, maxSeq + 1);
+            return new Tag(gameId, id, text, maxSeq + 1);
         }
 
         public async Task SortTagsAsync(GameId gameId, TagId[] sortedTagIds)
@@ -135,16 +135,7 @@ namespace Showcase.Domain
         }
 
 
-        public async Task AddGameTag(GameId gameId,string tag)
-        {
 
-
-        }
-
-        public async Task RemoveGameTag(GameId gameId, TagId tagId)
-        {
-
-        }
 
 
 

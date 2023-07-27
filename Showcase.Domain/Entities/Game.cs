@@ -27,7 +27,6 @@ namespace Showcase.Domain.Entities
 
         public GameId Id { get; private set; }
         public CompanyId CompanyId { get; private set; }
-        //public ICollection<GameTag> GameTags { get; private set; } = new List<GameTag>();
         public MultilingualString Title { get; private set; }
         public string Introduction { get; private set; }
         public Uri CoverUrl { get; private set; }
@@ -35,24 +34,6 @@ namespace Showcase.Domain.Entities
         public int SequenceNumber { get; private set; }
 
 
-        //public void RemoveTag(TagId tagId)
-        //{
-        //    var gameTag = GameTags.SingleOrDefault(gt => gt.TagId == tagId && gt.GameId == Id);
-        //    if (gameTag != null)
-        //    {
-        //        GameTags.Remove(gameTag);
-        //    }
-        //}
-        //public void AddProduct(TagId tagId)
-        //{
-        //    // 建立分类和产品之间的关联
-        //    var gameTag = new GameTag
-        //    {
-        //        TagId = tagId,
-        //        GameId = Id
-        //    };
-        //    GameTags.Add(gameTag);
-        //}
 
 
         public Game ChangeTitle(MultilingualString value)

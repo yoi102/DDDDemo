@@ -21,9 +21,6 @@ namespace Showcase.Domain
 
         Task<Tag?> GetTagByIdAsync(TagId tagId);
         Task<int> GetMaxSequenceNumberOfTagsAsync(GameId gameId);
-
-
-        Task<Game[]> GetGamesByTagIdAsync(TagId tagId);
         Task<Tag[]> GetTagsByGameIdAsync(GameId gameId);
 
 
