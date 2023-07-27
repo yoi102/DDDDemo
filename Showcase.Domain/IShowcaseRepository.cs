@@ -20,10 +20,7 @@ namespace Showcase.Domain
 
 
         Task<Tag?> GetTagByIdAsync(TagId tagId);
-        Task<int> GetMaxSequenceNumberOfTagsAsync(GameId gameId);
         Task<Tag[]> GetTagsByGameIdAsync(GameId gameId);
-
-
-
+        Task<Tag?> GetTagByTextAsync(string text);
     }
 }

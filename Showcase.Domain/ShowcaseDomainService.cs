@@ -103,34 +103,39 @@ namespace Showcase.Domain
             }
         }
 
-        public async Task<Tag> AddTagAsync(GameId gameId, string text)
-        {
 
-            int maxSeq = await repository.GetMaxSequenceNumberOfTagsAsync(gameId);
-            var id = new TagId(Guid.NewGuid());
-            return new Tag(gameId, id, text, maxSeq + 1);
+
+
+        public async Task<Tag?> AddTagAsync(GameId gameId, string text)
+        {
+            var tag = await repository.GetTagByTextAsync(text);
+            var games = await repository.GetGameByIdAsync(gameId);
+            if (tag is null)
+            {
+                var id = new TagId(Guid.NewGuid());
+                games!.TagIds.Add(id);
+                return new Tag(id, text);
+            }
+
+            games!.TagIds.Add(tag.Id);
+            return null;
+
+
+
         }
 
         public async Task SortTagsAsync(GameId gameId, TagId[] sortedTagIds)
         {
-            var games = await repository.GetTagsByGameIdAsync(gameId);
-            var idsInDB = games.Select(a => a.Id);
-            if (!idsInDB.SequenceIgnoredEqual(sortedTagIds))
+            var games = await repository.GetGameByIdAsync(gameId);
+            if (!games!.TagIds.SequenceIgnoredEqual(sortedTagIds))
             {
                 throw new Exception($"提交的待排序Id中必须是 gameId = {gameId} 分类下所有的Id");
             }
-
-            int seqNum = 1;
+            games.TagIds.Clear();
             //一个in语句一次性取出来更快，不过在非性能关键节点，业务语言比性能更重要
             foreach (TagId tagId in sortedTagIds)
             {
-                var tag = await repository.GetTagByIdAsync(tagId);
-                if (tag is null)
-                {
-                    throw new Exception($"tagId = {tagId} 不存在");
-                }
-                tag.ChangeSequenceNumber(seqNum);//顺序改序号
-                seqNum++;
+                games.TagIds.Add(tagId);
             }
         }
 

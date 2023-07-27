@@ -64,21 +64,22 @@ namespace Showcase.Infrastructure
             return maxSeq ?? 0;
         }
 
-        public async Task<int> GetMaxSequenceNumberOfTagsAsync(GameId gameId)
-        {
-            int? maxSeq = await dbContext.Query<Tag>().Where(t => t.GameId == gameId).MaxAsync(c => (int?)c.SequenceNumber);
-            return maxSeq ?? 0;
-        }
+
 
         public async Task<Tag?> GetTagByIdAsync(TagId tagId)
         {
             return await dbContext.FindAsync<Tag>(tagId);
         }
 
+        public async Task<Tag?> GetTagByTextAsync(string text)
+        {
+            return await dbContext.Tags.SingleOrDefaultAsync(t => t.Text == text);
+        }
+
         public async Task<Tag[]> GetTagsByGameIdAsync(GameId gameId)
         {
-            return await dbContext.Tags.Where(g => g.GameId == gameId).OrderBy(t => t.SequenceNumber).ToArrayAsync();
-
+            var game = await dbContext.Games.FirstOrDefaultAsync(g => g.Id == gameId);
+            return await dbContext.Tags.Where(t => game!.TagIds.Contains(t.Id)).ToArrayAsync();
         }
 
 
