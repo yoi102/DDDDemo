@@ -135,8 +135,16 @@ namespace Showcase.Domain
         }
 
 
+        public async Task AddGameTag(GameId gameId,string tag)
+        {
 
 
+        }
+
+        public async Task RemoveGameTag(GameId gameId, TagId tagId)
+        {
+
+        }
 
 
 
