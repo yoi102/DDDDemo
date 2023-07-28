@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ASPNETCore
 {
 
-
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class RequiredStronglyTypeAttribute : ValidationAttribute
     {
         public const string DefaultErrorMessage = "The {0} field must be strongly type and the value not Guid.Empty";
