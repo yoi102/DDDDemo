@@ -37,7 +37,7 @@ namespace Showcase.Domain.Entities
         }
     }
 
-    [Strongly(StronglyType.Default)]
+    [Strongly(converters: StronglyConverter.EfValueConverter)]
     public partial struct CompanyId
     {
     }

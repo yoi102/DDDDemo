@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
-using Infrastructure.EFCore;
 
 namespace Showcase.Infrastructure.Configs
 {
@@ -18,6 +13,8 @@ namespace Showcase.Infrastructure.Configs
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.OwnsOneMultilingualString(e => e.Title);
             builder.HasIndex(e => new { e.CompanyId, e.IsDeleted });
+            builder.Property(x => x.Id).HasConversion<GameId.EfValueConverter>();
+
 
 
         }

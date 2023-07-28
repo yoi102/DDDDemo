@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Showcase.Infrastructure.Configs
 {
@@ -14,7 +9,8 @@ namespace Showcase.Infrastructure.Configs
         public void Configure(EntityTypeBuilder<GameTag> builder)
         {
             builder.ToTable("T_Games_Tags");
-     
+            builder.Property(x => x.GameId).HasConversion<CompanyId.EfValueConverter>();
+            builder.Property(x => x.TagId).HasConversion<TagId.EfValueConverter>();
 
 
         }

@@ -29,7 +29,7 @@ namespace Showcase.Domain.Entities
         }
     }
 
-    [Strongly]
+    [Strongly(converters: StronglyConverter.EfValueConverter)]
     public partial struct ExhibitId
     { }
 }

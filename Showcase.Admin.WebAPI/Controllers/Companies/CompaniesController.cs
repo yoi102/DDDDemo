@@ -1,13 +1,11 @@
 ﻿using ASPNETCore;
 using Commons;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Showcase.Admin.WebAPI.Controllers.Companies.Requests;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
 using Showcase.Infrastructure;
-using System.ComponentModel.DataAnnotations;
 
 namespace Showcase.Admin.WebAPI.Controllers.Companies
 {

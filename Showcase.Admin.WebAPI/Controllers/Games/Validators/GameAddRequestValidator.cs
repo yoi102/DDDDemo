@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Showcase.Admin.WebAPI.Controllers.Games.Requests;
-using Showcase.Infrastructure;
 using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
+using Showcase.Admin.WebAPI.Controllers.Games.Requests;
 using Showcase.Domain.Entities;
+using Showcase.Infrastructure;
 
 namespace Showcase.Admin.WebAPI.Controllers.Games.Validators
 {

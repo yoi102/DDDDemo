@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Showcase.Infrastructure.Configs
 {
@@ -17,6 +12,7 @@ namespace Showcase.Infrastructure.Configs
             builder.HasIndex(x => x.Text).IsUnique();
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.Property(e => e.Text).HasMaxLength(10).IsUnicode(false).IsRequired();
+            builder.Property(x => x.Id).HasConversion<TagId.EfValueConverter>();
 
 
         }

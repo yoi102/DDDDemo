@@ -2,12 +2,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Showcase.Domain.Entities;
-using Showcase.Infrastructure.Configs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Showcase.Infrastructure
 {

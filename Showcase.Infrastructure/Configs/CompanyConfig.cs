@@ -1,10 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
 
 namespace Showcase.Infrastructure.Configs
@@ -16,6 +11,8 @@ namespace Showcase.Infrastructure.Configs
             builder.ToTable("T_Companies");
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.Property(e => e.CoverUrl).IsRequired(false).HasMaxLength(500).IsUnicode();
+            builder.Property(x => x.Id).HasConversion<CompanyId.EfValueConverter>();
+
         }
     }
 }

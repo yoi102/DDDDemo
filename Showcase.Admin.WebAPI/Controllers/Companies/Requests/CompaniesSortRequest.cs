@@ -6,5 +6,5 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies.Requests
     {
         public required CompanyId[] SortedCompanyIds { get; set; }
 
-}
+    }
 }
