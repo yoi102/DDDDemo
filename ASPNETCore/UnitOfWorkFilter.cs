@@ -9,7 +9,7 @@ using System.Transactions;
 namespace ASPNETCore;
 public class UnitOfWorkFilter : IAsyncActionFilter
 {
-    private static UnitOfWorkAttribute? GetUoWAttr(ActionDescriptor actionDescriptor)
+    private static UnitOfWorkAttribute? GetUnitOfWorkAttribute(ActionDescriptor actionDescriptor)
     {
         var controllerActionDescriptor = actionDescriptor as ControllerActionDescriptor;
         if (controllerActionDescriptor == null)
@@ -19,37 +19,37 @@ public class UnitOfWorkFilter : IAsyncActionFilter
         //try to get UnitOfWorkAttribute from controller,
         //if there is no UnitOfWorkAttribute on controller, 
         //try to get UnitOfWorkAttribute from action
-        var uowAttr = controllerActionDescriptor.ControllerTypeInfo
+        var  unitOfWorkAttribute = controllerActionDescriptor.ControllerTypeInfo
             .GetCustomAttribute<UnitOfWorkAttribute>();
-        return uowAttr ?? controllerActionDescriptor.MethodInfo
+        return unitOfWorkAttribute ?? controllerActionDescriptor.MethodInfo
                 .GetCustomAttribute<UnitOfWorkAttribute>();
     }
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var uowAttr = GetUoWAttr(context.ActionDescriptor);
-        if (uowAttr == null)
+        var  unitOfWorkAttribute = GetUnitOfWorkAttribute(context.ActionDescriptor);
+        if (unitOfWorkAttribute == null)
         {
             await next();
             return;
         }
-        using TransactionScope txScope = new(TransactionScopeAsyncFlowOption.Enabled);
-        List<DbContext> dbCtxs = new();
-        foreach (var dbCtxType in uowAttr.DbContextTypes)
+        using TransactionScope transactionScope = new(TransactionScopeAsyncFlowOption.Enabled);
+        List<DbContext> dbContexts = new();
+        foreach (var dbContextType in unitOfWorkAttribute.DbContextTypes)
         {
             //用HttpContext的RequestServices
             //确保获取的是和请求相关的Scope实例
             var sp = context.HttpContext.RequestServices;
-            DbContext dbCtx = (DbContext)sp.GetRequiredService(dbCtxType);
-            dbCtxs.Add(dbCtx);
+            DbContext dbContext = (DbContext)sp.GetRequiredService(dbContextType);
+            dbContexts.Add(dbContext);
         }
         var result = await next();
         if (result.Exception == null)
         {
-            foreach (var dbCtx in dbCtxs)
+            foreach (var  dbContext in dbContexts)
             {
-                await dbCtx.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
-            txScope.Complete();
+            transactionScope.Complete();
         }
     }
 }

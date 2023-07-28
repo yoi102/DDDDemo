@@ -13,7 +13,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
     [ApiController]
     [Authorize(Roles = UserRoles.Administrator)]
     [UnitOfWork(typeof(ShowcaseDbContext))]
-
     public class CompaniesController : ControllerBase
     {
         private readonly ShowcaseDbContext dbContext;
@@ -37,7 +36,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
         [Route("{id}")]
         public async Task<ActionResult<Company?>> FindById([RequiredStronglyType] CompanyId id)
         {
-
             var company = await repository.GetCompanyByIdAsync(id);
             if (company is null)
             {
@@ -51,10 +49,9 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
         public async Task<ActionResult<Guid>> Add(CompanyAddRequest request)
         {
             var company = await domainService.AddCompanyAsync(request.Name, request.CoverUrl);
-            dbContext.Add(company);
+            dbContext.Add(company);//由于dbContext还没保存，不重定向了
             return company.Id.Value;
         }
-
 
         [HttpPut]
         [Route("{id}")]
@@ -69,8 +66,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
             company.ChangeCoverUrl(request.CoverUrl);
             return Ok();
         }
-
-
 
         [HttpDelete]
         [Route("{id}")]
@@ -91,8 +86,5 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
             await domainService.SortCompaniesAsync(request.SortedCompanyIds);
             return Ok();
         }
-
-
-
     }
 }

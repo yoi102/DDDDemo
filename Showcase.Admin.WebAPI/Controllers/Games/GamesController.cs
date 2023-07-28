@@ -49,7 +49,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
             return game.Id.Value;
         }
 
-
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult> Update([RequiredStronglyType] GameId id, GameUpdateRequest request)
@@ -65,7 +64,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
             game.ChangeReleaseDate(request.ReleaseDate);
             return Ok();
         }
-
 
         [HttpDelete]
         [Route("{id}")]
@@ -84,19 +82,8 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         [Route("{companyId}")]
         public async Task<ActionResult> Sort([RequiredStronglyType] CompanyId companyId, GamesSortRequest request)
         {
-
             await domainService.SortGamesAsync(companyId, request.SortedGameIds);
             return Ok();
         }
-
-
-
-
-
-
-
-
-
-
     }
 }
