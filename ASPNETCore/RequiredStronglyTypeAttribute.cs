@@ -34,9 +34,9 @@ namespace ASPNETCore
             }
             var obj = info.GetValue(value);
 
-            if (obj is Guid)
+            if (obj is Guid guid)
             {
-                return (Guid)obj != Guid.Empty;
+                return guid != Guid.Empty;
             }
 
             return false;
