@@ -31,7 +31,7 @@ namespace Showcase.Domain
             foreach (CompanyId CompanyId in sortedCompanyIds)
             {
                 var company = await repository.GetCompanyByIdAsync(CompanyId);
-                if (company == null)
+                if (company is null)
                 {
                     throw new Exception($" CompanyId = {CompanyId} 不存在");
                 }

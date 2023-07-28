@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Admin.WebAPI", "Showcase.Admin.WebAPI\Showcase.Admin.WebAPI.csproj", "{54BA1D6D-9802-48CC-93BF-41B2D036EBE1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{860FD23E-00B3-4DEF-B33D-B5A6E0E27671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
