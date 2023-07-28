@@ -11,7 +11,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
 {
     [Route("api/companies")]
     [ApiController]
-    [Authorize(Roles = UserRoles.Administrator)]
+    //[Authorize(Roles = UserRoles.Administrator)]
     [UnitOfWork(typeof(ShowcaseDbContext))]
 
     public class CompaniesController : ControllerBase

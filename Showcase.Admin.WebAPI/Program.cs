@@ -12,6 +12,7 @@ builder.ConfigureExtraServices(new InitializerOptions
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Showcase.Admin.WebAPI", Version = "v1" });
+    c.EnableAnnotations();
 
 });
 builder.Services.AddSignalR();
