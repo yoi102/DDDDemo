@@ -2,7 +2,6 @@
 using Commons;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Showcase.Admin.WebAPI.Controllers.Games.Requests;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
 using Showcase.Infrastructure;
@@ -26,7 +25,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             this.repository = repository;
         }
 
-
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Tag?>> FindById([RequiredStronglyType] TagId id)
@@ -41,6 +39,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             var tag = await repository.GetTagByTextAsync(text);
             return tag;
         }
+
         [HttpGet]
         [Route("{gameId}")]
         public Task<Tag[]> FindByCategoryId([RequiredStronglyType] GameId gameId)
@@ -50,7 +49,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
 
         [HttpPost]
         [Route("{gameId}")]
-
         public async Task<ActionResult<Guid>> Add([RequiredStronglyType] GameId gameId, string text)
         {
             (Tag tag, bool has) = await domainService.AddTagAsync(gameId, text);
@@ -73,13 +71,10 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             if (!game.TagIds.Contains(id))
             {
                 return NotFound($"Id={id} 的 Game，没有 Id={id} 的 Tag");
-
             }
             game.TagIds.Remove(id);
             return Ok();
         }
-
-
 
         [HttpPut]
         [Route("{id}")]
@@ -106,7 +101,5 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             dbContext.Remove(tag);
             return Ok();
         }
-
-
     }
 }

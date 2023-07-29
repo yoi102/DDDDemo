@@ -1,7 +1,9 @@
 ﻿using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
+using System.Text.Json;
 
 namespace Showcase.Infrastructure.Configs
 {
@@ -16,9 +18,12 @@ namespace Showcase.Infrastructure.Configs
             builder.Property(x => x.CompanyId).HasConversion<CompanyId.EfValueConverter>();
             builder.Property(x => x.Id).HasConversion<GameId.EfValueConverter>();
 
-
-
-            //builder.Property(x => x.TagIds).HasConversion<TagId.EfValueConverter>();//??? 集合转？
+            builder.Property(x => x.TagIds).HasConversion(v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                  v => JsonSerializer.Deserialize<List<TagId>>(v, (JsonSerializerOptions)null),
+        new ValueComparer<ICollection<TagId>>(
+            (c1, c2) => c1.SequenceEqual(c2),
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+            c => c.ToList()));
         }
     }
 }

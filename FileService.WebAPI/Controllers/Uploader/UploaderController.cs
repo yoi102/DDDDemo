@@ -6,8 +6,8 @@ using FileService.WebAPI.Controllers.Uploader.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+namespace FileService.WebAPI.Controllers.Uploader;
 
-namespace FileService.WebAPI.Uploader;
 [Route("uploader")]
 [ApiController]
 [Authorize(Roles = UserRoles.Administrator)]//仅对内部系统开放。
@@ -17,6 +17,7 @@ public class UploaderController : ControllerBase
     private readonly FileServiceDbContext dbContext;
     private readonly FileServiceDomainService domainService;
     private readonly IFileServiceRepository repository;
+
     public UploaderController(FileServiceDomainService domainService, FileServiceDbContext dbContext, IFileServiceRepository repository)
     {
         this.domainService = domainService;
@@ -35,7 +36,6 @@ public class UploaderController : ControllerBase
         var item = await repository.FindFileAsync(fileSize, sha256Hash);
         return item == null ? new FileExistsResponse(IsExists: false, null) : new FileExistsResponse(true, item.RemoteUrl);
     }
-
 
     [HttpPost]
     [RequestSizeLimit(60_000_000)]

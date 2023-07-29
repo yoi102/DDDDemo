@@ -40,7 +40,6 @@ namespace Showcase.Domain
             }
         }
 
-
         public async Task<Game> AddGameAsync(CompanyId companyId, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate)
         {
             int maxSeq = await repository.GetMaxSequenceNumberOfGamesAsync(companyId);
@@ -70,8 +69,6 @@ namespace Showcase.Domain
                 seqNum++;
             }
         }
-
-
 
         public async Task<Exhibit> AddExhibitAsync(GameId gameId, Uri itemUrl)
         {
@@ -103,9 +100,6 @@ namespace Showcase.Domain
             }
         }
 
-
-
-
         public async Task<(Tag, bool)> AddTagAsync(GameId gameId, string text)
         {
             var tag = await repository.GetTagByTextAsync(text);
@@ -119,9 +113,6 @@ namespace Showcase.Domain
 
             games!.TagIds.Add(tag.Id);
             return (tag, true);
-
-
-
         }
 
         public async Task SortTagsAsync(GameId gameId, TagId[] sortedTagIds)
@@ -138,12 +129,5 @@ namespace Showcase.Domain
                 games.TagIds.Add(tagId);
             }
         }
-
-
-
-
-
-
-
     }
 }

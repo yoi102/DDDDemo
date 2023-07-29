@@ -3,9 +3,6 @@ using Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
 builder.ConfigureAppConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {

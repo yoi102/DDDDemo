@@ -4,7 +4,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Games.Requests
 {
     public class GamesSortRequest
     {
-        public required GameId[] SortedGameIds { get; set; }
-
+        public GameId[] SortedGameIds { get; set; }
     }
 }

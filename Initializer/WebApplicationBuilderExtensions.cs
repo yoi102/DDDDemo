@@ -13,8 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Zack.Commons;
-using Zack.Commons.JsonConverters;
 using Zack.EventBus;
 
 namespace Initializer
@@ -43,14 +41,13 @@ namespace Initializer
                        .Enrich.FromLogContext()
                        .WriteTo.Console());
 
-
             var assemblies = ReflectionHelper.GetAllReferencedAssemblies();
             services.RunModuleInitializers(assemblies);
 
             // DbContexts
             services.AddAllDbContexts(options =>
             {
-                //options.UseStronglyTypeConverters();
+                options.UseStronglyTypeConverters();
                 var connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings");
                 ArgumentException.ThrowIfNullOrEmpty(connectionStrings, "DefaultDB:ConnectionStrings");
 
@@ -80,11 +77,11 @@ namespace Initializer
             {
                 options.Filters.Add<UnitOfWorkFilter>();
             });
-            services.Configure<JsonOptions>(options =>
-            {
-                //设置时间格式。而非“2008-08-08T08:08:08”这样的格式
-                options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
-            });
+            //services.Configure<JsonOptions>(options =>
+            //{
+            //    //设置时间格式。而非“2008-08-08T08:08:08”这样的格式
+            //    options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            //});
 
             services.AddCors(options =>
             {

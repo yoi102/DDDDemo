@@ -6,7 +6,6 @@ namespace FileService.Domain.Entities
     {
         //private UploadedItem()
         //{
-
         //}
 
         public UploadedItem(Guid id, long fileSizeInBytes, string fileName, string fileSHA256Hash, Uri backupUrl, Uri remoteUrl)
@@ -44,13 +43,9 @@ namespace FileService.Domain.Entities
         /// </summary>
         public Uri BackupUrl { get; private set; }
 
-
         /// <summary>
         /// 上传的文件的供外部访问者访问的路径
         /// </summary>
         public Uri RemoteUrl { get; private set; }
-
-
-
     }
 }

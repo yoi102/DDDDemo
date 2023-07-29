@@ -2,6 +2,7 @@
 using Zack.Commons;
 
 namespace FileService.Domain;
+
 public class FileServiceDomainService
 {
     private readonly IFileServiceRepository repository;

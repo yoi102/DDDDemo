@@ -20,10 +20,9 @@ namespace Showcase.Domain.Entities
             Text = value;
             return this;
         }
-
-
     }
-    [Strongly(converters: StronglyConverter.EfValueConverter | StronglyConverter.SwaggerSchemaFilter)]
-    public partial struct TagId { }
 
+    [Strongly(converters: StronglyConverter.EfValueConverter | StronglyConverter.SwaggerSchemaFilter)]
+    public partial struct TagId
+    { }
 }

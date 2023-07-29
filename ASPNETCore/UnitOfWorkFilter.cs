@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Transactions;
 
 namespace ASPNETCore;
+
 public class UnitOfWorkFilter : IAsyncActionFilter
 {
     private static UnitOfWorkAttribute? GetUnitOfWorkAttribute(ActionDescriptor actionDescriptor)
@@ -17,16 +18,17 @@ public class UnitOfWorkFilter : IAsyncActionFilter
             return null;
         }
         //try to get UnitOfWorkAttribute from controller,
-        //if there is no UnitOfWorkAttribute on controller, 
+        //if there is no UnitOfWorkAttribute on controller,
         //try to get UnitOfWorkAttribute from action
-        var  unitOfWorkAttribute = controllerActionDescriptor.ControllerTypeInfo
+        var unitOfWorkAttribute = controllerActionDescriptor.ControllerTypeInfo
             .GetCustomAttribute<UnitOfWorkAttribute>();
         return unitOfWorkAttribute ?? controllerActionDescriptor.MethodInfo
                 .GetCustomAttribute<UnitOfWorkAttribute>();
     }
+
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var  unitOfWorkAttribute = GetUnitOfWorkAttribute(context.ActionDescriptor);
+        var unitOfWorkAttribute = GetUnitOfWorkAttribute(context.ActionDescriptor);
         if (unitOfWorkAttribute == null)
         {
             await next();
@@ -45,7 +47,7 @@ public class UnitOfWorkFilter : IAsyncActionFilter
         var result = await next();
         if (result.Exception == null)
         {
-            foreach (var  dbContext in dbContexts)
+            foreach (var dbContext in dbContexts)
             {
                 await dbContext.SaveChangesAsync();
             }

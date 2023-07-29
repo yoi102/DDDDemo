@@ -24,7 +24,6 @@ public class UserAdminController : ControllerBase
         this.identityUserManager = identityUserManager;
         this.mediator = mediator;
         this.identityRepository = identityRepository;
-
     }
 
     [HttpGet]
@@ -40,7 +39,6 @@ public class UserAdminController : ControllerBase
         var user = await identityUserManager.FindByIdAsync(id.ToString());
         return user is null ? (ActionResult<UserDTO>)NotFound() : (ActionResult<UserDTO>)UserDTO.Create(user);
     }
-
 
     [HttpPost]
     public async Task<ActionResult> AddAdminUser(AddAdminUserRequest request)

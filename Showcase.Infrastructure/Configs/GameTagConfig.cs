@@ -1,8 +1,6 @@
-﻿using Commons;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Showcase.Domain.Entities;
-using System.Reflection.Emit;
 
 namespace Showcase.Infrastructure.Configs
 {

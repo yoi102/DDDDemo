@@ -2,6 +2,5 @@
 
 namespace Showcase.Admin.WebAPI.Controllers.Exhibits.Request
 {
-    public record ExhibitAddRequest(GameId GameId,Uri ItemUrl);
-
+    public record ExhibitAddRequest(GameId GameId, Uri ItemUrl);
 }

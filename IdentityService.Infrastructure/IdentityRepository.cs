@@ -14,7 +14,6 @@ namespace IdentityService.Infrastructure
         private readonly RoleManager<Role> roleManager;
         private readonly ILogger<IdentityRepository> logger;
 
-
         public IdentityRepository(IdentityUserManager userManager, RoleManager<Role> roleManager, ILogger<IdentityRepository> logger)
         {
             this.userManager = userManager;
@@ -36,6 +35,7 @@ namespace IdentityService.Infrastructure
         {
             return await userManager.FindByNameAsync(userName);
         }
+
         public Task<IdentityResult> CreateAsync(User user, string password)
         {
             return this.userManager.CreateAsync(user, password);
@@ -67,6 +67,7 @@ namespace IdentityService.Infrastructure
                 return SignInResult.Success;
             }
         }
+
         public async Task<IdentityResult> ChangePasswordAsync(Guid userId, string password)
         {
             if (password.Length < 6)
@@ -112,6 +113,7 @@ namespace IdentityService.Infrastructure
             }
             return await userManager.AddToRoleAsync(user, roleName);
         }
+
         /// <summary>
         /// 尝试登录，如果lockoutOnFailure为true，则登录失败还会自动进行lockout计数
         /// </summary>
@@ -144,6 +146,7 @@ namespace IdentityService.Infrastructure
                 return SignInResult.Failed;
             }
         }
+
         public async Task ConfirmPhoneNumberAsync(Guid id)
         {
             var user = await userManager.Users.FirstOrDefaultAsync(u => u.Id == id);

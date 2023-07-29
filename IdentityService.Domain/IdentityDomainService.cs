@@ -30,6 +30,7 @@ namespace IdentityService.Domain
             var result = await repository.CheckForSignInAsync(user, password, true);
             return result;
         }
+
         private async Task<SignInResult> CheckPhoneNumAndPasswordAsync(string phoneNumber, string password)
         {
             var user = await repository.FindByPhoneNumberAsync(phoneNumber);

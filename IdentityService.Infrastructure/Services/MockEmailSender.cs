@@ -6,6 +6,7 @@ namespace IdentityService.Infrastructure.Services
     public class MockEmailSender : IEmailSender
     {
         private readonly ILogger<MockEmailSender> logger;
+
         public MockEmailSender(ILogger<MockEmailSender> logger)
         {
             this.logger = logger;

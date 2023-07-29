@@ -20,5 +20,4 @@ namespace Showcase.Admin.WebAPI.Controllers.Games.Validators
                 .WithMessage(c => $" CompanyId={c.CompanyId} 不存在");
         }
     }
-
 }

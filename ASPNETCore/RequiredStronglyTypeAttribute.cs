@@ -2,7 +2,6 @@
 
 namespace ASPNETCore
 {
-
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class RequiredStronglyTypeAttribute : ValidationAttribute
     {
@@ -42,9 +41,4 @@ namespace ASPNETCore
             return false;
         }
     }
-
-
-
-
-
 }

@@ -11,7 +11,6 @@ namespace Showcase.Domain.Entities
             Name = name;
             CoverUrl = coverUrl;
             SequenceNumber = sequenceNumber;
-
         }
 
         public CompanyId Id { get; private set; }
@@ -37,7 +36,7 @@ namespace Showcase.Domain.Entities
         }
     }
 
-    [Strongly(converters: StronglyConverter.EfValueConverter| StronglyConverter.SwaggerSchemaFilter)]
+    [Strongly(converters: StronglyConverter.EfValueConverter | StronglyConverter.SwaggerSchemaFilter)]
     public partial struct CompanyId
     {
     }

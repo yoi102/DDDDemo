@@ -28,7 +28,7 @@ namespace Showcase.Domain.Entities
 
         public GameId Id { get; private set; }
         public CompanyId CompanyId { get; private set; }
-        public ICollection<TagId> TagIds { get; private set; } = new HashSet<TagId>();
+        public ICollection<TagId> TagIds { get; private set; } = new List<TagId>();
         public MultilingualString Title { get; private set; }
         public string Introduction { get; private set; }
         public Uri CoverUrl { get; private set; }

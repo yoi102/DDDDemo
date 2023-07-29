@@ -6,9 +6,13 @@ namespace IdentityService.Domain
     public interface IIdentityRepository
     {
         Task<User?> FindByIdAsync(Guid userId);//根据Id获取用户
+
         Task<User?> FindByNameAsync(string userName);//根据用户名获取用户
+
         Task<User?> FindByPhoneNumberAsync(string phoneNumber);//根据手机号获取用户
+
         Task<IdentityResult> CreateAsync(User user, string password);//创建用户
+
         Task<IdentityResult> AccessFailedAsync(User user);//记录一次登陆失败
 
         /// <summary>
@@ -18,6 +22,7 @@ namespace IdentityService.Domain
         /// <param name="phoneNumber"></param>
         /// <returns></returns>
         Task<string> GenerateChangePhoneNumberTokenAsync(User user, string phoneNumber);
+
         /// <summary>
         /// 检查VCode，然后设置用户手机号为phoneNum
         /// </summary>
@@ -26,6 +31,7 @@ namespace IdentityService.Domain
         /// <param name="code"></param>
         /// <returns></returns>
         Task<SignInResult> ChangePhoneNumberAsync(Guid userId, string phoneNumber, string token);
+
         /// <summary>
         /// 修改密码
         /// </summary>
@@ -48,6 +54,7 @@ namespace IdentityService.Domain
         /// <param name="role"></param>
         /// <returns></returns>
         Task<IdentityResult> AddToRoleAsync(User user, string role);
+
         /// <summary>
         /// 为了登录而检查用户名、密码是否正确
         /// </summary>
@@ -56,6 +63,7 @@ namespace IdentityService.Domain
         /// <param name="lockoutOnFailure">如果登录失败，则记录一次登陆失败</param>
         /// <returns></returns>
         public Task<SignInResult> CheckForSignInAsync(User user, string password, bool lockoutOnFailure);
+
         /// <summary>
         /// 确认手机号
         /// </summary>
@@ -70,6 +78,7 @@ namespace IdentityService.Domain
         /// <param name="phoneNumber"></param>
         /// <returns></returns>
         public Task UpdatePhoneNumberAsync(Guid id, string phoneNumber);
+
         /// <summary>
         /// 删除用户
         /// </summary>

@@ -4,7 +4,7 @@ using Zack.Commons;
 
 namespace Showcase.Infrastructure
 {
-    class ModuleInitializer : IModuleInitializer
+    internal class ModuleInitializer : IModuleInitializer
     {
         public void Initialize(IServiceCollection services)
         {

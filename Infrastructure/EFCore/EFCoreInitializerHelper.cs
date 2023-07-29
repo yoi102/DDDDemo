@@ -9,7 +9,6 @@ namespace Infrastructure.EFCore
         public static IServiceCollection AddAllDbContexts(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction,
             IEnumerable<Assembly> assemblies)
         {
-
             Type[] types = new Type[] { typeof(IServiceCollection), typeof(Action<DbContextOptionsBuilder>), typeof(ServiceLifetime), typeof(ServiceLifetime) };
             var methodAddDbContext = typeof(EntityFrameworkServiceCollectionExtensions)
                 .GetMethod(nameof(EntityFrameworkServiceCollectionExtensions.AddDbContext), 1, types)!;

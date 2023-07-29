@@ -3,7 +3,6 @@ using IdentityService.WebAPI.Controllers.UserAdmin.Models;
 
 namespace IdentityService.WebAPI.Controllers.UserAdmin.Validators
 {
-
     public class AddAdminUserRequestValidator : AbstractValidator<AddAdminUserRequest>
     {
         public AddAdminUserRequestValidator()

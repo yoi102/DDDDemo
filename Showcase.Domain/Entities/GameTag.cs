@@ -4,6 +4,5 @@
     {
         public GameId GameId { get; set; }
         public TagId TagId { get; set; }
-
     }
 }

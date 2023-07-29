@@ -9,6 +9,7 @@ namespace ASPNETCore
     public class MemoryCacheHelper : IMemoryCacheHelper
     {
         private readonly IMemoryCache memoryCache;
+
         public MemoryCacheHelper(IMemoryCache memoryCache)
         {
             this.memoryCache = memoryCache;

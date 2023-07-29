@@ -4,7 +4,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits.Request
 {
     public class ExhibitsSortRequest
     {
-        public required ExhibitId[] SortedExhibitIds { get; set; }
-
+        public ExhibitId[] SortedExhibitIds { get; set; }
     }
 }

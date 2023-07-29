@@ -14,13 +14,11 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Showcase.Admin.WebAPI", Version = "v1" });
     c.EnableAnnotations();
-
 });
 builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
 
 var app = builder.Build();
 
@@ -30,11 +28,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showcase.Admin.WebAPI v1"));
-
 }
 app.MapHub<StatusHub>("/Hubs/StatusHub");
 app.UseDefaultMiddleware();
-
 
 app.MapControllers();
 

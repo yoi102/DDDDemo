@@ -9,6 +9,6 @@ RabbitMQ
 ![image](https://github.com/yoi102/GameManagementDemo/assets/77535233/af47d70f-f58c-4a7f-9ffe-c33d3a6d9aa6)
 
 
-# GameManagementDemo
+#
 #TODO      
   MCV/Blazor

@@ -3,7 +3,7 @@ using Zack.Commons;
 
 namespace Showcase.Domain
 {
-    class ModuleInitializer : IModuleInitializer
+    internal class ModuleInitializer : IModuleInitializer
     {
         public void Initialize(IServiceCollection services)
         {

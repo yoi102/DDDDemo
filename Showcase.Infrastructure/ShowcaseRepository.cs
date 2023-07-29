@@ -44,8 +44,6 @@ namespace Showcase.Infrastructure
             return await dbContext.Games.Where(g => g.CompanyId == companyId).OrderBy(g => g.SequenceNumber).ToArrayAsync();
         }
 
-
-
         public async Task<int> GetMaxSequenceNumberOfCompaniesAsync()
         {
             int? maxSeq = await dbContext.Query<Company>().MaxAsync(c => (int?)c.SequenceNumber);
@@ -64,8 +62,6 @@ namespace Showcase.Infrastructure
             return maxSeq ?? 0;
         }
 
-
-
         public async Task<Tag?> GetTagByIdAsync(TagId tagId)
         {
             return await dbContext.FindAsync<Tag>(tagId);
@@ -81,8 +77,5 @@ namespace Showcase.Infrastructure
             var game = await dbContext.Games.FirstOrDefaultAsync(g => g.Id == gameId);
             return await dbContext.Tags.Where(t => game!.TagIds.Contains(t.Id)).ToArrayAsync();
         }
-
-
-
     }
 }

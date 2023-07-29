@@ -2,8 +2,8 @@
 {
     public class InitializerOptions
     {
-        public required string LogFilePath { get; set; }
+        public string LogFilePath { get; set; }
 
-        public required string EventBusQueueName { get; set; }
+        public string EventBusQueueName { get; set; }
     }
 }
