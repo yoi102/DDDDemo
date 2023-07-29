@@ -11,6 +11,4 @@ RabbitMQ
 
 # GameManagementDemo
 #TODO      
-Restful Api     
-DDD    
-MCV/Blazor
+  MCV/Blazor
