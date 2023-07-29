@@ -12,7 +12,6 @@ namespace Showcase.Infrastructure.Configs
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.Property(e => e.CoverUrl).IsRequired(false).HasMaxLength(500).IsUnicode();
             builder.Property(x => x.Id).HasConversion<CompanyId.EfValueConverter>();
-
         }
     }
 }

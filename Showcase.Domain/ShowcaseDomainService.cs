@@ -106,7 +106,7 @@ namespace Showcase.Domain
 
 
 
-        public async Task<Tag?> AddTagAsync(GameId gameId, string text)
+        public async Task<(Tag, bool)> AddTagAsync(GameId gameId, string text)
         {
             var tag = await repository.GetTagByTextAsync(text);
             var games = await repository.GetGameByIdAsync(gameId);
@@ -114,11 +114,11 @@ namespace Showcase.Domain
             {
                 var id = new TagId(Guid.NewGuid());
                 games!.TagIds.Add(id);
-                return new Tag(id, text);
+                return (new Tag(id, text), false);
             }
 
             games!.TagIds.Add(tag.Id);
-            return null;
+            return (tag, true);
 
 
 

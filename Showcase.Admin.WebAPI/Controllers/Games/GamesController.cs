@@ -30,8 +30,8 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         [Route("{id}")]
         public async Task<ActionResult<Game?>> FindById([RequiredStronglyType] GameId id)
         {
-            var album = await repository.GetGameByIdAsync(id);
-            return album;
+            var game = await repository.GetGameByIdAsync(id);
+            return game;
         }
 
         [HttpGet]

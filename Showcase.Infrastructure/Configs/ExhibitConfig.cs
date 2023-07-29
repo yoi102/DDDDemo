@@ -13,7 +13,6 @@ namespace Showcase.Infrastructure.Configs
             builder.HasIndex(e => new { e.GameId, e.IsDeleted });
             builder.Property(e => e.ItemUrl).HasMaxLength(1000).IsUnicode().IsRequired();
             builder.Property(x => x.Id).HasConversion<ExhibitId.EfValueConverter>();
-
         }
     }
 }

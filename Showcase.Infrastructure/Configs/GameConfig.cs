@@ -14,9 +14,6 @@ namespace Showcase.Infrastructure.Configs
             builder.OwnsOneMultilingualString(e => e.Title);
             builder.HasIndex(e => new { e.CompanyId, e.IsDeleted });
             builder.Property(x => x.Id).HasConversion<GameId.EfValueConverter>();
-
-
-
         }
     }
 }
