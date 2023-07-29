@@ -1,4 +1,5 @@
 using Initializer;
+using Showcase.Admin.WebAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showcase.Admin.WebAPI v1"));
 
 }
-//app.MapHub<EpisodeEncodingStatusHub>("/Hubs/StatusHub");
+app.MapHub<StatusHub>("/Hubs/StatusHub");
 app.UseDefaultMiddleware();
 
 
