@@ -9,7 +9,7 @@ builder.ConfigureExtraServices(new InitializerOptions
     LogFilePath = "h:/logs/Showcase.Admin/log-.txt",
     EventBusQueueName = "Showcase.Admin"
 });
-
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Showcase.Admin.WebAPI", Version = "v1" });
@@ -19,7 +19,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 
