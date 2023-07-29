@@ -49,6 +49,8 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpPost]
+        [Route("{gameId}")]
+
         public async Task<ActionResult<Guid>> Add([RequiredStronglyType] GameId gameId, string text)
         {
             (Tag tag, bool has) = await domainService.AddTagAsync(gameId, text);
@@ -60,7 +62,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{gameId}/{id}")]
         public async Task<ActionResult> RemoveGameTagById([RequiredStronglyType] GameId gameId, [RequiredStronglyType] TagId id)
         {
             var game = await repository.GetGameByIdAsync(gameId);

@@ -7,7 +7,8 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits.Validators
     {
         public ExhibitsSortRequestValidator()
         {
-            RuleFor(r => r.SortedExhibitIds).NotNull().NotEmpty().NotContains(new Domain.Entities.GameId(Guid.Empty)).NotDuplicated();
+            RuleFor(r => r.SortedExhibitIds).NotNull().NotEmpty().NotContains(new Domain.Entities.ExhibitId(Guid.Empty)).NotDuplicated();
+
             //RuleFor(r => r.SortedExhibitIds).NotNull().NotEmpty().NotContains(Guid.Empty).NotDuplicated();
         }
     }

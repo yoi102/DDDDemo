@@ -13,7 +13,12 @@ namespace Showcase.Infrastructure.Configs
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.OwnsOneMultilingualString(e => e.Title);
             builder.HasIndex(e => new { e.CompanyId, e.IsDeleted });
+            builder.Property(x => x.CompanyId).HasConversion<CompanyId.EfValueConverter>();
             builder.Property(x => x.Id).HasConversion<GameId.EfValueConverter>();
+
+
+
+            //builder.Property(x => x.TagIds).HasConversion<TagId.EfValueConverter>();//??? 集合转？
         }
     }
 }

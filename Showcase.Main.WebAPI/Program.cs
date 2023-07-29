@@ -2,12 +2,14 @@ using Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureAppConfiguration();
-builder.ConfigureExtraServices(new InitializerOptions
-{
-    LogFilePath = "h:/logs/Showcase.Main/log-.txt",
-    EventBusQueueName = "Showcase.Main"
-});
+//builder.ConfigureAppConfiguration();
+//builder.ConfigureExtraServices(new InitializerOptions
+//{
+//    LogFilePath = "h:/logs/Showcase.Main/log-.txt",
+//    EventBusQueueName = "Showcase.Main"
+//});
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Showcase.Main.WebAPI", Version = "v1" });
@@ -17,7 +19,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();

@@ -6,21 +6,22 @@ namespace Showcase.Domain.Entities
 {
     public record Game : AggregateRootEntity, IAggregateRoot
     {
-        private Game(CompanyId companyId, GameId id, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate, int sequenceNumber)
+        private Game()
         {
-            CompanyId = companyId;
-            Id = id;
-            Title = title;
-            Introduction = introduction;
-            CoverUrl = coverUrl;
-            ReleaseDate = releaseDate;
-            SequenceNumber = sequenceNumber;
-            //AddDomainEvent(new GameCreatedEvent(this));//ef core...
         }
 
         public static Game Create(CompanyId companyId, GameId id, MultilingualString title, string introduction, Uri coverUrl, DateTimeOffset releaseDate, int sequenceNumber)
         {
-            var g = new Game(companyId, id, title, introduction, coverUrl, releaseDate, sequenceNumber);
+            var g = new Game()
+            {
+                CompanyId = companyId,
+                Id = id,
+                Title = title,
+                Introduction = introduction,
+                CoverUrl = coverUrl,
+                ReleaseDate = releaseDate,
+                SequenceNumber = sequenceNumber,
+            };
             g.AddDomainEvent(new GameCreatedEvent(g));//ef core...
             return g;
         }
