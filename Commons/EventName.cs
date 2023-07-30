@@ -2,7 +2,11 @@
 {
     public static class EventName
     {
-        //public const string IdentityServiceUserPasswordReset = "IdentityService.User.PasswordReset";
-        //public const string IdentityServiceUserCreated = "IdentityService.User.Created";
+
+
+        public const string ShowcaseGameDeleted = "Showcase.GameDeleted";
+        public const string ShowcaseGameUpdated = "Showcase.GameUpdated";
+        public const string ShowcaseGameCreated = "Showcase.GameCreated";
+        public const string SearchServiceReIndexAll = "SearchService.ReIndexAll";
     }
 }

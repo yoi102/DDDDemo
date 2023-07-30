@@ -7,6 +7,7 @@ using JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,12 +29,11 @@ namespace Initializer
             builder.Configuration.AddJsonFile(fullPath);
         }
 
-        //Serilog
         public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
         {
             IServiceCollection services = builder.Services;
             IConfiguration configuration = builder.Configuration;
-
+            //Serilog
             builder.Host.UseSerilog((context, services, configuration) => configuration
                        .ReadFrom.Configuration(context.Configuration)
                        .WriteTo.File(initOptions.LogFilePath)
@@ -76,6 +76,8 @@ namespace Initializer
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add<UnitOfWorkFilter>();
+                options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
             });
             //services.Configure<JsonOptions>(options =>
             //{
