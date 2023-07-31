@@ -41,14 +41,14 @@ namespace SearchService.Infrastructure
             int from = pageSize * (pageIndex - 1);
             string kw = keyword;
             Func<QueryContainerDescriptor<Game>, QueryContainer> query = (q) =>
-                          q.Match(mq => mq.Field(f => f.Title.Chinese).Query(kw))
-                          || q.Match(mq => mq.Field(f => f.Title.English).Query(kw))
-                          || q.Match(mq => mq.Field(f => f.Title.Japanese).Query(kw))
-                          || q.Match(mq => mq.Field(f => f.Tags).Query(kw))
-                          || q.Match(mq => mq.Field(f => f.Introduction).Query(kw));
+                          q.Match(mq => mq.Field(g => g.Title.Chinese).Query(kw))
+                          || q.Match(mq => mq.Field(g => g.Title.English).Query(kw))
+                          || q.Match(mq => mq.Field(g => g.Title.Japanese).Query(kw))
+                          || q.Match(mq => mq.Field(g => g.Tags).Query(kw))
+                          || q.Match(mq => mq.Field(g => g.Introduction).Query(kw));
             Func<HighlightDescriptor<Game>, IHighlight> highlightSelector = h => h
-                .Fields(fs => fs.Field(f => f.Introduction));
-            var result = await this.elasticClient.SearchAsync<Game>(s => s.Index("games").From(from)
+                .Fields(fs => fs.Field(g => g.Introduction));
+            var result = await elasticClient.SearchAsync<Game>(s => s.Index("games").From(from)
                 .Size(pageSize).Query(query).Highlight(highlightSelector));
             if (!result.IsValid)
             {
@@ -57,17 +57,17 @@ namespace SearchService.Infrastructure
             List<Game> games = new List<Game>();
             foreach (var hit in result.Hits)
             {
-                string highlightedSubtitle;
+                string highlightedIntroduction;
                 //如果没有预览内容，则显示前50个字
                 if (hit.Highlight.ContainsKey("introduction"))
                 {
-                    highlightedSubtitle = string.Join("\r\n", hit.Highlight["introduction"]);
+                    highlightedIntroduction = string.Join("\r\n", hit.Highlight["introduction"]);
                 }
                 else
                 {
-                    highlightedSubtitle = hit.Source.Introduction.Cut(50);
+                    highlightedIntroduction = hit.Source.Introduction.Cut(50);
                 }
-                var game = hit.Source with { Introduction = highlightedSubtitle };
+                var game = hit.Source with { Introduction = highlightedIntroduction };
                 games.Add(game);
             }
             return new SearchGamesResponse(games, result.Total);
