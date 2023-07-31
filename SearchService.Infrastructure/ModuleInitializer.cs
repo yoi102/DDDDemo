@@ -15,6 +15,7 @@ namespace SearchService.Infrastructure
             {
                 var option = sp.GetRequiredService<IOptions<ElasticSearchOptions>>();
                 var settings = new ConnectionSettings(option.Value.Url);
+                
                 return new ElasticClient(settings);
             });
             services.AddScoped<ISearchRepository, SearchRepository>();

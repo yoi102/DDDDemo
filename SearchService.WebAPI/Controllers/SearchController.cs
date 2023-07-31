@@ -21,9 +21,9 @@ namespace SearchService.WebAPI.Controllers
 
 
         [HttpGet]
-        public Task<SearchGamesResponse> SearchEpisodes([FromQuery] SearchEpisodesRequest request)
+        public Task<SearchGamesResponse> SearchGames([FromQuery] SearchGamesRequest request)
         {
-            return repository.SearchEpisodes(request.Keyword, request.PageIndex, request.PageSize);
+            return repository.SearchGames(request.Keyword, request.PageIndex, request.PageSize);
         }
 
         [HttpPut]

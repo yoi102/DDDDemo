@@ -23,9 +23,9 @@ namespace SearchService.Infrastructure
         }
 
 
-        public async Task UpsertAsync(Game episode)
+        public async Task UpsertAsync(Game game)
         {
-            var response = await elasticClient.IndexAsync(episode, idx => idx.Index("games").Id(episode.Id));
+            var response = await elasticClient.IndexAsync(game, idx => idx.Index("games").Id(game.Id));
             if (!response.IsValid)
             {
                 throw new ApplicationException(response.DebugInformation);
@@ -36,7 +36,7 @@ namespace SearchService.Infrastructure
 
 
 
-        public async Task<SearchGamesResponse> SearchEpisodes(string keyword, int pageIndex, int pageSize)
+        public async Task<SearchGamesResponse> SearchGames(string keyword, int pageIndex, int pageSize)
         {
             int from = pageSize * (pageIndex - 1);
             string kw = keyword;
@@ -44,6 +44,7 @@ namespace SearchService.Infrastructure
                           q.Match(mq => mq.Field(f => f.Title.Chinese).Query(kw))
                           || q.Match(mq => mq.Field(f => f.Title.English).Query(kw))
                           || q.Match(mq => mq.Field(f => f.Title.Japanese).Query(kw))
+                          || q.Match(mq => mq.Field(f => f.Tags).Query(kw))
                           || q.Match(mq => mq.Field(f => f.Introduction).Query(kw));
             Func<HighlightDescriptor<Game>, IHighlight> highlightSelector = h => h
                 .Fields(fs => fs.Field(f => f.Introduction));

@@ -3,9 +3,9 @@ using SearchService.WebAPI.Controllers.Requests;
 
 namespace SearchService.WebAPI.Controllers.Validators
 {
-    public class SearchEpisodesRequestValidator : AbstractValidator<SearchEpisodesRequest>
+    public class SearchGamesRequestValidator : AbstractValidator<SearchGamesRequest>
     {
-        public SearchEpisodesRequestValidator()
+        public SearchGamesRequestValidator()
         {
             RuleFor(e => e.Keyword).NotNull().MinimumLength(2).MaximumLength(100);
             RuleFor(e => e.PageIndex).GreaterThan(0);//页号从1开始

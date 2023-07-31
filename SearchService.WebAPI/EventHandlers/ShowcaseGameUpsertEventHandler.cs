@@ -22,9 +22,8 @@ public class ShowcaseGameUpsertEventHandler : DynamicIntegrationEventHandler
         MultilingualString title = eventData.Title;
         Uri coverUrl = eventData.CoverUrl;
         string introduction = eventData.Introduction;
-        Guid[] TagIds = eventData.TagIds;//..............
-
-        Game game = new Game(id, title, coverUrl, introduction, TagIds);
+        string[]? tags = eventData.TagIds;
+        Game game = new Game(id, title, coverUrl, introduction, tags);
         return repository.UpsertAsync(game);
     }
 }

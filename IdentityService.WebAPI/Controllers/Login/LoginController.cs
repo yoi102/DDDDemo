@@ -39,8 +39,6 @@ public class LoginController : ControllerBase
         Debug.Assert(cr.Succeeded);
         r = await identityRepository.AddToRoleAsync(user, UserRoles.Administrator);
         Debug.Assert(r.Succeeded);
-        r = await identityRepository.AddToRoleAsync(user, UserRoles.Administrator);
-        Debug.Assert(r.Succeeded);
         return Ok();
     }
 
