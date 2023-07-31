@@ -20,7 +20,11 @@ namespace Listening.Admin.WebAPI.EventHandlers
 
         public Task Handle(string eventName, string eventData)
         {
-          
+            foreach (var game in dbContext.Query<Game>())
+            {
+                var tags = dbContext.Tags.Where(x => game.TagIds.Contains(x.Id)).Select(x => x.Text).ToArray();
+                eventBus.Publish(EventName.ShowcaseGameUpdated, new { game.Id, game.Title, game.CoverUrl, game.Introduction, game.ReleaseDate, tags });
+            }
             return Task.CompletedTask;
         }
     }
