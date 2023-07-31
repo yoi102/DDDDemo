@@ -34,7 +34,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Company?>> FindById([RequiredStronglyType] CompanyId id)
+        public async Task<ActionResult<Company>> FindById([RequiredStronglyType] CompanyId id)
         {
             var company = await repository.GetCompanyByIdAsync(id);
             if (company is null)

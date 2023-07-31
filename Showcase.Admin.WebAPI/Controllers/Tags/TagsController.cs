@@ -26,10 +26,14 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<Tag?>> FindById([RequiredStronglyType] TagId id)
+        [Route("id/{id}")]
+        public async Task<ActionResult<Tag>> FindById([RequiredStronglyType] TagId id)
         {
             var tag = await repository.GetTagByIdAsync(id);
+            if (tag is null)
+            {
+                return NotFound("id = {id} 的 Tag");
+            }
             return tag;
         }
 
@@ -41,7 +45,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        [Route("{gameId}")]
+        [Route("gameId/{gameId}")]
         public Task<Tag[]> FindByCategoryId([RequiredStronglyType] GameId gameId)
         {
             return repository.GetTagsByGameIdAsync(gameId);

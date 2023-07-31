@@ -27,15 +27,19 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<Exhibit?>> FindById([RequiredStronglyType] ExhibitId id)
+        [Route("id/{id}")]
+        public async Task<ActionResult<Exhibit>> FindById([RequiredStronglyType] ExhibitId id)
         {
             var exhibit = await repository.GetExhibitByIdAsync(id);
+            if (exhibit is null)
+            {
+                return NotFound("id=={id} 的 Exhibit");
+            }
             return exhibit;
         }
 
         [HttpGet]
-        [Route("{gameId}")]
+        [Route("gameId/{gameId}")]
         public Task<Exhibit[]> FindByCategoryId([RequiredStronglyType] GameId gameId)
         {
             return repository.GetExhibitsByGameIdAsync(gameId);
@@ -50,7 +54,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("id/{id}")]
         public async Task<ActionResult> Update([RequiredStronglyType] ExhibitId id, ExhibitUpdateRequest request)
         {
             var exhibit = await repository.GetExhibitByIdAsync(id);
@@ -76,7 +80,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         }
 
         [HttpPut]
-        [Route("{gameId}")]
+        [Route("gameId/{gameId}")]
         public async Task<ActionResult> Sort([RequiredStronglyType] GameId gameId, ExhibitsSortRequest request)
         {
             await domainService.SortExhibitsAsync(gameId, request.SortedExhibitIds);

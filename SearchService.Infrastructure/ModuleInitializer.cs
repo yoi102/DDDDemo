@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Elastic.Clients.Elasticsearch;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Nest;
 using SearchService.Domain;
 using Zack.Commons;
 
@@ -11,12 +11,12 @@ namespace SearchService.Infrastructure
         public void Initialize(IServiceCollection services)
         {
             services.AddHttpClient();
-            services.AddScoped<IElasticClient>(sp =>
+            services.AddScoped(sp =>
             {
                 var option = sp.GetRequiredService<IOptions<ElasticSearchOptions>>();
-                var settings = new ConnectionSettings(option.Value.Url);
-                
-                return new ElasticClient(settings);
+                var settings = new ElasticsearchClientSettings(option.Value.Url);
+
+                return new ElasticsearchClient(settings);
             });
             services.AddScoped<ISearchRepository, SearchRepository>();
         }

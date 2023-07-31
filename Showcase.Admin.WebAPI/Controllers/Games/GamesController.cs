@@ -27,15 +27,19 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<Game?>> FindById([RequiredStronglyType] GameId id)
+        [Route("id/{id}")]
+        public async Task<ActionResult<Game>> FindById([RequiredStronglyType] GameId id)
         {
             var game = await repository.GetGameByIdAsync(id);
+            if (game is null)
+            {
+                return NotFound("id = {id} 的 Game");
+            }
             return game;
         }
 
         [HttpGet]
-        [Route("{companyId}")]
+        [Route("companyId/{companyId}")]
         public Task<Game[]> FindByCategoryId([RequiredStronglyType] CompanyId companyId)
         {
             return repository.GetGamesByCompanyIdAsync(companyId);
@@ -50,7 +54,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("id/{id}")]
         public async Task<ActionResult> Update([RequiredStronglyType] GameId id, GameUpdateRequest request)
         {
             var game = await repository.GetGameByIdAsync(id);
@@ -79,7 +83,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         }
 
         [HttpPut]
-        [Route("{companyId}")]
+        [Route("companyId/{companyId}")]
         public async Task<ActionResult> Sort([RequiredStronglyType] CompanyId companyId, GamesSortRequest request)
         {
             await domainService.SortGamesAsync(companyId, request.SortedGameIds);

@@ -21,9 +21,14 @@ namespace SearchService.WebAPI.Controllers
 
 
         [HttpGet]
-        public Task<SearchGamesResponse> SearchGames([FromQuery] SearchGamesRequest request)
+        public async Task<ActionResult<SearchGamesResponse?>> SearchGames([FromQuery] SearchGamesRequest request)
         {
-            return repository.SearchGames(request.Keyword, request.PageIndex, request.PageSize);
+            var response = await repository.SearchGames(request.Keyword, request.PageIndex, request.PageSize);
+            if (response is null)
+            {
+                return NotFound(request);
+            }
+            return response;
         }
 
         [HttpPut]
