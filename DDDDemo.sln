@@ -7,53 +7,57 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{C548
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{F898DE99-4731-43C3-845E-1AD40BAED1D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commons", "Commons\Commons.csproj", "{B223982F-1AD6-42B5-B968-BA3F9A87CACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commons", "Backend\Commons\Commons.csproj", "{B223982F-1AD6-42B5-B968-BA3F9A87CACA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Initializer", "Initializer\Initializer.csproj", "{8AC92A8B-8310-4CE5-B581-A7B7ADE12EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Initializer", "Backend\Initializer\Initializer.csproj", "{8AC92A8B-8310-4CE5-B581-A7B7ADE12EC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainCommons", "DomainCommons\DomainCommons.csproj", "{AEE0898D-51F6-41AD-9D38-65ECCBDAD181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainCommons", "Backend\DomainCommons\DomainCommons.csproj", "{AEE0898D-51F6-41AD-9D38-65ECCBDAD181}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{088D30F6-FB35-4881-8872-43FAFB09A082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Backend\Infrastructure\Infrastructure.csproj", "{088D30F6-FB35-4881-8872-43FAFB09A082}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWT", "JWT\JWT.csproj", "{080078FF-FA42-4399-BEBB-38208FB21226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWT", "Backend\JWT\JWT.csproj", "{080078FF-FA42-4399-BEBB-38208FB21226}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNETCore", "ASPNETCore\ASPNETCore.csproj", "{6D39C36D-E834-4A36-ADE2-DB2E5771FB27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNETCore", "Backend\ASPNETCore\ASPNETCore.csproj", "{6D39C36D-E834-4A36-ADE2-DB2E5771FB27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{AB7563CA-EF20-4919-BC12-D3CB1485B602}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "IdentityService.Domain\IdentityService.Domain.csproj", "{2B32AE31-A834-4333-9B5A-EEFFB01296CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "Backend\IdentityService.Domain\IdentityService.Domain.csproj", "{2B32AE31-A834-4333-9B5A-EEFFB01296CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{4350CF0B-1096-4275-9496-BE9825A4860E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "Backend\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{4350CF0B-1096-4275-9496-BE9825A4860E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebAPI", "IdentityService.WebAPI\IdentityService.WebAPI.csproj", "{A00617F5-3FCA-40AE-875F-E8C7C9E3C941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebAPI", "Backend\IdentityService.WebAPI\IdentityService.WebAPI.csproj", "{A00617F5-3FCA-40AE-875F-E8C7C9E3C941}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileService", "FileService", "{01F32D5D-494F-4A4A-8724-431607621E0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Domain", "FileService.Domain\FileService.Domain.csproj", "{DB8A71E8-C643-440A-A7DE-D5ACE7336E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Domain", "Backend\FileService.Domain\FileService.Domain.csproj", "{DB8A71E8-C643-440A-A7DE-D5ACE7336E0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Infrastructure", "FileService.Infrastructure\FileService.Infrastructure.csproj", "{DB2DF2B5-8846-41B0-A6E3-F28D9AE99028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Infrastructure", "Backend\FileService.Infrastructure\FileService.Infrastructure.csproj", "{DB2DF2B5-8846-41B0-A6E3-F28D9AE99028}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.WebAPI", "FileService.WebAPI\FileService.WebAPI.csproj", "{0F2D784E-4461-4AE4-8B4B-B7C82ABF40FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.WebAPI", "Backend\FileService.WebAPI\FileService.WebAPI.csproj", "{0F2D784E-4461-4AE4-8B4B-B7C82ABF40FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Showcase", "Showcase", "{1EE60558-C0C2-4891-82FE-F157E9C9872F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Domain", "Showcase.Domain\Showcase.Domain.csproj", "{3E9A5F90-D474-49A2-973C-7798DC662388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Domain", "Backend\Showcase.Domain\Showcase.Domain.csproj", "{3E9A5F90-D474-49A2-973C-7798DC662388}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Infrastructure", "Showcase.Infrastructure\Showcase.Infrastructure.csproj", "{20DA76BE-5D2A-462D-9F32-C8AF27815FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Infrastructure", "Backend\Showcase.Infrastructure\Showcase.Infrastructure.csproj", "{20DA76BE-5D2A-462D-9F32-C8AF27815FE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Admin.WebAPI", "Showcase.Admin.WebAPI\Showcase.Admin.WebAPI.csproj", "{54BA1D6D-9802-48CC-93BF-41B2D036EBE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Admin.WebAPI", "Backend\Showcase.Admin.WebAPI\Showcase.Admin.WebAPI.csproj", "{54BA1D6D-9802-48CC-93BF-41B2D036EBE1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{860FD23E-00B3-4DEF-B33D-B5A6E0E27671}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Main.WebAPI", "Showcase.Main.WebAPI\Showcase.Main.WebAPI.csproj", "{F23DB4A0-B460-4715-9C6C-DDF2C75919C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcase.Main.WebAPI", "Backend\Showcase.Main.WebAPI\Showcase.Main.WebAPI.csproj", "{F23DB4A0-B460-4715-9C6C-DDF2C75919C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchService", "SearchService", "{097B9070-A69A-496B-A22F-5CC70EE3DF03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.Domain", "SearchService.Domain\SearchService.Domain.csproj", "{E3B3318B-D80E-4DE0-815A-7A73F3154FF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.Domain", "Backend\SearchService.Domain\SearchService.Domain.csproj", "{E3B3318B-D80E-4DE0-815A-7A73F3154FF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.Infrastructure", "SearchService.Infrastructure\SearchService.Infrastructure.csproj", "{900B0DD3-1D4A-43AF-A22A-82A18F74B7F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.Infrastructure", "Backend\SearchService.Infrastructure\SearchService.Infrastructure.csproj", "{900B0DD3-1D4A-43AF-A22A-82A18F74B7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.WebAPI", "SearchService.WebAPI\SearchService.WebAPI.csproj", "{3E6E520F-AE3A-41DB-AF91-AB0321DA4371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.WebAPI", "Backend\SearchService.WebAPI\SearchService.WebAPI.csproj", "{3E6E520F-AE3A-41DB-AF91-AB0321DA4371}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B2BED3A4-3811-4075-8AD6-07DE16719EBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend.Blazor", "Frontend\Frontend.Blazor\Frontend.Blazor.csproj", "{FF2B1883-2623-42F9-93B9-5845FC520927}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend.BlazorServer", "Frontend\Frontend.BlazorServer\Frontend.BlazorServer.csproj", "{ED70C274-FAF3-4703-B9F3-F590656B15AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +141,14 @@ Global
 		{3E6E520F-AE3A-41DB-AF91-AB0321DA4371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E6E520F-AE3A-41DB-AF91-AB0321DA4371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E6E520F-AE3A-41DB-AF91-AB0321DA4371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2B1883-2623-42F9-93B9-5845FC520927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2B1883-2623-42F9-93B9-5845FC520927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2B1883-2623-42F9-93B9-5845FC520927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2B1883-2623-42F9-93B9-5845FC520927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED70C274-FAF3-4703-B9F3-F590656B15AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED70C274-FAF3-4703-B9F3-F590656B15AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED70C274-FAF3-4703-B9F3-F590656B15AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED70C274-FAF3-4703-B9F3-F590656B15AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -166,6 +178,8 @@ Global
 		{E3B3318B-D80E-4DE0-815A-7A73F3154FF2} = {097B9070-A69A-496B-A22F-5CC70EE3DF03}
 		{900B0DD3-1D4A-43AF-A22A-82A18F74B7F2} = {097B9070-A69A-496B-A22F-5CC70EE3DF03}
 		{3E6E520F-AE3A-41DB-AF91-AB0321DA4371} = {097B9070-A69A-496B-A22F-5CC70EE3DF03}
+		{FF2B1883-2623-42F9-93B9-5845FC520927} = {B2BED3A4-3811-4075-8AD6-07DE16719EBD}
+		{ED70C274-FAF3-4703-B9F3-F590656B15AD} = {B2BED3A4-3811-4075-8AD6-07DE16719EBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7AC0E3-0776-44FB-83A1-1B1253C1AF92}
