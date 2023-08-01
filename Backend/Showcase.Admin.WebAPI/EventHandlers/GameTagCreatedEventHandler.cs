@@ -27,6 +27,7 @@ namespace Showcase.Admin.WebAPI.EventHandlers
             var tagsStrings = tags.Select(x => x.Text).ToArray();
 
             eventBus.Publish(EventName.ShowcaseGameUpdated, new { game!.Id, game.Title, game.CoverUrl, game.Introduction, game.ReleaseDate, tagsStrings });
+
         }
     }
 }
