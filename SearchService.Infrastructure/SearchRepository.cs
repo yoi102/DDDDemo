@@ -44,10 +44,10 @@ namespace SearchService.Infrastructure
 
             QueryDescriptor<Game> query = new QueryDescriptor<Game>();
 
-            query.Term(f => f.Title.Chinese, kw);
-            query.Term(f => f.Title.English, kw);
-            query.Term(f => f.Title.Japanese, kw);
-            query.Term(f => f.Tags, kw);
+            //query.Term(f => f.Title.Chinese, kw);
+            //query.Term(f => f.Title.English, kw);
+            //query.Term(f => f.Title.Japanese, kw);
+            //query.Term(f => f.Tags, kw);
             query.Term(f => f.Introduction, kw);
             HighlightDescriptor<Game> highlightSelector = new HighlightDescriptor<Game>();
             highlightSelector.HighlightQuery(query); //

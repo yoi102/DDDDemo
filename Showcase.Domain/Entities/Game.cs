@@ -90,7 +90,7 @@ namespace Showcase.Domain.Entities
 
     }
 
-    [Strongly(converters: StronglyConverter.EfValueConverter | StronglyConverter.SwaggerSchemaFilter)]
+    [Strongly(converters: StronglyConverter.EfValueConverter | StronglyConverter.SwaggerSchemaFilter | StronglyConverter.SystemTextJson)]
     public partial struct GameId
     { }
 }

@@ -32,7 +32,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             var tag = await repository.GetTagByIdAsync(id);
             if (tag is null)
             {
-                return NotFound("id = {id} 的 Tag");
+                return NotFound("没有 id = {id} 的 Tag");
             }
             return tag;
         }
@@ -70,11 +70,11 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             var game = await repository.GetGameByIdAsync(gameId);
             if (game == null)
             {
-                return NotFound($"没有Id={gameId} 的 Game");
+                return NotFound($"没有 gameId={gameId} 的 Game");
             }
             if (!game.TagIds.Contains(id))
             {
-                return NotFound($"Id={id} 的 Game，没有 Id={id} 的 Tag");
+                return NotFound($"没有 Id={id} 的 Tag");
             }
             game.TagIds.Remove(id);
             return Ok();
@@ -87,7 +87,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             var tag = await repository.GetTagByIdAsync(id);
             if (tag == null)
             {
-                return NotFound("id没找到");
+                return NotFound($"没有 Id={id} 的 Tag");
             }
             tag.ChangeText(text);
             return Ok();
@@ -100,7 +100,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
             var tag = await repository.GetTagByIdAsync(id);
             if (tag == null)
             {
-                return NotFound($"没有Id={id} 的 Tag");
+                return NotFound($"没有 Id={id} 的 Tag");
             }
             dbContext.Remove(tag);
             return Ok();

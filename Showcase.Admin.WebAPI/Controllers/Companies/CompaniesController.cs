@@ -60,7 +60,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
             var company = await repository.GetCompanyByIdAsync(id);
             if (company == null)
             {
-                return NotFound("id 不存在");
+                return NotFound($"没有 Id={id} 的 Company");
             }
             company.ChangeName(request.Name);
             company.ChangeCoverUrl(request.CoverUrl);

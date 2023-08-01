@@ -33,7 +33,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
             var game = await repository.GetGameByIdAsync(id);
             if (game is null)
             {
-                return NotFound("id = {id} 的 Game");
+                return NotFound("没有 id = {id} 的 Game");
             }
             return game;
         }
@@ -60,7 +60,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
             var game = await repository.GetGameByIdAsync(id);
             if (game == null)
             {
-                return NotFound("id没找到");
+                return NotFound("没有 id = {id} 的 Game");
             }
             game.ChangeTitle(request.Title);
             game.ChangeCoverUrl(request.CoverUrl);
@@ -76,7 +76,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
             var game = await repository.GetGameByIdAsync(id);
             if (game == null)
             {
-                return NotFound($"没有Id={id} 的 Game");
+                return NotFound($"没有 Id={id} 的 Game");
             }
             game.SoftDelete();//软删除
             return Ok();

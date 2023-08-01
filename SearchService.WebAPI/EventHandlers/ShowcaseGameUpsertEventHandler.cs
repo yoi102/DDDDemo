@@ -20,7 +20,8 @@ public class ShowcaseGameUpsertEventHandler : DynamicIntegrationEventHandler
     {
         Guid id = Guid.Parse(eventData.Id);
         MultilingualString title = eventData.Title;
-        Uri coverUrl = eventData.CoverUrl;
+   
+          Uri.TryCreate( eventData.CoverUrl, UriKind.RelativeOrAbsolute, out Uri? coverUrl);
         string introduction = eventData.Introduction;
         string[]? tags = eventData.TagIds;
         Game game = new Game(id, title, coverUrl, introduction, tags);

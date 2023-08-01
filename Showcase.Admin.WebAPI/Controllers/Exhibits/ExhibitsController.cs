@@ -33,7 +33,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
             var exhibit = await repository.GetExhibitByIdAsync(id);
             if (exhibit is null)
             {
-                return NotFound("id=={id} 的 Exhibit");
+                return NotFound("没有 id={id} 的 Exhibit");
             }
             return exhibit;
         }
@@ -58,9 +58,9 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         public async Task<ActionResult> Update([RequiredStronglyType] ExhibitId id, ExhibitUpdateRequest request)
         {
             var exhibit = await repository.GetExhibitByIdAsync(id);
-            if (exhibit == null)
+            if (exhibit is null)
             {
-                return NotFound("id没找到");
+                return NotFound("没有 id=={id} 的 Exhibit");
             }
             exhibit.ChangeItemUrl(request.ItemUrl);
             return Ok();
@@ -73,7 +73,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
             var exhibit = await repository.GetExhibitByIdAsync(id);
             if (exhibit == null)
             {
-                return NotFound($"没有Id={id} 的 Exhibit");
+                return NotFound($"没有 Id={id} 的 Exhibit");
             }
             exhibit.SoftDelete();//软删除
             return Ok();

@@ -22,6 +22,8 @@ namespace Listening.Admin.WebAPI.EventHandlers
         {
             foreach (var game in dbContext.Query<Game>())
             {
+                //System.InvalidOperationException:“There is already an open DataReader associated with this Connection which must be closed first.”
+                //冲突了。。。。
                 var tags = dbContext.Tags.Where(x => game.TagIds.Contains(x.Id)).Select(x => x.Text).ToArray();
                 eventBus.Publish(EventName.ShowcaseGameUpdated, new { game.Id, game.Title, game.CoverUrl, game.Introduction, game.ReleaseDate, tags });
             }

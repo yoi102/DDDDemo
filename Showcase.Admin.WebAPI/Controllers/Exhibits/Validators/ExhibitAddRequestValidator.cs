@@ -12,7 +12,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits.Validators
         public ExhibitAddRequestValidator(ShowcaseDbContext dbContext)
         {
             RuleFor(x => x.ItemUrl).Length(5, 500);//CoverUrl允许为空
-            RuleFor(x => x.GameId).Must((cId, ct) => dbContext.Query<Game>().Any(c => c.Id.Equals(cId)))
+            RuleFor(x => x.GameId).Must((cId, ct) => dbContext.Query<Game>().Any(c => c.Id == cId.GameId))
            .WithMessage(c => $" GameId={c.GameId} 不存在");
         }
     }
