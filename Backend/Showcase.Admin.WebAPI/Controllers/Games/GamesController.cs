@@ -27,7 +27,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         }
 
         [HttpGet]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult<Game>> FindById([RequiredStronglyType] GameId id)
         {
             var game = await repository.GetGameByIdAsync(id);
@@ -54,7 +54,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games
         }
 
         [HttpPut]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult> Update([RequiredStronglyType] GameId id, GameUpdateRequest request)
         {
             var game = await repository.GetGameByIdAsync(id);

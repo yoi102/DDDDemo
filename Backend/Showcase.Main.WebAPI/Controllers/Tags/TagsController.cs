@@ -20,7 +20,7 @@ namespace Showcase.Main.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        [Route("{gameId}")]
+        [Route("gameId/{gameId}")]
         public async Task<ActionResult<TagViewModel[]?>> FindByGameId([RequiredStronglyType] GameId gameId)
         {
             Task<Tag[]> FindDataAsync()
@@ -34,7 +34,7 @@ namespace Showcase.Main.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        [Route("{Text}")]
+        [Route("{id}")]
         public async Task<ActionResult<TagViewModel>> FindById([RequiredStronglyType] TagId id)
         {
             var viewModel = await memoryCache.GetOrCreateAsync($"TagsController.FindById.{id}",
@@ -47,7 +47,7 @@ namespace Showcase.Main.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        public async Task<ActionResult<TagViewModel>> FindByText([RequiredStronglyType] string Text)
+        public async Task<ActionResult<TagViewModel>> FindByText(string Text)
         {
             var viewModel = await memoryCache.GetOrCreateAsync($"TagsController.FindByText.{Text}",
                 async (e) => TagViewModel.Create(await repository.GetTagByTextAsync(Text)));

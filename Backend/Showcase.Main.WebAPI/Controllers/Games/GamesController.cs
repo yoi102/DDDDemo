@@ -20,7 +20,7 @@ namespace Showcase.Main.WebAPI.Controllers.Games
         }
 
         [HttpGet]
-        [Route("{companyId}")]
+        [Route("companyId/{companyId}")]
         public async Task<ActionResult<GameViewModel[]?>> FindByCompanyId([RequiredStronglyType] CompanyId companyId)
         {
             //写到单独的 local 函数的好处是避免回调中代码太复杂

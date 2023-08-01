@@ -28,7 +28,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpGet]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult<Tag>> FindById([RequiredStronglyType] TagId id)
         {
             var tag = await repository.GetTagByIdAsync(id);
@@ -54,7 +54,6 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpPost]
-        [Route("{gameId}")]
         public async Task<ActionResult<Guid>> Add(TagAddRequest request)
         {
             (Tag tag, bool has) = await domainService.AddTagAsync(request.GameId, request.Text);

@@ -20,7 +20,7 @@ namespace Showcase.Main.WebAPI.Controllers.Exhibits
         }
 
         [HttpGet]
-        [Route("{gameId}")]
+        [Route("gameId/{gameId}")]
         public async Task<ActionResult<ExhibitViewModel[]?>> FindByGameId([RequiredStronglyType] GameId gameId)
         {
             Task<Exhibit[]> FindDataAsync()

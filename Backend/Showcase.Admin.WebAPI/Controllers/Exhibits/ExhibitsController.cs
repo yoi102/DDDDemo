@@ -27,7 +27,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         }
 
         [HttpGet]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult<Exhibit>> FindById([RequiredStronglyType] ExhibitId id)
         {
             var exhibit = await repository.GetExhibitByIdAsync(id);
