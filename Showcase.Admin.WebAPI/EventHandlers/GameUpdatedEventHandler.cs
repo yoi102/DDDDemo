@@ -11,19 +11,19 @@ namespace Listening.Admin.WebAPI.EventHandlers;
 public class GameUpdatedEventHandler : INotificationHandler<GameUpdatedEvent>
 {
     private readonly IEventBus eventBus;
-    private readonly ShowcaseDbContext dbContext;
+    private readonly IShowcaseRepository repository;
 
-    public GameUpdatedEventHandler(IEventBus eventBus, ShowcaseDbContext dbContext)
+    public GameUpdatedEventHandler(IEventBus eventBus, IShowcaseRepository repository )
     {
         this.eventBus = eventBus;
-        this.dbContext = dbContext;
+        this.repository = repository;
     }
 
-    public Task Handle(GameUpdatedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(GameUpdatedEvent notification, CancellationToken cancellationToken)
     {
         var game = notification.Value;
-        var tags = dbContext.Tags.Where(x => game.TagIds.Contains(x.Id)).Select(x => x.Text).ToArray();
-        eventBus.Publish(EventName.ShowcaseGameUpdated, new { game.Id, game.Title, game.CoverUrl, game.Introduction, game.ReleaseDate, tags });
-        return Task.CompletedTask;
+        var tags = await repository.GetTagsByGameIdAsync(game.Id);
+        var tagsStrings = tags.Select(x => x.Text).ToArray();
+        eventBus.Publish(EventName.ShowcaseGameUpdated, new { game.Id, game.Title, game.CoverUrl, game.Introduction, game.ReleaseDate, tagsStrings });
     }
 }

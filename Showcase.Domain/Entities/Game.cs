@@ -28,25 +28,25 @@ namespace Showcase.Domain.Entities
 
         public GameId Id { get; private set; }
         public CompanyId CompanyId { get; private set; }
-        public ICollection<TagId> TagIds { get; private set; } = new List<TagId>();
+        //public ICollection<TagId> TagIds { get; private set; } = new List<TagId>();
         public MultilingualString Title { get; private set; }
         public string Introduction { get; private set; }
         public Uri CoverUrl { get; private set; }
         public DateTimeOffset ReleaseDate { get; private set; }
         public int SequenceNumber { get; private set; }
 
-        public Game AddTag(TagId tagId)
-        {
-            TagIds.Add(tagId);
-            AddDomainEventIfAbsent(new GameUpdatedEvent(this));
-            return this;
-        }
-        public Game RemoveTag(TagId tagId)
-        {
-            TagIds.Remove(tagId);
-            AddDomainEventIfAbsent(new GameUpdatedEvent(this));
-            return this;
-        }
+        //public Game AddTag(TagId tagId)
+        //{
+        //    TagIds.Add(tagId);
+        //    AddDomainEventIfAbsent(new GameUpdatedEvent(this));
+        //    return this;
+        //}
+        //public Game RemoveTag(TagId tagId)
+        //{
+        //    TagIds.Remove(tagId);
+        //    AddDomainEventIfAbsent(new GameUpdatedEvent(this));
+        //    return this;
+        //}
 
         public Game ChangeTitle(MultilingualString value)
         {

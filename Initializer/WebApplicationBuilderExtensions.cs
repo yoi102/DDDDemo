@@ -47,7 +47,7 @@ namespace Initializer
             // DbContexts
             services.AddAllDbContexts(options =>
             {
-                //options.UseStronglyTypeConverters();
+                options.UseStronglyTypeConverters();
                 var connectionStrings = configuration.GetValue<string>("DefaultDB:ConnectionStrings");
                 ArgumentException.ThrowIfNullOrEmpty(connectionStrings, "DefaultDB:ConnectionStrings");
 

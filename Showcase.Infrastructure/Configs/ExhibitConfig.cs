@@ -12,8 +12,8 @@ namespace Showcase.Infrastructure.Configs
             builder.HasKey(e => e.Id).IsClustered(false);//Guid类型不要聚集索引，否则会影响性能
             builder.HasIndex(e => new { e.GameId, e.IsDeleted });
             builder.Property(e => e.ItemUrl).HasMaxLength(1000).IsUnicode().IsRequired();
-            builder.Property(x => x.GameId).HasConversion<GameId.EfValueConverter>();
-            builder.Property(x => x.Id).HasConversion<ExhibitId.EfValueConverter>();
+            //builder.Property(x => x.GameId).HasConversion<GameId.EfValueConverter>();
+            //builder.Property(x => x.Id).HasConversion<ExhibitId.EfValueConverter>();
         }
     }
 }

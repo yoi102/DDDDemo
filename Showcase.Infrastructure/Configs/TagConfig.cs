@@ -12,7 +12,7 @@ namespace Showcase.Infrastructure.Configs
             builder.HasIndex(x => x.Text).IsUnique();
             builder.HasKey(e => e.Id).IsClustered(false);
             builder.Property(e => e.Text).HasMaxLength(10).IsUnicode(false).IsRequired();
-            builder.Property(x => x.Id).HasConversion<TagId.EfValueConverter>();
+            //builder.Property(x => x.Id).HasConversion<TagId.EfValueConverter>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
+using System.Linq;
 
 namespace Showcase.Infrastructure
 {
@@ -12,6 +13,13 @@ namespace Showcase.Infrastructure
         public ShowcaseRepository(ShowcaseDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public Task AddGameTagByIdAsync(GameId gameId, TagId tagId)
+        {
+            var gameTag = GameTag.Create(gameId, tagId);
+            dbContext.Add(gameTag);
+            return Task.CompletedTask;
         }
 
         public async Task<Company[]> GetCompaniesAsync()
@@ -42,6 +50,11 @@ namespace Showcase.Infrastructure
         public async Task<Game[]> GetGamesByCompanyIdAsync(CompanyId companyId)
         {
             return await dbContext.Games.Where(g => g.CompanyId == companyId).OrderBy(g => g.SequenceNumber).ToArrayAsync();
+        }
+
+        public async Task<GameTag?> GetGameTagByIdAsync(GameId gameId, TagId tagId)
+        {
+            return await dbContext.GameTags.FindAsync(gameId, tagId);
         }
 
         public async Task<int> GetMaxSequenceNumberOfCompaniesAsync()
@@ -75,7 +88,10 @@ namespace Showcase.Infrastructure
         public async Task<Tag[]> GetTagsByGameIdAsync(GameId gameId)
         {
             var game = await dbContext.Games.FirstOrDefaultAsync(g => g.Id == gameId);
-            return await dbContext.Tags.Where(t => game!.TagIds.Contains(t.Id)).ToArrayAsync();
+
+            var tagIds = dbContext.GameTags.Where(x => x.GameId == gameId).Select(x => x.TagId);
+            return await dbContext.Tags.Where(x => tagIds.Contains(x.Id)).ToArrayAsync();
+
         }
     }
 }

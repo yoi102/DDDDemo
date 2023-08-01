@@ -11,6 +11,7 @@ namespace Showcase.Infrastructure
         public DbSet<Game> Games { get; private set; }
         public DbSet<Exhibit> Exhibits { get; private set; }
         public DbSet<Tag> Tags { get; private set; }
+        public DbSet<GameTag> GameTags { get; private set; }
 
         public ShowcaseDbContext(DbContextOptions<ShowcaseDbContext> options, IMediator mediator) : base(options, mediator)
         {

@@ -100,6 +100,8 @@ namespace Showcase.Domain
             }
         }
 
+
+
         public async Task<(Tag, bool)> AddTagAsync(GameId gameId, string text)
         {
             var tag = await repository.GetTagByTextAsync(text);
@@ -107,27 +109,18 @@ namespace Showcase.Domain
             if (tag is null)
             {
                 var id = new TagId(Guid.NewGuid());
-                games!.TagIds.Add(id);
+                await repository.AddGameTagByIdAsync(games!.Id, id);
                 return (new Tag(id, text), false);
             }
-
-            games!.TagIds.Add(tag.Id);
+            await repository.AddGameTagByIdAsync(games!.Id, tag.Id);
             return (tag, true);
         }
 
-        public async Task SortTagsAsync(GameId gameId, TagId[] sortedTagIds)
-        {
-            var games = await repository.GetGameByIdAsync(gameId);
-            if (!games!.TagIds.SequenceIgnoredEqual(sortedTagIds))
-            {
-                throw new Exception($"提交的待排序Id中必须是 gameId = {gameId} 分类下所有的Id");
-            }
-            games.TagIds.Clear();
-            //一个in语句一次性取出来更快，不过在非性能关键节点，业务语言比性能更重要
-            foreach (TagId tagId in sortedTagIds)
-            {
-                games.TagIds.Add(tagId);
-            }
-        }
+
+
+
+
+
+
     }
 }

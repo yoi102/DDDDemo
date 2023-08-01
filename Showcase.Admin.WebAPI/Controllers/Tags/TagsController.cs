@@ -1,7 +1,9 @@
 ﻿using ASPNETCore;
+using Azure.Core;
 using Commons;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Showcase.Admin.WebAPI.Controllers.Tags.Requests;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
 using Showcase.Infrastructure;
@@ -53,9 +55,9 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
 
         [HttpPost]
         [Route("{gameId}")]
-        public async Task<ActionResult<Guid>> Add([RequiredStronglyType] GameId gameId, string text)
+        public async Task<ActionResult<Guid>> Add(TagAddRequest request)
         {
-            (Tag tag, bool has) = await domainService.AddTagAsync(gameId, text);
+            (Tag tag, bool has) = await domainService.AddTagAsync(request.GameId, request.Text);
             if (!has)
             {
                 dbContext.Add(tag);
@@ -68,15 +70,22 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         public async Task<ActionResult> RemoveGameTagById([RequiredStronglyType] GameId gameId, [RequiredStronglyType] TagId id)
         {
             var game = await repository.GetGameByIdAsync(gameId);
-            if (game == null)
+            if (game is null)
             {
                 return NotFound($"没有 gameId={gameId} 的 Game");
             }
-            if (!game.TagIds.Contains(id))
+            var tag = await repository.GetTagByIdAsync(id);
+
+            if (tag is null)
             {
                 return NotFound($"没有 Id={id} 的 Tag");
             }
-            game.TagIds.Remove(id);
+            var gameTag = await repository.GetGameTagByIdAsync(gameId, id);
+            if (gameTag is not null)
+            {
+                dbContext.Remove(gameTag);
+            }
+
             return Ok();
         }
 
@@ -85,7 +94,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         public async Task<ActionResult> Update([RequiredStronglyType] TagId id, string text)
         {
             var tag = await repository.GetTagByIdAsync(id);
-            if (tag == null)
+            if (tag is null)
             {
                 return NotFound($"没有 Id={id} 的 Tag");
             }

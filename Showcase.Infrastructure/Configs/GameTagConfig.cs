@@ -10,8 +10,8 @@ namespace Showcase.Infrastructure.Configs
         {
             builder.ToTable("T_Games_Tags");
             builder.HasKey(x => new { x.GameId, x.TagId });
-            builder.Property(x => x.GameId).HasConversion<GameId.EfValueConverter>();
-            builder.Property(x => x.TagId).HasConversion<TagId.EfValueConverter>();
+            //builder.Property(x => x.GameId).HasConversion<GameId.EfValueConverter>();
+            //builder.Property(x => x.TagId).HasConversion<TagId.EfValueConverter>();
         }
     }
 }

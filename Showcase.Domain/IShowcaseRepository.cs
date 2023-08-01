@@ -27,5 +27,9 @@ namespace Showcase.Domain
         Task<Tag[]> GetTagsByGameIdAsync(GameId gameId);
 
         Task<Tag?> GetTagByTextAsync(string text);
+
+        Task<GameTag?> GetGameTagByIdAsync(GameId gameId, TagId tagId);
+        Task AddGameTagByIdAsync(GameId gameId, TagId tagId);
+
     }
 }
