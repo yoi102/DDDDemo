@@ -44,33 +44,36 @@ namespace SearchService.Infrastructure
 
             QueryDescriptor<Game> query = new QueryDescriptor<Game>();
 
-            //query.Term(f => f.Title.Chinese, kw);
-            //query.Term(f => f.Title.English, kw);
-            //query.Term(f => f.Title.Japanese, kw);
+            query.Term(f => f.Title.Chinese, kw);
+            query.Term(f => f.Title.English, kw);
+            query.Term(f => f.Title.Japanese, kw);//完全匹配？最后一个为准？.......
             //query.Term(f => f.Tags, kw);
-            query.Term(f => f.Introduction, kw);
-            HighlightDescriptor<Game> highlightSelector = new HighlightDescriptor<Game>();
-            highlightSelector.HighlightQuery(query); //
+            //query.Term(f => f.Introduction, kw);
+            //HighlightDescriptor<Game> highlightSelector = new HighlightDescriptor<Game>();
+            //highlightSelector.HighlightQuery(query); //
 
+            //var result = await elasticClient.SearchAsync<Game>(s => s.Index("games").From(from)
+            //    .Size(pageSize).Query(query).Highlight(highlightSelector));     
             var result = await elasticClient.SearchAsync<Game>(s => s.Index("games").From(from)
-                .Size(pageSize).Query(query).Highlight(highlightSelector));
+                .Size(pageSize).Query(query));
 
             if (result.IsValidResponse)
             {
                 List<Game> games = new List<Game>();
                 foreach (var hit in result.Hits)
                 {
-                    string highlightedIntroduction;
-                    //如果没有预览内容，则显示前50个字
-                    if (hit.Highlight!.ContainsKey("introduction"))
-                    {
-                        highlightedIntroduction = string.Join("\r\n", hit.Highlight["introduction"]);
-                    }
-                    else
-                    {
-                        highlightedIntroduction = hit.Source!.Introduction.Cut(50);
-                    }
-                    var game = hit.Source! with { Introduction = highlightedIntroduction };
+                    //string highlightedIntroduction;
+                    ////如果没有预览内容，则显示前50个字
+                    //if (hit.Highlight!.ContainsKey("introduction"))
+                    //{
+                    //    highlightedIntroduction = string.Join("\r\n", hit.Highlight["introduction"]);
+                    //}
+                    //else
+                    //{
+                    //    highlightedIntroduction = hit.Source!.Introduction.Cut(50);
+                    //}
+                    //var game = hit.Source! with { Introduction = highlightedIntroduction };
+                    var game = hit.Source!;
                     games.Add(game!);
                 }
                 return new SearchGamesResponse(games, result.Total);

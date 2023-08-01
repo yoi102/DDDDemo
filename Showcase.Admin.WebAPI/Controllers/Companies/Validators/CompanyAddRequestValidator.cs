@@ -8,7 +8,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies.Validators
         public CompanyAddRequestValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.CoverUrl).Length(5, 500);//CoverUrl允许为空
+            RuleFor(x => x.CoverUrl).NotEmpty().Length(5, 500);
         }
     }
 }

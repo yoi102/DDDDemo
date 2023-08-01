@@ -7,7 +7,8 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits.Validators
     {
         public ExhibitUpdateRequestValidator()
         {
-            RuleFor(x => x.ItemUrl).Length(5, 500);//CoverUrl允许为空
+            RuleFor(x => x.ItemUrl).NotEmpty().Length(5, 500);
+
         }
     }
 }

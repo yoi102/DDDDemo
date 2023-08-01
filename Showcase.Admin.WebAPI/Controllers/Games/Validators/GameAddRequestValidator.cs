@@ -15,7 +15,7 @@ namespace Showcase.Admin.WebAPI.Controllers.Games.Validators
             RuleFor(x => x.Title.Chinese).NotNull().Length(1, 200);
             RuleFor(x => x.Title.English).NotNull().Length(1, 200);
             RuleFor(x => x.Title.Japanese).NotNull().Length(1, 200);
-            RuleFor(x => x.CoverUrl).Length(5, 500);//CoverUrl允许为空
+            RuleFor(x => x.CoverUrl).NotEmpty().Length(5, 500);
             RuleFor(x => x.CompanyId).Must((cId, ct) => dbContext.Query<Company>().Any(c => c.Id==cId.CompanyId))
                 .WithMessage(c => $" CompanyId={c.CompanyId} 不存在");
         }
