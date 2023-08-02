@@ -24,7 +24,7 @@ public class ShowcaseGameUpsertEventHandler : DynamicIntegrationEventHandler
         //Uri.TryCreate(eventData.CoverUrl, UriKind.RelativeOrAbsolute, out Uri? coverUrl);
         string introduction = eventData.Introduction;
         string[]? tags = eventData.TagIds;
-        Game game = new Game(id, title, coverUrl, introduction, tags);
+        Game game = new Game(id, title.Chinese,title.English,title.Japanese, coverUrl, introduction, tags);
         return repository.UpsertAsync(game);
     }
 }

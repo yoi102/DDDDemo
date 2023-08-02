@@ -23,7 +23,7 @@ namespace SearchService.WebAPI.Controllers
         public async Task<ActionResult<SearchGamesResponse?>> SearchGames([FromQuery] SearchGamesRequest request)
         {
             var response = await repository.SearchGames(request.Keyword, request.PageIndex, request.PageSize);
-            if (response is null)
+            if (response is null|| response.TotalCount==0)
             {
                 return NotFound(request);
             }

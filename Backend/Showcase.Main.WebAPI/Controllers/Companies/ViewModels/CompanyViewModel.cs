@@ -2,7 +2,7 @@
 
 namespace Showcase.Main.WebAPI.Controllers.Companies.ViewModels
 {
-    public record CompanyViewModel(CompanyId Id, string Name, Uri CoverUrl)
+    public record CompanyViewModel(CompanyId Id, string name, Uri CoverUrl)
     {
         public static CompanyViewModel? Create(Company? company)
         {
@@ -12,7 +12,6 @@ namespace Showcase.Main.WebAPI.Controllers.Companies.ViewModels
             }
             return new CompanyViewModel(company.Id, company.Name, company.CoverUrl);
         }
-
         public static CompanyViewModel[] Create(Company[] companies)
         {
             return companies.Select(c => Create(c)!).ToArray();

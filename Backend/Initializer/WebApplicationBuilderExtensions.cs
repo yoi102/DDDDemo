@@ -76,9 +76,11 @@ namespace Initializer
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add<UnitOfWorkFilter>();
-                options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
-                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                //options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+                //options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
             });
+            builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
+
             //services.Configure<JsonOptions>(options =>
             //{
             //    //设置时间格式。而非“2008-08-08T08:08:08”这样的格式

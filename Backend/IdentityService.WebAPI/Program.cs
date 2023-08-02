@@ -11,7 +11,6 @@ builder.ConfigureExtraServices(new InitializerOptions
     EventBusQueueName = "IdentityService.WebAPI",
     LogFilePath = "h:/logs/IdentityService/log-.txt"
 });
-builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(c =>
 {
