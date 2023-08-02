@@ -15,7 +15,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.Configure<SMBStorageOptions>(builder.Configuration.GetSection("FileService:SMB"));
-builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
