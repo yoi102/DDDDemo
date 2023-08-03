@@ -1,16 +1,41 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FluentValidation;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace ASPNETCore
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class RequiredStronglyTypeAttribute : ValidationAttribute
     {
-        public const string DefaultErrorMessage = "The {0} field must be strongly type and the value not Guid.Empty";
+        //public const string DefaultErrorMessage = $"The {s} field must be {strong} type and the value not default value";
 
+        public Type StronglyType { get; set; } = typeof(Guid);
         public RequiredStronglyTypeAttribute()
-            : base("The {0} field must be strongly type and the value not Guid.Empty")
         {
         }
+        public override string FormatErrorMessage(string name)
+        {
+            return string.Format(CultureInfo.CurrentCulture, $"The {name} field must be {StronglyType.Name} type and not default value");
+        }
+        //protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        //{
+        //    if (value is not null)
+        //    {
+        //        var type = value.GetType();
+        //        if (type.IsValueType)
+        //        {
+        //            var obj = type.GetProperty("Value")?.GetValue(value);
+        //            if (obj?.GetType() == StronglyType)
+        //            {
+        //                if (obj != default)
+        //                {
+        //                    return ValidationResult.Success;
+        //                }
+        //            }
+        //        }
+        //    }//有点丑.......
+        //    return new ValidationResult($"The {validationContext.DisplayName} field must be {StronglyType.Name} type and not default value");
+        //}
 
         public override bool IsValid(object? value)
         {
@@ -33,9 +58,9 @@ namespace ASPNETCore
             }
             var obj = info.GetValue(value);
 
-            if (obj is Guid guid)
+            if (obj?.GetType() == StronglyType)
             {
-                return guid != Guid.Empty;
+                return obj != default;
             }
 
             return false;

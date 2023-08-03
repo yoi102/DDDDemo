@@ -46,11 +46,11 @@ namespace Showcase.Admin.WebAPI.Controllers.Exhibits
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Add(ExhibitAddRequest request)
+        public async Task<ActionResult<ExhibitId>> Add(ExhibitAddRequest request)
         {
             var exhibit = await domainService.AddExhibitAsync(request.GameId, request.ItemUrl);
             dbContext.Add(exhibit);
-            return exhibit.Id.Value;
+            return exhibit.Id;
         }
 
         [HttpPut]

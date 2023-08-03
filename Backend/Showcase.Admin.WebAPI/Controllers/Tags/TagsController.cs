@@ -54,14 +54,14 @@ namespace Showcase.Admin.WebAPI.Controllers.Tags
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Add(TagAddRequest request)
+        public async Task<ActionResult<TagId>> Add(TagAddRequest request)
         {
             (Tag tag, bool has) = await domainService.AddTagAsync(request.GameId, request.Text);
             if (!has)
             {
                 dbContext.Add(tag);
             }
-            return tag.Id.Value;
+            return tag.Id;
         }
 
         [HttpDelete]

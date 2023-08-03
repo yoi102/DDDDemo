@@ -6,6 +6,7 @@ using Showcase.Admin.WebAPI.Controllers.Companies.Requests;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
 using Showcase.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 namespace Showcase.Admin.WebAPI.Controllers.Companies
 {
@@ -46,11 +47,11 @@ namespace Showcase.Admin.WebAPI.Controllers.Companies
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Add(CompanyAddRequest request)
+        public async Task<ActionResult<CompanyId>> Add(CompanyAddRequest request)
         {
             var company = await domainService.AddCompanyAsync(request.Name, request.CoverUrl);
             dbContext.Add(company);//由于dbContext还没保存，不重定向了
-            return company.Id.Value;
+            return company.Id;
         }
 
         [HttpPut]
