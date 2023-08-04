@@ -3,8 +3,8 @@ using SearchService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureAppConfiguration();
-builder.ConfigureExtraServices(new InitializerOptions
+builder.ReadHostBuilderConfiguration();
+builder.ConfigureCommonServices(new InitializerOptions
 {
     LogFilePath = "h:/logs/SearchService.WebAPI/log-.txt",
     EventBusQueueName = "SearchService.WebAPI"
@@ -27,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SearchService.WebAPI v1"));
 }
 
-app.UseDefaultMiddleware();
+app.UseCommonMiddlewares();
 
 app.MapControllers();
 

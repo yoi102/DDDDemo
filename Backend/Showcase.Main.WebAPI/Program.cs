@@ -2,8 +2,8 @@ using Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureAppConfiguration();
-builder.ConfigureExtraServices(new InitializerOptions
+builder.ReadHostBuilderConfiguration();
+builder.ConfigureCommonServices(new InitializerOptions
 {
     LogFilePath = "h:/logs/Showcase.Main/log-.txt",
     EventBusQueueName = "Showcase.Main"
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.MapHub<GameEncodingStatusHub>("/Hubs/StatusHub");
-app.UseDefaultMiddleware();
+app.UseCommonMiddlewares();
 
 app.MapControllers();
 

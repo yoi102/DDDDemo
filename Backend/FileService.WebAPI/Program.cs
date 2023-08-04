@@ -3,8 +3,8 @@ using Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureAppConfiguration();
-builder.ConfigureExtraServices(new InitializerOptions
+builder.ReadHostBuilderConfiguration();
+builder.ConfigureCommonServices(new InitializerOptions
 {
     EventBusQueueName = "FileService.WebAPI",
     LogFilePath = "h:/logs/FileService/log-.txt"
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-app.UseDefaultMiddleware();
+app.UseCommonMiddlewares();
 
 app.MapControllers();
 

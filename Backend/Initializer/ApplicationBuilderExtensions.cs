@@ -5,7 +5,7 @@ namespace Initializer
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseDefaultMiddleware(this IApplicationBuilder app)
+        public static IApplicationBuilder UseCommonMiddlewares(this IApplicationBuilder app)
         {
             app.UseEventBus();
             app.UseCors();

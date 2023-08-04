@@ -20,16 +20,16 @@ namespace Initializer
 {
     public static class WebApplicationBuilderExtensions
     {
-        public static void ConfigureAppConfiguration(this WebApplicationBuilder builder)
+        public static void ReadHostBuilderConfiguration(this WebApplicationBuilder builder)
         {
-            var dir = builder.Configuration.GetValue<string>("DefaultDirectory");
+            var dir = builder.Configuration["DefaultDirectory"];
             ArgumentException.ThrowIfNullOrEmpty(dir, "DefaultDirectory");
 
             string fullPath = Path.Combine(dir, "appsettings.json");
             builder.Configuration.AddJsonFile(fullPath);
         }
 
-        public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
+        public static void ConfigureCommonServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
         {
             IServiceCollection services = builder.Services;
             IConfiguration configuration = builder.Configuration;

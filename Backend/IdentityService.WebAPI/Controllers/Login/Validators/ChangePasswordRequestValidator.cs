@@ -7,9 +7,9 @@ namespace IdentityService.WebAPI.Controllers.Login.Validators
     {
         public ChangePasswordRequestValidator()
         {
-            RuleFor(e => e.Password).NotNull().NotEmpty()
-                .Equal(e => e.Password2);
-            RuleFor(e => e.Password2).NotNull().NotEmpty();
+            RuleFor(e => e.NewPassword).NotNull().NotEmpty()
+                .Equal(e => e.OldPassword);
+            RuleFor(e => e.OldPassword).NotNull().NotEmpty();
         }
     }
 }

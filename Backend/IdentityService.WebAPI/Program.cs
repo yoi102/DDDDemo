@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.ConfigureAppConfiguration();
-builder.ConfigureExtraServices(new InitializerOptions
+builder.ReadHostBuilderConfiguration();
+builder.ConfigureCommonServices(new InitializerOptions
 {
     EventBusQueueName = "IdentityService.WebAPI",
     LogFilePath = "h:/logs/IdentityService/log-.txt"
@@ -50,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityService.WebAPI v1"));
 }
 
-app.UseDefaultMiddleware();
+app.UseCommonMiddlewares();
 
 app.MapControllers();
 

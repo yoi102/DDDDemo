@@ -99,11 +99,11 @@ public class LoginController : ControllerBase
     [HttpPost]
     [Authorize]
     [Route("change-my-password")]
-    public async Task<ActionResult> ChangeMyPassword(ChangeMyPasswordRequest request)
+    public async Task<ActionResult> ChangeMyPassword(string password)
     {
         var nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Guid.TryParse(nameIdentifier, out Guid userId);
-        var resetPwdResult = await repository.ChangePasswordAsync(userId, request.NewPassword,request.OldPassword);
+        var resetPwdResult = await repository.ChangePasswordAsync(userId, password);
         return resetPwdResult.Succeeded ? Ok() : BadRequest(resetPwdResult.Errors.SumErrors());
     }
 }
