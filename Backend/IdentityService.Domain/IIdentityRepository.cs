@@ -38,7 +38,7 @@ namespace IdentityService.Domain
         /// <param name="userId"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<IdentityResult> ChangePasswordAsync(Guid userId, string password);
+        Task<IdentityResult> ChangePasswordAsync(Guid userId, string newPassword, string oldPassword);
 
         /// <summary>
         /// 获取用户的角色

@@ -1,4 +1,4 @@
 ﻿namespace IdentityService.WebAPI.Controllers.Login.Models
 {
-    public record ChangeMyPasswordRequest(string Password, string Password2);
+    public record ChangeMyPasswordRequest(string NewPassword, string OldPassword);
 }

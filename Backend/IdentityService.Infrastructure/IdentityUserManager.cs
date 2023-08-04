@@ -12,6 +12,7 @@ public class IdentityUserManager : UserManager<User>
     {
     }
 
+
     public IUserLoginStore<User> UserLoginStore
     {
         get

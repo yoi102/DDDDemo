@@ -68,9 +68,9 @@ namespace IdentityService.Infrastructure
             }
         }
 
-        public async Task<IdentityResult> ChangePasswordAsync(Guid userId, string password)
+        public async Task<IdentityResult> ChangePasswordAsync(Guid userId, string newPassword, string oldPassword)
         {
-            if (password.Length < 6)
+            if (newPassword.Length < 6)
             {
                 IdentityError err = new()
                 {
@@ -82,8 +82,16 @@ namespace IdentityService.Infrastructure
             var user = await userManager.FindByIdAsync(userId.ToString());
             if (user is not null)
             {
+                if (userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash!, oldPassword) == PasswordVerificationResult.Failed)
+                {
+                    IdentityError err = new()
+                    {
+                        Description = "密码不正确"
+                    };
+                    return IdentityResult.Failed(err);
+                }
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var resetPwdResult = await userManager.ResetPasswordAsync(user, token, password);
+                var resetPwdResult = await userManager.ResetPasswordAsync(user, token, newPassword);
                 return resetPwdResult;
             }
 

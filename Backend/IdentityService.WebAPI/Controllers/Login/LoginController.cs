@@ -1,8 +1,10 @@
 ﻿using Commons;
 using IdentityService.Domain;
 using IdentityService.Domain.Entities;
+using IdentityService.Infrastructure;
 using IdentityService.WebAPI.Controllers.Login.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
@@ -14,30 +16,30 @@ namespace IdentityService.WebAPI.Controllers.Login;
 [ApiController]
 public class LoginController : ControllerBase
 {
-    private readonly IIdentityRepository identityRepository;
-    private readonly IdentityDomainService identityDomainService;
+    private readonly IIdentityRepository repository;
+    private readonly IdentityDomainService domainService;
 
-    public LoginController(IdentityDomainService identityDomainService, IIdentityRepository identityRepository)
+    public LoginController(IdentityDomainService domainService, IIdentityRepository repository)
     {
-        this.identityDomainService = identityDomainService;
-        this.identityRepository = identityRepository;
+        this.domainService = domainService;
+        this.repository = repository;
     }
 
     [HttpPost]
     [AllowAnonymous]
     public async Task<ActionResult> CreateWorld()
     {
-        if (await identityRepository.FindByNameAsync(UserRoles.Administrator) is not null)
+        if (await repository.FindByNameAsync(UserRoles.Administrator) is not null)
         {
             return StatusCode((int)HttpStatusCode.Conflict, "已经初始化过了");
         }
         User user = new(UserRoles.Administrator);
-        var r = await identityRepository.CreateAsync(user, "123456");
+        var r = await repository.CreateAsync(user, "123456");
         Debug.Assert(r.Succeeded);
-        var token = await identityRepository.GenerateChangePhoneNumberTokenAsync(user, "18999999999");
-        var cr = await identityRepository.ChangePhoneNumberAsync(user.Id, "18999999999", token);
+        var token = await repository.GenerateChangePhoneNumberTokenAsync(user, "18999999999");
+        var cr = await repository.ChangePhoneNumberAsync(user.Id, "18999999999", token);
         Debug.Assert(cr.Succeeded);
-        r = await identityRepository.AddToRoleAsync(user, UserRoles.Administrator);
+        r = await repository.AddToRoleAsync(user, UserRoles.Administrator);
         Debug.Assert(r.Succeeded);
         return Ok();
     }
@@ -51,7 +53,7 @@ public class LoginController : ControllerBase
         {
             return NotFound();
         }
-        var user = await identityRepository.FindByIdAsync(Guid.Parse(userId));
+        var user = await repository.FindByIdAsync(Guid.Parse(userId));
         return user == null ? (ActionResult<UserResponse>)NotFound() : (ActionResult<UserResponse>)new UserResponse(user.Id, user.Email, user.PhoneNumber, user.CreationTime);
     }
 
@@ -61,7 +63,7 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<string?>> LoginByPhoneAndPassword(LoginByPhoneAndPwdRequest request)
     {
         //todo：要通过行为验证码、图形验证码等形式来防止暴力破解
-        (var checkResult, string? token) = await identityDomainService.LoginByPhoneAndPasswordAsync(request.PhoneNumber, request.Password);
+        (var checkResult, string? token) = await domainService.LoginByPhoneAndPasswordAsync(request.PhoneNumber, request.Password);
         if (checkResult.Succeeded)
         {
             return token;
@@ -83,7 +85,7 @@ public class LoginController : ControllerBase
     [Route("login-by-username-and-password")]
     public async Task<ActionResult<string>> LoginByUserNameAndPassword(LoginByUserNameAndPwdRequest request)
     {
-        (var checkResult, var token) = await identityDomainService.LoginByUserNameAndPasswordAsync(request.UserName, request.Password);
+        (var checkResult, var token) = await domainService.LoginByUserNameAndPasswordAsync(request.UserName, request.Password);
         if (checkResult.Succeeded) return token!;
         else if (checkResult.IsLockedOut)//尝试登录次数太多
             return StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定");
@@ -101,7 +103,7 @@ public class LoginController : ControllerBase
     {
         var nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Guid.TryParse(nameIdentifier, out Guid userId);
-        var resetPwdResult = await identityRepository.ChangePasswordAsync(userId, request.Password);
+        var resetPwdResult = await repository.ChangePasswordAsync(userId, request.NewPassword,request.OldPassword);
         return resetPwdResult.Succeeded ? Ok() : BadRequest(resetPwdResult.Errors.SumErrors());
     }
 }
