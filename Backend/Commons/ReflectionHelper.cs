@@ -75,13 +75,13 @@ public static class ReflectionHelper
         return peReader.HasMetadata && peReader.GetMetadataReader().IsAssembly;
     }
 
-    private static Assembly? TryLoadAssembly(string asmPath)
+    private static bool TryLoadAssembly(string asmPath, out Assembly? assembly)
     {
         AssemblyName asmName = AssemblyName.GetAssemblyName(asmPath);
-        Assembly? asm = null;
+        assembly = null;
         try
         {
-            asm = Assembly.Load(asmName);
+            assembly = Assembly.Load(asmName);
         }
         catch (BadImageFormatException ex)
         {
@@ -96,11 +96,11 @@ public static class ReflectionHelper
         //    Debug.WriteLine(ex);
         //}
 
-        if (asm == null)
+        if (assembly == null)
         {
             try
             {
-                asm = Assembly.LoadFile(asmPath);
+                assembly = Assembly.LoadFile(asmPath);
             }
             catch (BadImageFormatException ex)
             {
@@ -115,15 +115,16 @@ public static class ReflectionHelper
             //    Debug.WriteLine(ex);
             //}
         }
-        return asm;
+
+        return assembly != null;
     }
 
-    private static Assembly? TryLoadAssembly(AssemblyName assemblyName)
+    private static bool TryLoadAssembly(AssemblyName assemblyName, out Assembly? assembly)
     {
-        Assembly? asm = null;
+        assembly = null;
         try
         {
-            asm = Assembly.Load(assemblyName);
+            assembly = Assembly.Load(assemblyName);
         }
         catch (BadImageFormatException ex)
         {
@@ -138,7 +139,7 @@ public static class ReflectionHelper
             Debug.WriteLine(ex);
         }
 
-        return asm;
+        return assembly != null;
     }
 
     /// <summary>
@@ -170,20 +171,20 @@ public static class ReflectionHelper
             {
                 if (!loadedAssemblies.Contains(reference.FullName))
                 {
-                    var assembly = TryLoadAssembly(reference);
-                    if (assembly is null)
+
+                    if (!TryLoadAssembly(reference, out Assembly? assembly))
                     {
                         continue;
                     }
-                    if (skipSystemAssemblies && IsSystemAssembly(assembly))
+                    if (skipSystemAssemblies && IsSystemAssembly(assembly!))
                     {
                         continue;
                     }
-                    assembliesToCheck.Enqueue(assembly);
+                    assembliesToCheck.Enqueue(assembly!);
                     loadedAssemblies.Add(reference.FullName);
-                    if (IsValid(assembly))
+                    if (IsValid(assembly!))
                     {
-                        returnAssemblies.Add(assembly);
+                        returnAssemblies.Add(assembly!);
                     }
                 }
             }
@@ -206,21 +207,20 @@ public static class ReflectionHelper
             {
                 continue;
             }
-            Assembly? asm = TryLoadAssembly(asmPath);
-            if (asm == null)
+            if (!TryLoadAssembly(asmPath, out Assembly? asm))
             {
                 continue;
             }
-            //Assembly asm = Assembly.Load(asmName);
-            if (!IsValid(asm))
+            //Assembly assembly = Assembly.Load(asmName);
+            if (!IsValid(asm!))
             {
                 continue;
             }
-            if (skipSystemAssemblies && IsSystemAssembly(asm))
+            if (skipSystemAssemblies && IsSystemAssembly(asm!))
             {
                 continue;
             }
-            returnAssemblies.Add(asm);
+            returnAssemblies.Add(asm!);
         }
         return returnAssemblies.ToArray();
     }
