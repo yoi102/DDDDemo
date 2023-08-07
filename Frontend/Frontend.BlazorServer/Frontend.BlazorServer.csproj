@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\1.Program\.Net\net--asp\DDDDemo\Frontend\Frontend.BlazorServer\.editorconfig" />
+  </ItemGroup>
+
 </Project>
