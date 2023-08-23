@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="Strongly" Version="1.1.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Strongly.EFCore" Version="1.1.0" />
+    <PackageReference Include="Strongly" Version="1.4.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Strongly.EFCore" Version="1.4.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 

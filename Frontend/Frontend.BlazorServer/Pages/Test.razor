@@ -1,0 +1,41 @@
+﻿@page "/test"
+
+@using Microsoft.Extensions.Logging
+@using System.ComponentModel.DataAnnotations;
+@inject ILogger<ExampleModel> Logger
+
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <InputText @bind-Value="exampleModel.Name" />
+
+    <button type="submit">Submit</button>
+    <ValidationSummary />
+
+</EditForm>
+
+
+@code {
+
+    private ExampleModel exampleModel = new();
+
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleSubmit called");
+
+        // Process the form
+    }
+    public class ExampleModel
+    {
+
+        private string? name;
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string? Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        
+    }
+}
