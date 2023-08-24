@@ -13,6 +13,7 @@
     <ValidationSummary />
 
 </EditForm>
+<InputFile OnChange="@LoadFiles" multiple />
 
 
 @code {
@@ -36,6 +37,10 @@
             get { return name; }
             set { name = value; }
         }
-        
+
+    }
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        var ds = e.File.OpenReadStream();
     }
 }
