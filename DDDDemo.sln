@@ -57,7 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B2BED3A4-381
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend.BlazorServer", "Frontend\Frontend.BlazorServer\Frontend.BlazorServer.csproj", "{ED70C274-FAF3-4703-B9F3-F590656B15AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{7493A2A1-6439-4452-9668-575513CDABF1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7493A2A1-6439-4452-9668-575513CDABF1}"
 	ProjectSection(SolutionItems) = preProject
 		.csharpierrc.json = .csharpierrc.json
 		.editorconfig = .editorconfig

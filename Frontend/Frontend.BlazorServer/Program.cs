@@ -1,14 +1,19 @@
-using Frontend.BlazorServer.Data;
 
+using Frontend.BlazorServer.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080")) ;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

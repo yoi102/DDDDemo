@@ -4,11 +4,13 @@ using SearchService.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.ReadHostBuilderConfiguration();
-builder.ConfigureCommonServices(new InitializerOptions
-{
-    LogFilePath = "h:/logs/SearchService.WebAPI/log-.txt",
-    EventBusQueueName = "SearchService.WebAPI"
-});
+builder.ConfigureCommonServices(
+    new InitializerOptions
+    {
+        LogFilePath = "h:/logs/SearchService.WebAPI/log-.txt",
+        EventBusQueueName = "SearchService.WebAPI"
+    }
+);
 builder.Services.Configure<ElasticSearchOptions>(builder.Configuration.GetSection("ElasticSearch"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
