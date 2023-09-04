@@ -10,4 +10,13 @@
     <EditorConfigFiles Remove="D:\1.Program\.Net\net--asp\DDDDemo\Frontend\Frontend.BlazorServer\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0-preview5" />
+  </ItemGroup>
+
 </Project>

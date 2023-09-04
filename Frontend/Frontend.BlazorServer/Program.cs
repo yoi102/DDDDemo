@@ -1,10 +1,11 @@
 
-using Frontend.BlazorServer.Services;
+using Blazored.LocalStorage;
+using Frontend.BlazorServer.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 
 // Add services to the container.
@@ -12,8 +13,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-builder.Services.AddScoped<AuthenticationService>();
-builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080")) ;
+builder.Services.AddScoped<UserAccountService>();
+
+builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080"));
+
+builder.Services.AddBlazoredLocalStorage();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

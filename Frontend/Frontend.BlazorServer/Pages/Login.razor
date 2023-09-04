@@ -1,0 +1,74 @@
+﻿@page "/login"
+@using Blazored.LocalStorage;
+@using System.ComponentModel.DataAnnotations;
+@using Frontend.BlazorServer.Authentication;
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+@inject ILocalStorageService localStorage
+@inject IHttpClientFactory httpClientFactory
+
+<EditForm EditContext="@editContext" OnValidSubmit="@Submit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+            <div class="mb-3 text-center">
+                <h3>LOGIN</h3>
+            </div>
+            <div class="mb-3">
+                <label>User Name</label>
+                <input @bind-value="model!.UserName" class="form-control" placeholder="User Name" />
+                <ValidationMessage For="() => model!.UserName" />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input @bind-value="model!.Password" type="password" class="form-control" placeholder="Password" />
+                <ValidationMessage For="() => model!.Password" />
+            </div>
+
+            <div class="mb-3 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+    @*     <ValidationSummary />
+    *@
+</EditForm>
+
+@code {
+
+    private EditContext? editContext;
+    private HttpClient? http;
+
+    private LoginByUserNameAndPwdModel model = new LoginByUserNameAndPwdModel();
+
+    protected override void OnInitialized()
+    {
+        editContext = new(model);
+        http = httpClientFactory.CreateClient("nginx-server");
+
+    }
+
+    private async Task Submit()
+    {
+        if (editContext != null && editContext.Validate())
+        {
+            await Authenticate();
+        }
+    }
+
+
+    private async Task Authenticate()
+    {
+
+        var response = await http.PostAsJsonAsync("IdentityService/api/login/login-by-username-and-password", model);
+        if (!response.IsSuccessStatusCode)
+        {
+            return;
+        }
+        var token = await response.Content.ReadAsStringAsync();
+        await localStorage.SetItemAsync("token", token);
+        await authStateProvider.GetAuthenticationStateAsync();
+        navManager.NavigateTo("/", true);
+    }
+
+}

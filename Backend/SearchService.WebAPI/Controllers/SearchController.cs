@@ -7,7 +7,7 @@ using Zack.EventBus;
 namespace SearchService.WebAPI.Controllers
 {
     [ApiController]
-    [Route("search")]
+    [Route("api/search")]
     public class SearchController : ControllerBase
     {
         private readonly ISearchRepository repository;

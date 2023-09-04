@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileService.WebAPI.Controllers.Uploader;
 
-[Route("uploader")]
+[Route("api/uploader")]
 [ApiController]
 [Authorize(Roles = UserRoles.Administrator)]//仅对内部系统开放。
 [UnitOfWork(typeof(FileServiceDbContext))]

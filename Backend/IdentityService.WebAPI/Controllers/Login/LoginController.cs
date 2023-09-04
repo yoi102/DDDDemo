@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace IdentityService.WebAPI.Controllers.Login;
 
-[Route("login")]
+[Route("api/login")]
 [ApiController]
 public class LoginController : ControllerBase
 {

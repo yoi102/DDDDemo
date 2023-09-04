@@ -1,17 +1,31 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.LocalStorage;
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+@inject ILocalStorageService localStorage
+
 
 <PageTitle>Frontend.BlazorServer</PageTitle>
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu  Test="哈哈哈哈哈哈哈哈哈哈"/>
+        <NavMenu />
     </div>
 
     <main>
-
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <p>Hello, @context.User.Identity?.Name!</p>
+                <div class="top-row px-4">
+                    <a @onclick="Logout">Logout</a>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="top-row px-4">
+                    <a href="/login">Login</a>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
 
         <article class="content px-4">
             @Body
@@ -19,3 +33,12 @@
 
     </main>
 </div>
+
+@code {
+    private async Task Logout()
+    {
+        await localStorage.RemoveItemAsync("token");
+        await authStateProvider.GetAuthenticationStateAsync();
+        navManager.NavigateTo("/", true);
+    }
+}

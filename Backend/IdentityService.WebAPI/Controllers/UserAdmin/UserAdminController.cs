@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.WebAPI.Controllers.UserAdmin;
 
-[Route("useradmin")]
+[Route("api/useradmin")]
 [ApiController]
 [Authorize(Roles = UserRoles.Administrator)]
 public class UserAdminController : ControllerBase
