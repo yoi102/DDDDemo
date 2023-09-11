@@ -2,6 +2,7 @@
 using JWT;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.Data;
 using System.Security.Claims;
 
 namespace IdentityService.Domain
@@ -84,6 +85,8 @@ namespace IdentityService.Domain
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName!));
+
             return tokenService.BuildToken(claims, optJWT.Value);
         }
     }

@@ -60,7 +60,7 @@
     private async Task Authenticate()
     {
 
-        var response = await http.PostAsJsonAsync("IdentityService/api/login/login-by-username-and-password", model);
+        var response = await http!.PostAsJsonAsync("IdentityService/api/login/login-by-username-and-password", model);
         if (!response.IsSuccessStatusCode)
         {
             return;

@@ -14,10 +14,9 @@
 
     <main>
         <AuthorizeView>
-            <Authorized>
-                <p>Hello, @context.User.Identity?.Name!</p>
+            <Authorized >
                 <div class="top-row px-4">
-                    <a @onclick="Logout">Logout</a>
+                    <a @onclick="Logout" href="">Hello, @context.User.Identity?.Name! ,Logout</a>
                 </div>
             </Authorized>
             <NotAuthorized>
