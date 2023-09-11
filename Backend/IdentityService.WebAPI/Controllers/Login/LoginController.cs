@@ -1,10 +1,8 @@
 ﻿using Commons;
 using IdentityService.Domain;
 using IdentityService.Domain.Entities;
-using IdentityService.Infrastructure;
 using IdentityService.WebAPI.Controllers.Login.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;

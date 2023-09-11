@@ -2,7 +2,6 @@
 using JWT;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using System.Data;
 using System.Security.Claims;
 
 namespace IdentityService.Domain

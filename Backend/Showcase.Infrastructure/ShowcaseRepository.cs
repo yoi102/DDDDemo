@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Showcase.Domain;
 using Showcase.Domain.Entities;
-using System.Linq;
 
 namespace Showcase.Infrastructure
 {

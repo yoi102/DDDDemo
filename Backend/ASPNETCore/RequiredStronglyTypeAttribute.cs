@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace ASPNETCore

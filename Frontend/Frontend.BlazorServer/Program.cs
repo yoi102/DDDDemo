@@ -2,8 +2,6 @@
 using Blazored.LocalStorage;
 using Frontend.BlazorServer.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

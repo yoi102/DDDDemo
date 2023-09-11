@@ -1,13 +1,8 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text.Json;
-using Blazored.LocalStorage;
-using Frontend.BlazorServer.Authentication;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using static System.Net.WebRequestMethods;
 
 
 public class CustomAuthenticationStateProvider : AuthenticationStateProvider
