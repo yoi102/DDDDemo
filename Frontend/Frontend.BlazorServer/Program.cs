@@ -11,7 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-builder.Services.AddScoped<UserAccountService>();
+
 
 builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080"));
 

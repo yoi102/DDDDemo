@@ -1,7 +1,7 @@
 ﻿@page "/login"
 @using Blazored.LocalStorage;
-@using System.ComponentModel.DataAnnotations;
 @using Frontend.BlazorServer.Authentication;
+@implements IDisposable
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
 @inject ILocalStorageService localStorage
@@ -24,28 +24,43 @@
                 <input @bind-value="model!.Password" type="password" class="form-control" placeholder="Password" />
                 <ValidationMessage For="() => model!.Password" />
             </div>
+            <label style="background-color: red">@errorMessage</label>
 
             <div class="mb-3 d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </div>
     </div>
-    @*     <ValidationSummary />
-    *@
+    @* <ValidationSummary /> *@
+
 </EditForm>
 
 @code {
 
     private EditContext? editContext;
+    private ValidationMessageStore? messageStore;
     private HttpClient? http;
-
+    private string? errorMessage;
     private LoginByUserNameAndPwdModel model = new LoginByUserNameAndPwdModel();
 
     protected override void OnInitialized()
     {
         editContext = new(model);
         http = httpClientFactory.CreateClient("nginx-server");
+        editContext.OnValidationRequested += HandleValidationRequested;
 
+        messageStore = new(editContext);
+    }
+    private void HandleValidationRequested(object? sender,
+     ValidationRequestedEventArgs args)
+    {
+        messageStore?.Clear();
+        errorMessage = null;
+        // // Custom validation logic
+        // if (!Model!.Options)
+        // {
+        //     messageStore?.Add(() => Model.Options, "Select at least one.");
+        // }
     }
 
     private async Task Submit()
@@ -63,12 +78,21 @@
         var response = await http!.PostAsJsonAsync("IdentityService/api/login/login-by-username-and-password", model);
         if (!response.IsSuccessStatusCode)
         {
+            errorMessage = "Incorrect username or password";
             return;
         }
+
         var token = await response.Content.ReadAsStringAsync();
         await localStorage.SetItemAsync("token", token);
         await authStateProvider.GetAuthenticationStateAsync();
         navManager.NavigateTo("/", true);
     }
 
+    public void Dispose()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnValidationRequested -= HandleValidationRequested;
+        }
+    }
 }
