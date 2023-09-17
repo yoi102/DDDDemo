@@ -1,8 +1,8 @@
 ﻿@page "/add-company"
 @using System.Net.Http.Headers;
 @using System.Text.Json;
-@inject ILogger<AddCompany> Logger
-@inject IFileUploadService FileUploadService
+@inject ILogger<AddCompany> logger
+@inject IFileUploadService fileUploadService
 
 <EditForm EditContext="@editContext" OnValidSubmit="@Submit">
     <DataAnnotationsValidator />
@@ -87,14 +87,14 @@
             }
             catch (Exception ex)
             {
-                Logger.LogInformation(
+                logger.LogInformation(
                         "{FileName} not uploaded (Err: 6): {Message}",
                         file.Name, ex.Message);
             }
 
             if (upload)
             {
-                var response = await FileUploadService.UploadFiles(content);
+                var response = await fileUploadService.UploadFiles(content);
                 if (response.IsSuccessStatusCode)
                 {
                     var options = new JsonSerializerOptions

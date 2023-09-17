@@ -44,9 +44,12 @@ public class UploaderController : ControllerBase
         var file = request.File;
         string fileName = file.FileName;
         using Stream stream = file.OpenReadStream();
-        var upItem = await domainService.UploadAsync(stream, fileName, cancellationToken);
-        dbContext.Add(upItem);
-        return upItem.RemoteUrl;
+        var result = await domainService.UploadAsync(stream, fileName, cancellationToken);
+        if (!result.isOldUploadedItem)
+        {
+            dbContext.Add(result.UploadedItem);//添加重复了。。。。
+        }
+        return result.UploadedItem.RemoteUrl;
     }
 
     [HttpPost,Route("flies")]
@@ -58,9 +61,12 @@ public class UploaderController : ControllerBase
         {
             string fileName = file.FileName;
             using Stream stream = file.OpenReadStream();
-            var upItem = await domainService.UploadAsync(stream, fileName, cancellationToken);
-            dbContext.Add(upItem);
-            uris.Add(upItem.RemoteUrl);
+            var result = await domainService.UploadAsync(stream, fileName, cancellationToken);
+            if (!result.isOldUploadedItem)
+            {
+                dbContext.Add(result.UploadedItem);//添加重复了。。。。
+            }
+            uris.Add(result.UploadedItem.RemoteUrl);
         }
         return uris;
     }

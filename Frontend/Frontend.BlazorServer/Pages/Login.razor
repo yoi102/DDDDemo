@@ -5,7 +5,7 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
 @inject ILocalStorageService localStorage
-@inject IHttpClientFactory httpClientFactory
+@inject HttpClient httpClient
 
 <EditForm EditContext="@editContext" OnValidSubmit="@Submit">
     <DataAnnotationsValidator />
@@ -46,7 +46,7 @@
     protected override void OnInitialized()
     {
         editContext = new(model);
-        http = httpClientFactory.CreateClient("nginx-server");
+        http = httpClient;
         editContext.OnValidationRequested += HandleValidationRequested;
 
         messageStore = new(editContext);

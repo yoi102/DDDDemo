@@ -10,9 +10,14 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     private readonly HttpClient http;
     private readonly ILocalStorageService localStorageService;
 
-    public CustomAuthenticationStateProvider(IHttpClientFactory httpClient, ILocalStorageService localStorageService)
+    //public CustomAuthenticationStateProvider(IHttpClientFactory httpClient, ILocalStorageService localStorageService)
+    //{
+    //    this.http = httpClient.CreateClient("nginx-server");
+    //    this.localStorageService = localStorageService;
+    //}   
+    public CustomAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService localStorageService)
     {
-        this.http = httpClient.CreateClient("nginx-server");
+        this.http = httpClient;
         this.localStorageService = localStorageService;
     }
 

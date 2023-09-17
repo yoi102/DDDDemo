@@ -14,8 +14,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
-
-builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080"));
+builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri("http://localhost:8080") });
+//builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080"));
 
 builder.Services.AddBlazoredLocalStorage();
 

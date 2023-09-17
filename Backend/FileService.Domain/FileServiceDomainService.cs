@@ -19,7 +19,7 @@ public class FileServiceDomainService
     }
 
     //领域服务只有抽象的业务逻辑
-    public async Task<UploadedItem> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken)
+    public async Task<UploadedItemResult> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken)
     {
         string hash = HashHelper.ComputeSha256Hash(stream);
         long fileSize = stream.Length;
@@ -34,7 +34,7 @@ public class FileServiceDomainService
         var oldUploadItem = await repository.FindFileAsync(fileSize, hash);
         if (oldUploadItem is not null)
         {
-            return oldUploadItem;
+            return new UploadedItemResult(true, oldUploadItem);
         }
         stream.Position = 0;
         Uri backupUrl = await backupStorage.SaveAsync(partialPath, stream, cancellationToken);//保存到本地备份
@@ -42,6 +42,7 @@ public class FileServiceDomainService
         Uri remoteUrl = await remoteStorage.SaveAsync(partialPath, stream, cancellationToken);//保存到生产的存储系统
         stream.Position = 0;
         Guid id = Guid.NewGuid();
-        return new UploadedItem(id, fileSize, fileName, hash, backupUrl, remoteUrl);
+        return new UploadedItemResult(true, new UploadedItem(id, fileSize, fileName, hash, backupUrl, remoteUrl));
+
     }
 }
