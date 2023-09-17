@@ -1,6 +1,7 @@
 ﻿using FileService.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace FileService.Infrastructure.Services
 {
@@ -14,11 +15,13 @@ namespace FileService.Infrastructure.Services
 
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly NginxOptions nginxOptions;
 
-        public MockCloudStorageClient(IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
+        public MockCloudStorageClient(IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             this.hostEnvironment = hostEnvironment;
             this.httpContextAccessor = httpContextAccessor;
+            nginxOptions = configuration.GetSection("Nginx").Get<NginxOptions>()!;
         }
 
         public async Task<Uri> SaveAsync(string partialPath, Stream content, CancellationToken cancellationToken = default)
@@ -41,8 +44,23 @@ namespace FileService.Infrastructure.Services
             using Stream outStream = File.OpenWrite(fullPath);
             await content.CopyToAsync(outStream, cancellationToken);
             var req = httpContextAccessor.HttpContext!.Request;
-            string url = req.Scheme + "://" + req.Host + "/FileService/" + partialPath;
+            ////string url = req.Scheme + "://" + req.Host + "/" + partialPath;
+            //string url = req.Scheme + "://" + req.Host + "/FileService/" + partialPath;
+            //string url = req.Scheme + "://" + req.Host + ":8080/FileService/" + partialPath;//需要与 nginx 的匹配
+
+            string url = nginxOptions.Scheme + "://" + nginxOptions.ServerName + ":" + nginxOptions.Listen + "/FileService/" + partialPath;
             return new Uri(url);
         }
+
+        public class NginxOptions
+        {
+            public required string Listen { get; set; }
+            public required string ServerName { get; set; }
+            public required string Scheme { get; set; }
+        }
+
+
     }
+
+
 }

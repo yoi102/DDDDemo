@@ -5,5 +5,5 @@ public class SMBStorageOptions
     /// <summary>
     /// 根目录
     /// </summary>
-    public string WorkingDirectory { get; set; }
+    public required string WorkingDirectory { get; set; }
 }

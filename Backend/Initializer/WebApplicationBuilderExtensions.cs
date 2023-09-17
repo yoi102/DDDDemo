@@ -62,7 +62,6 @@ namespace Initializer
             services.AddAuthentication();
             var jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
             ArgumentNullException.ThrowIfNull(jwtOpt, "JWT");
-
             services.AddJWTAuthentication(jwtOpt);
             // 启用 Swagger中的【Authorize】按钮。
             builder.Services.Configure<SwaggerGenOptions>(c =>
