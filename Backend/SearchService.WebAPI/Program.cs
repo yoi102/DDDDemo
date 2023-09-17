@@ -7,7 +7,7 @@ builder.ReadHostBuilderConfiguration();
 builder.ConfigureCommonServices(
     new InitializerOptions
     {
-        LogFilePath = "h:/logs/SearchService.WebAPI/log-.txt",
+        LogFilePath = "h:/DDDDemoTemp/logs/SearchService.WebAPI/log-.txt",
         EventBusQueueName = "SearchService.WebAPI"
     }
 );

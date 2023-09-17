@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.ReadHostBuilderConfiguration();
 builder.ConfigureCommonServices(new InitializerOptions
 {
-    LogFilePath = "h:/logs/Showcase.Main/log-.txt",
+    LogFilePath = "h:/DDDDemoTemp/logs/Showcase.Main/log-.txt",
     EventBusQueueName = "Showcase.Main"
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

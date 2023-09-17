@@ -7,7 +7,7 @@ builder.ReadHostBuilderConfiguration();
 builder.ConfigureCommonServices(new InitializerOptions
 {
     EventBusQueueName = "FileService.WebAPI",
-    LogFilePath = "h:/logs/FileService/log-.txt"
+    LogFilePath = "h:/DDDDemoTemp/logs/FileService/log-.txt"
 });
 builder.Services.AddSwaggerGen(c =>
 {

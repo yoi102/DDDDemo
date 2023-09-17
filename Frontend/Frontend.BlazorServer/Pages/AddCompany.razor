@@ -1,0 +1,123 @@
+﻿@page "/add-company"
+@using System.Net.Http.Headers;
+@using System.Text.Json;
+@inject ILogger<AddCompany> Logger
+@inject IFileUploadService FileUploadService
+
+<EditForm EditContext="@editContext" OnValidSubmit="@Submit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+            <div class="mb-3 text-center">
+                <h3>Add Company</h3>
+            </div>
+            <div class="mb-3">
+                <label>Company Name</label>
+                <input @bind-value="model!.Name" class="form-control" placeholder="Company Name" />
+                <ValidationMessage For="() => model!.Name" />
+            </div>
+            @* 怎么上传文件？ *@
+            <div class="mb-3">
+                <label>CoverUrl</label>
+                <br />
+                <InputFile OnChange="@LoadFiles" />
+            </div>
+            <div>
+                <img src="@imageSrc" width="400" />
+            </div>
+            <div class="mb-3 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+    @* <ValidationSummary /> *@
+</EditForm>
+
+
+
+
+
+@code {
+
+    class AddCompanyModel
+    {
+        [Required(AllowEmptyStrings = false)]
+        public string? Name { get; set; }
+        [Required]
+        [Url]
+        public Uri? CoverUrl { get; set; }
+    }
+    private AddCompanyModel model = new AddCompanyModel();
+
+    private EditContext? editContext;
+    private Uri? imageSrc;
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        editContext = new EditContext(model);
+    }
+
+    private async Task Submit()
+    {
+
+        await Task.CompletedTask;
+    }
+    private async void LoadFiles(InputFileChangeEventArgs e)
+    {
+        //Api  所用类型 IFormFile
+        //file uploads https://learn.microsoft.com/zh-cn/aspnet/core/blazor/file-uploads?view=aspnetcore-7.0
+        using var content = new MultipartFormDataContent();
+        var upload = false;
+
+        foreach (var file in e.GetMultipleFiles())
+        {
+            try
+            {
+                var fileContent = new StreamContent(file.OpenReadStream());
+
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+                content.Add(
+                   content: fileContent,
+                   name: "\"files\"",
+                   fileName: file.Name);
+
+                upload = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogInformation(
+                        "{FileName} not uploaded (Err: 6): {Message}",
+                        file.Name, ex.Message);
+            }
+
+            if (upload)
+            {
+                var response = await FileUploadService.UploadFiles(content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true,
+                        };
+                    using var responseStream = await response.Content.ReadAsStreamAsync();
+                    var newUploadResults = await JsonSerializer.DeserializeAsync<IList<Uri>>(responseStream, options);
+
+                    imageSrc = newUploadResults?.FirstOrDefault();
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+}

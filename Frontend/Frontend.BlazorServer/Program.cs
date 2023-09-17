@@ -1,6 +1,7 @@
 
 using Blazored.LocalStorage;
 using Frontend.BlazorServer.Authentication;
+using Frontend.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 
 builder.Services.AddHttpClient("nginx-server", http => http.BaseAddress = new Uri("http://localhost:8080"));

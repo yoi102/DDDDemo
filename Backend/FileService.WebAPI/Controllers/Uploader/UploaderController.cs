@@ -48,4 +48,20 @@ public class UploaderController : ControllerBase
         dbContext.Add(upItem);
         return upItem.RemoteUrl;
     }
+
+    [HttpPost,Route("flies")]
+    [RequestSizeLimit(60_000_000)]
+    public async Task<ActionResult<IList<Uri>>> PostFile([FromForm] IEnumerable<IFormFile> files, CancellationToken cancellationToken = default)
+    {
+        List<Uri> uris = new();
+        foreach (var file in files)
+        {
+            string fileName = file.FileName;
+            using Stream stream = file.OpenReadStream();
+            var upItem = await domainService.UploadAsync(stream, fileName, cancellationToken);
+            dbContext.Add(upItem);
+            uris.Add(upItem.RemoteUrl);
+        }
+        return uris;
+    }
 }

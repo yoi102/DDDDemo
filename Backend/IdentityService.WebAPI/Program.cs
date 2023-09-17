@@ -9,7 +9,7 @@ builder.ReadHostBuilderConfiguration();
 builder.ConfigureCommonServices(new InitializerOptions
 {
     EventBusQueueName = "IdentityService.WebAPI",
-    LogFilePath = "h:/logs/IdentityService/log-.txt"
+    LogFilePath = "h:/DDDDemoTemp/logs/IdentityService/log-.txt"
 });
 
 builder.Services.AddSwaggerGen(c =>
