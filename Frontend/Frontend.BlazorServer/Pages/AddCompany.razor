@@ -86,9 +86,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogInformation(
-                        "{FileName} not uploaded (Err: 6): {Message}",
-                        file.Name, ex.Message);
+                logger.LogInformation("{FileName} not uploaded (Err: 6): {Message}",file.Name, ex.Message);
             }
 
             if (upload)

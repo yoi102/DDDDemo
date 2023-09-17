@@ -52,9 +52,9 @@ public class UploaderController : ControllerBase
         return result.UploadedItem.RemoteUrl;
     }
 
-    [HttpPost, Route("flies")]
+    [HttpPost, Route("files")]
     [RequestSizeLimit(60_000_000)]
-    public async Task<ActionResult<IList<Uri>>> PostFile([FromForm] IEnumerable<IFormFile> files, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<IList<Uri>>> PostFiles([FromForm] IEnumerable<IFormFile> files, CancellationToken cancellationToken = default)
     {
         List<Uri> uris = new();
         foreach (var file in files)
