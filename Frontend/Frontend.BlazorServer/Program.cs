@@ -1,6 +1,5 @@
 
 using Blazored.LocalStorage;
-using Frontend.BlazorServer.Authentication;
 using Frontend.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 

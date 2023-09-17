@@ -1,7 +1,7 @@
 ﻿
 namespace Frontend.BlazorServer.Services
 {
-    public class FileUploadService: IFileUploadService
+    public class FileUploadService : IFileUploadService
     {
         private readonly HttpClient http;
 
@@ -9,7 +9,7 @@ namespace Frontend.BlazorServer.Services
         //{
         //  http=  httpClientFactory.CreateClient("nginx-server");
         //}
-        public FileUploadService( HttpClient http)
+        public FileUploadService(HttpClient http)
         {
             this.http = http;
         }
@@ -18,8 +18,8 @@ namespace Frontend.BlazorServer.Services
         {
             //HttpClient http = new HttpClient();
             //return await http.PostAsync("http://localhost:7071/api/uploader/flies", httpContent);
-            return await http.PostAsync("FileService/api/uploader/flies", httpContent);
-        }              
+            return await http.PostAsync("FileService/api/uploader/files", httpContent);
+        }
 
 
 
