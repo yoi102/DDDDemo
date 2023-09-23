@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showcase.Admin.WebAPI v1"));
 }
 app.MapHub<StatusHub>("/Hubs/StatusHub");
-app.UseCommonMiddlewares();
+app.UseCommonMiddleware();
 
 app.MapControllers();
 

@@ -87,15 +87,12 @@ namespace Initializer
 
             services.AddCors(options =>
             {
-                //更好的在Program.cs中用绑定方式读取配置的方法：https://github.com/dotnet/aspnetcore/issues/21491
-                //不过比较麻烦。
                 var corsOpt = configuration.GetSection("Cors").Get<CorsSettings>();
                 ArgumentNullException.ThrowIfNull(corsOpt, "Cors");
 
                 options.AddDefaultPolicy(builder => builder.WithOrigins(corsOpt.Origins)
                         .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
-            }
-            );
+            });
 
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();

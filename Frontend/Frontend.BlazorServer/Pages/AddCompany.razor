@@ -20,6 +20,7 @@
                 <label>CoverUrl</label>
                 <br />
                 <InputFile OnChange="@LoadFiles" />
+                <ValidationMessage For="() => model!.CoverUrl" />
             </div>
             <div>
             </div>
@@ -30,8 +31,12 @@
     </div>
     @* <ValidationSummary /> *@
 </EditForm>
-<img src="@imageSrc" />
-
+@if (!string.IsNullOrEmpty(imageUrl))
+{
+    <div class="card">
+        <img class="img-thumbnail" src="@imageUrl" width="500" alt="图片加载异常" />
+    </div>
+}
 
 
 
@@ -43,13 +48,12 @@
         [Required(AllowEmptyStrings = false)]
         public string? Name { get; set; }
         [Required]
-        [Url]
         public Uri? CoverUrl { get; set; }
     }
     private AddCompanyModel model = new AddCompanyModel();
 
     private EditContext? editContext;
-    private string? imageSrc;
+    private string? imageUrl;
 
 
     protected override void OnInitialized()
@@ -85,7 +89,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogInformation("{FileName} not uploaded (Err: 6): {Message}",file.Name, ex.Message);
+                logger.LogInformation("{FileName} not uploaded (Err: 6): {Message}", file.Name, ex.Message);
             }
 
             if (upload)
@@ -99,9 +103,10 @@
                         };
                     using var responseStream = await response.Content.ReadAsStreamAsync();
                     var newUploadResults = await JsonSerializer.DeserializeAsync<IList<Uri>>(responseStream, options);
-                    imageSrc = newUploadResults?.FirstOrDefault()!.AbsoluteUri;
+                    model.CoverUrl = newUploadResults?.First();
+                    imageUrl = newUploadResults?.First().AbsoluteUri;
+                    StateHasChanged();
                 }
-
             }
         }
 

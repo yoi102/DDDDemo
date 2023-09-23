@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-app.UseCommonMiddlewares();
+app.UseCommonMiddleware();
 
 app.MapControllers();
 

@@ -2,6 +2,7 @@
 using Blazored.LocalStorage;
 using Frontend.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

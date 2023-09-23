@@ -50,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityService.WebAPI v1"));
 }
 
-app.UseCommonMiddlewares();
+app.UseCommonMiddleware();
 
 app.MapControllers();
 

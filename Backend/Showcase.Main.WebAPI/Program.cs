@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.MapHub<GameEncodingStatusHub>("/Hubs/StatusHub");
-app.UseCommonMiddlewares();
+app.UseCommonMiddleware();
 
 app.MapControllers();
 
