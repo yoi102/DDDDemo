@@ -42,7 +42,7 @@ public class FileServiceDomainService
         Uri remoteUrl = await remoteStorage.SaveAsync(partialPath, stream, cancellationToken);//保存到生产的存储系统
         stream.Position = 0;
         Guid id = Guid.NewGuid();
-        return new UploadedItemResult(true, new UploadedItem(id, fileSize, fileName, hash, backupUrl, remoteUrl));
+        return new UploadedItemResult(false, new UploadedItem(id, fileSize, fileName, hash, backupUrl, remoteUrl));
 
     }
 }
