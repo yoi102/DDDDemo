@@ -30,6 +30,8 @@ namespace FileService.Infrastructure.Services
             {
                 throw new ArgumentException("partialPath should not start with /", nameof(partialPath));
             }
+
+
             string workingDir = Path.Combine(hostEnvironment.ContentRootPath, "wwwroot");
             string fullPath = Path.Combine(workingDir, partialPath);
             string? fullDir = Path.GetDirectoryName(fullPath);//get the directory
@@ -43,7 +45,9 @@ namespace FileService.Infrastructure.Services
             }
             using Stream outStream = File.OpenWrite(fullPath);
             await content.CopyToAsync(outStream, cancellationToken);
-            var req = httpContextAccessor.HttpContext!.Request;
+
+
+            //var req = httpContextAccessor.HttpContext!.Request;
             ////string url = req.Scheme + "://" + req.Host + "/" + partialPath;
             //string url = req.Scheme + "://" + req.Host + "/FileService/" + partialPath;
             //string url = req.Scheme + "://" + req.Host + ":8080/FileService/" + partialPath;//需要与 nginx 的匹配
